@@ -22,9 +22,15 @@ code documentation generation tool for Kotlin, similar to what Javadoc is for Ja
  Instrumented tests are only present in the `splash` module and can be run using the `cAT` task.
 
 # Setup for contributions
-
 Once cloned, just setup the hooks:
 
 ```shell
 $<project-dir>: ./hooks/setup (or whatever equivalent if on Windows).
 ```
+
+# Potential improvements
+* Running instrumented and monkey tests on CI. Also some parallelism can probably be introduced to 
+speed things up.
+* Refining infrastructure; there's a fair amount of duplication as things are now. Also maybe drop 
+Groovy for Kotlin.
+* Some more tests never hurt.
