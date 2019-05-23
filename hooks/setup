@@ -1,0 +1,4 @@
+#!/bin/sh -e
+mkdir -p .git/hooks/
+cd .git/hooks/
+ln -s ../../hooks/pre-push .

@@ -1,0 +1,5 @@
+./gradlew --refresh-dependencies clean check assemble test cAT || { exit 1; }
+adb uninstall org.jorge.test
+adb install app/build/outputs/apk/debug/app-debug.apk
+adb shell monkey -p org.jorge.test -v 500
+adb uninstall org.jorge.test

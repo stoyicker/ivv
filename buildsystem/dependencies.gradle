@@ -1,0 +1,68 @@
+final def daggerVersion = '2.22.1'
+final def espressoVersion = '3.0.2'
+final def jsr250Version = '1.0'
+final def jUnitVersion = '4.12'
+final def kotlinVersion = rootProject.ext.kotlinVersion
+final def mockitoVersion = '2.27.0'
+final def picassoVersion = '2.71828'
+final def retrofitVersion = '2.5.0'
+final def rxAndroidVersion = '2.1.1'
+final def rxJavaVersion = '2.2.8'
+// Store is a reactive cache management framework available at https://github.com/nytimes/Store
+// I wrote their Kotlin DSL artifacts so I thought I might as well show off a bit!
+final def storeVersion = '3.1.1'
+final def supportVersion = '28.0.0'
+
+ext {
+  compileDependencies = [
+      "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+  ]
+  testCompileDependencies = [
+      "junit:junit:$jUnitVersion",
+      "org.mockito:mockito-core:$mockitoVersion"
+  ]
+  compileOnlyDomainDependencies = [
+      "javax.annotation:jsr250-api:$jsr250Version"
+  ]
+  compileDomainDependencies = [
+      "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+  ]
+  annotationProcessorDataDependencies = [
+      "com.google.dagger:dagger-compiler:$daggerVersion"
+  ]
+  annotationProcessorTestDataDependencies = [
+      "com.google.dagger:dagger-compiler:$daggerVersion"
+  ]
+  providedDataDependencies = [
+      "com.android.support:support-annotations:$supportVersion"
+  ]
+  compileDataDependencies = [
+      "com.squareup.retrofit2:retrofit:$retrofitVersion",
+      "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+      "com.nytimes.android:store-kotlin3:$storeVersion",
+      "com.nytimes.android:middleware-moshi3:$storeVersion",
+      "com.nytimes.android:filesystem3:$storeVersion",
+      "com.google.dagger:dagger-android:$daggerVersion"
+  ]
+  androidTestCompileAppDependencies = [
+      "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+  ]
+  annotationProcessorAppDependencies = [
+      "com.google.dagger:dagger-compiler:$daggerVersion"
+  ]
+  annotationProcessorAndroidTestAppDependencies = [
+      "com.google.dagger:dagger-compiler:$daggerVersion"
+  ]
+  compileAppDependencies = [
+      "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+      "com.android.support:appcompat-v7:$supportVersion",
+      "com.android.support:design:$supportVersion",
+      "com.google.dagger:dagger-android:$daggerVersion",
+      "com.squareup.picasso:picasso:$picassoVersion"
+  ]
+  compileUtilAndroidTestDependencies = [
+      "com.android.support.test.espresso:espresso-core:$espressoVersion",
+      "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion",
+      "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+  ]
+}

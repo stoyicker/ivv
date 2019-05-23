@@ -1,0 +1,14 @@
+apply plugin: 'kotlin'
+apply plugin: 'org.jmailen.kotlinter'
+apply plugin: 'org.jetbrains.dokka'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compileOnly rootProject.ext.compileOnlyDomainDependencies
+    implementation rootProject.ext.compileDependencies
+    implementation rootProject.ext.compileDomainDependencies
+    testImplementation rootProject.ext.testCompileDependencies
+}
