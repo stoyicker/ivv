@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:padding="@dimen/appbar_horizontal_padding"
+  android:theme="@style/App.Card">
+
+  <TextView
+    android:id="@+id/title_view"
+    style="@style/App.Title"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/content_vertical_padding"
+    android:clickable="false"
+    android:textIsSelectable="false" />
+
+  <list.presentation.OutScalingImageView
+    android:id="@+id/thumbnail"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:scaleType="fitCenter"
+    android:visibility="gone"
+    tools:ignore="ContentDescription" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginBottom="@dimen/content_vertical_padding"
+    android:background="@color/windowBackground"
+    android:clickable="false" />
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:clickable="false"
+    android:foreground="@null"
+    tools:ignore="UnusedAttribute">
+
+    <TextView
+      android:id="@+id/score"
+      style="@style/App.Subhead"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/text_separation"
+      android:textIsSelectable="false" />
+
+    <TextView
+      android:id="@+id/subreddit"
+      style="@style/App.Subhead"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textIsSelectable="false" />
+  </LinearLayout>
+</LinearLayout>

@@ -37,3 +37,4 @@ Groovy for Kotlin.
 * Some assets only include mdpi densities, which will cause crashes in devices in lower resolution 
 screen buckets and memory overhead to upscale the resource in device in higher resolution buckets 
 (plus, in some cases, visual artifacts).
+* Some other TODOs left around.

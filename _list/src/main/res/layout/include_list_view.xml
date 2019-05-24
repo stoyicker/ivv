@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <list.presentation.AutoFitStaggeredGridRecyclerView
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnWidth="@dimen/list_column_width"
+    android:overScrollMode="never" />
+
+  <android.support.v4.widget.ContentLoadingProgressBar
+    android:id="@+id/progress"
+    style="?android:attr/android:progressBarStyleHorizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:indeterminate="true" />
+
+  <LinearLayout
+    android:id="@+id/error"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center_horizontal"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/list_error_description"
+      android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/list_error_action"
+      android:textAppearance="@style/TextAppearance.AppCompat.Button"
+      android:textStyle="bold" />
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/scroll_guide"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center_horizontal"
+    android:gravity="center"
+    android:text="@string/list_scroll_guide"
+    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+    android:textStyle="bold"
+    android:visibility="invisible" />
+</FrameLayout>

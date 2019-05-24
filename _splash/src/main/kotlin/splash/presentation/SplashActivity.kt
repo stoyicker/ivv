@@ -1,8 +1,9 @@
-package splash
+package splash.presentation
 
 import android.content.Intent
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import list.presentation.listActivityIntent
 import testaccessors.RequiresAccessor
 
 /**
@@ -12,10 +13,6 @@ import testaccessors.RequiresAccessor
  * to be drawn.
  */
 internal class SplashActivity : AppCompatActivity() {
-  @RequiresAccessor
-  private val targetIntentF = { null!! as Intent }
-  @RequiresAccessor
-  private val handlerF = { Handler() }
   private lateinit var handler: Handler
 
   override fun onResume() {
@@ -27,15 +24,16 @@ internal class SplashActivity : AppCompatActivity() {
    * Schedules the app content to be shown.
    */
   private fun scheduleContentOpening() {
-    handler = handlerF()
-    handler.postDelayed({ openContent() }, SHOW_TIME_MILLIS)
+    handler = Handler().apply {
+      postDelayed({ openContent() }, SHOW_TIME_MILLIS)
+    }
   }
 
   /**
    * Closes the splash and introduces the actual content of the app.
    */
   private fun openContent() {
-    startActivity(targetIntentF().apply {
+    startActivity(listActivityIntent(this).apply {
       flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
     })
     supportFinishAfterTransition()
