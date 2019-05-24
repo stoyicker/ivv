@@ -25,7 +25,7 @@ code documentation generation tool for Kotlin, similar to what Javadoc is for Ja
 Once cloned, just setup the hooks:
 
 ```shell
-$<project-dir>: ./hooks/setup (or whatever equivalent if on Windows).
+$<project-dir>: ./hooks/setup (or equivalent if on Windows).
 ```
 
 # Potential improvements
@@ -34,3 +34,6 @@ speed things up.
 * Refining infrastructure; there's a fair amount of duplication as things are now. Also maybe drop 
 Groovy for Kotlin.
 * Some more tests never hurt.
+* Some assets only include mdpi densities, which will cause crashes in devices in lower resolution 
+screen buckets and memory overhead to upscale the resource in device in higher resolution buckets 
+(plus, in some cases, visual artifacts).

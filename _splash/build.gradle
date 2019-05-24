@@ -1,4 +1,4 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jmailen.kotlinter'
@@ -8,10 +8,17 @@ android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
     defaultConfig {
+        applicationId "org.jorge.test"
         versionCode rootProject.ext.androidVersionCode
         versionName rootProject.ext.androidVersionName
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
+        testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
+    }
+    buildTypes {
+        debug {
+            proguardFiles 'proguard/rules.pro'
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -25,30 +32,36 @@ android {
         abortOnError true
         absolutePaths true
         checkAllWarnings true
-        htmlOutput = new File("$rootProject.ext.staticAnalysisReportTarget${File.separatorChar}$project.name${File.separatorChar}lint.html")
+        htmlOutput = new File("$rootProject.ext.staticAnalysisReportTarget/$project.name/lint.html")
         quiet false
         warningsAsErrors true
     }
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+    sourceSets.forEach {
+        it.java.srcDirs = ["src/$it.name/kotlin"]
+    }
+    variantFilter {
+        if (it.buildType.name.toLowerCase(Locale.ENGLISH) == 'release') {
+            ignore = true
+        }
+    }
 }
-
 repositories {
     jcenter()
     google()
 }
-
 dependencies {
-    implementation project(':domain')
-    kapt rootProject.ext.annotationProcessorDataDependencies
-    kaptTest rootProject.ext.annotationProcessorTestDataDependencies
-    compileOnly rootProject.ext.providedDataDependencies
-    implementation rootProject.ext.compileDependencies
-    rootProject.ext.compileDataDependencies.forEach {
-        implementation(it) {
-            exclude group: 'io.reactivex'
-        }
+    implementation rootProject.ext.implementationDependencies
+    implementation rootProject.ext.implementationSplashDependencies
+    testImplementation rootProject.ext.testImplementationDependencies
+    androidTestImplementation rootProject.ext.androidTestImplementationSplashDependencies
+    kapt rootProject.ext.kaptSplashDependencies
+}
+
+kapt {
+    arguments {
+        arg('testaccessors.defaultSupportRestrictTo', 'TESTS')
     }
-    testImplementation rootProject.ext.testCompileDependencies
 }

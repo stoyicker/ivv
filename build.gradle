@@ -23,7 +23,7 @@ rootProject.ext {
   androidBuildToolsVersion = '28.0.3'
   androidVersionCode = 1
   androidVersionName = String.valueOf(androidVersionCode)
-  androidTestInstrumentationRunner = 'app.AndroidTestApplicationAndroidJUnitRunner'
+  androidTestInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
   androidApplicationIdBase = 'org.jorge.test'
   staticAnalysisReportTarget = "$project.rootDir.absolutePath${File.separatorChar}staticAnalysisReport"
   javaVersion = JavaVersion.VERSION_1_7

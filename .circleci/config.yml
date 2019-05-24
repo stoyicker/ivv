@@ -1,34 +1,16 @@
 version: 2.1
 jobs:
-  test_app:
+  test_splash:
     docker:
       - image: circleci/android:api-28
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
-      - run: ./gradlew :app:assemble --no-daemon --no-build-cache --refresh-dependencies
-  test_domain:
-    docker:
-        - image: circleci/android:api-28
-    environment:
-      JVM_OPTS: -Xmx3200m
-    steps:
-      - checkout
-      - run: ./gradlew :domain:assemble --no-daemon --no-build-cache --refresh-dependencies
-  test_data:
-    docker:
-        - image: circleci/android:api-28
-    environment:
-      JVM_OPTS: -Xmx3200m
-    steps:
-      - checkout
-      - run: ./gradlew :data:assemble --no-daemon --no-build-cache --refresh-dependencies
+      - run: ./gradlew :splash:test --no-daemon --no-build-cache --refresh-dependencies
 workflows:
   version: 2.1
   test:
     jobs:
-      - test_app
-      - test_domain
-      - test_data
+      - test_splash
 # TODO Setup to run cAT as well
