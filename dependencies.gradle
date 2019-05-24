@@ -16,7 +16,7 @@ final def supportVersion = '28.0.0'
 // test-accessors is a couple of annotation processors I wrote that generate code to access
 // fields from tests that would be otherwise inaccessible. Think of a better version of
 // @VisibleForTesting
-// In _splash, these are used to inject factories for unit testing, and in other modules to inject
+// In _splash, these are used to inject factories for testing, and in other modules to inject
 // factories for the Dagger components. In a more traditional project you may have seen the
 // application class be used as a DI root for the entire app and then in instrumented tests replace
 // the runner with one which invokes a test-specific application instance that replaces production
@@ -32,21 +32,32 @@ final def testAccessorsVersions = '1.1.3'
 
 ext {
   implementationDependencies = [
-      "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+      "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
+      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
+      "com.android.support:appcompat-v7:$supportVersion"
   ]
   testImplementationDependencies = [
       "junit:junit:$jUnitVersion",
       "org.mockito:mockito-core:$mockitoVersion"
   ]
-  implementationSplashDependencies = [
-      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
-      "com.android.support:appcompat-v7:$supportVersion"
+  kaptDependencies = [
+      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
   ]
-  androidTestImplementationSplashDependencies = [
+  androidTestImplementationDependencies = [
       "com.android.support.test.espresso:espresso-core:$espressoVersion",
       "com.android.support.test:rules:$testRulesVersion"
   ]
-  kaptSplashDependencies = [
-      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
+  implementationListDependencies = [
+      "com.android.support:design:$supportVersion",
+      "com.squareup.picasso:picasso:$picassoVersion",
+      "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
+      "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
+      "com.google.dagger:dagger:$daggerVersion"
+  ]
+  compileOnlyListDependencies = [
+      "javax.annotation:jsr250-api:$jsr250Version"
+  ]
+  kaptListDependencies = [
+      "com.google.dagger:dagger-compiler:$daggerVersion"
   ]
 }

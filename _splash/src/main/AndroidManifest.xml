@@ -5,12 +5,12 @@
   <application
     android:allowBackup="false"
     android:icon="@null"
-    android:label="0_test"
+    android:label="@string/label_app"
     android:launchMode="singleTask">
     <activity
-      android:name="splash.SplashActivity"
+      android:name="splash.presentation.SplashActivity"
       android:launchMode="singleTask"
-      android:theme="@style/SplashTheme"
+      android:theme="@style/App.Splash"
       android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

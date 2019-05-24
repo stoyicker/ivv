@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="default_column_width">150dp</dimen>
+  <dimen name="list_column_width">200dp</dimen>
+  <dimen name="text_separation">12dp</dimen>
+  <dimen name="footer_padding">32dp</dimen>
+</resources>

@@ -1,0 +1,35 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    buildToolsVersion rootProject.ext.androidBuildToolsVersion
+    defaultConfig {
+        versionCode rootProject.ext.androidVersionCode
+        versionName rootProject.ext.androidVersionName
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
+    }
+    dexOptions {
+        javaMaxHeapSize "8g"
+    }
+    lintOptions {
+        abortOnError true
+        absolutePaths true
+        checkAllWarnings true
+        htmlOutput = new File("$rootProject.ext.staticAnalysisReportTarget/$project.name/lint.html")
+        quiet false
+        warningsAsErrors true
+    }
+    variantFilter {
+        if (it.buildType.name.toLowerCase(Locale.ENGLISH) == 'release') {
+            ignore = true
+        }
+    }
+}
+repositories {
+    jcenter()
+    google()
+}
+dependencies {
+    implementation rootProject.ext.implementationDependencies
+}

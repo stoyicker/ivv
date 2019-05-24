@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="ProgressBarHorizontalMaterial" parent="@style/Widget.AppCompat.ProgressBar.Horizontal" />
+
+  <style name="App.Card">
+    <item name="android:background">@drawable/card_background</item>
+    <item name="android:foreground">?attr/selectableItemBackground</item>
+  </style>
+</resources>

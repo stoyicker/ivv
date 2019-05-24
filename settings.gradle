@@ -1,1 +1,1 @@
-include ':_splash'
+include ':_res', ':_splash', ':_list'

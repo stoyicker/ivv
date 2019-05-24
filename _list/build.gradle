@@ -1,5 +1,6 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jmailen.kotlinter'
 apply plugin: 'org.jetbrains.dokka-android'
@@ -8,18 +9,11 @@ android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
     defaultConfig {
-        applicationId "org.jorge.test"
         versionCode rootProject.ext.androidVersionCode
         versionName rootProject.ext.androidVersionName
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
-    }
-    buildTypes {
-        debug {
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
-                'proguard/rules.pro'
-        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -54,12 +48,14 @@ repositories {
     google()
 }
 dependencies {
-    implementation project(':_list')
     implementation project(':_res')
     implementation rootProject.ext.implementationDependencies
     testImplementation rootProject.ext.testImplementationDependencies
     androidTestImplementation rootProject.ext.androidTestImplementationDependencies
     kapt rootProject.ext.kaptDependencies
+    implementation rootProject.ext.implementationListDependencies
+    compileOnly rootProject.ext.compileOnlyListDependencies
+    kapt rootProject.ext.kaptListDependencies
 }
 
 kapt {
