@@ -1,5 +1,6 @@
 final def daggerVersion = '2.22.1'
 final def espressoVersion = '3.0.2'
+final def testRulesVersion = '1.0.2'
 final def jsr250Version = '1.0'
 final def jUnitVersion = '4.12'
 final def kotlinVersion = rootProject.ext.kotlinVersion
@@ -12,57 +13,40 @@ final def rxJavaVersion = '2.2.8'
 // I wrote their Kotlin DSL artifacts so I thought I might as well show off a bit!
 final def storeVersion = '3.1.1'
 final def supportVersion = '28.0.0'
+// test-accessors is a couple of annotation processors I wrote that generate code to access
+// fields from tests that would be otherwise inaccessible. Think of a better version of
+// @VisibleForTesting
+// In _splash, these are used to inject factories for unit testing, and in other modules to inject
+// factories for the Dagger components. In a more traditional project you may have seen the
+// application class be used as a DI root for the entire app and then in instrumented tests replace
+// the runner with one which invokes a test-specific application instance that replaces production
+// components with the desired replacements for testing. This approach is not appropriate for this
+// project as it would require that every module leaks the boundary of its dependency graph to
+// _splash, which is where the application class lives, killing one of the pros of this1
+// architectural approach: feature independence. To avoid this, instead of using the application as
+// DI root, each module has its own DI root(s), which live in activities, and just like in the
+// application-as-root approach, are implemented via factory methods. During instrumented testing,
+// these methods are replaced by alternatives that return test components before launching the
+// target activity, achieving the same goal but this time respecting the architecture.
+final def testAccessorsVersions = '1.1.3'
 
 ext {
-  compileDependencies = [
+  implementationDependencies = [
       "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
   ]
-  testCompileDependencies = [
+  testImplementationDependencies = [
       "junit:junit:$jUnitVersion",
       "org.mockito:mockito-core:$mockitoVersion"
   ]
-  compileOnlyDomainDependencies = [
-      "javax.annotation:jsr250-api:$jsr250Version"
+  implementationSplashDependencies = [
+      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
+      "com.android.support:appcompat-v7:$supportVersion"
   ]
-  compileDomainDependencies = [
-      "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
-  ]
-  annotationProcessorDataDependencies = [
-      "com.google.dagger:dagger-compiler:$daggerVersion"
-  ]
-  annotationProcessorTestDataDependencies = [
-      "com.google.dagger:dagger-compiler:$daggerVersion"
-  ]
-  providedDataDependencies = [
-      "com.android.support:support-annotations:$supportVersion"
-  ]
-  compileDataDependencies = [
-      "com.squareup.retrofit2:retrofit:$retrofitVersion",
-      "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
-      "com.nytimes.android:store-kotlin3:$storeVersion",
-      "com.nytimes.android:middleware-moshi3:$storeVersion",
-      "com.nytimes.android:filesystem3:$storeVersion",
-      "com.google.dagger:dagger-android:$daggerVersion"
-  ]
-  androidTestCompileAppDependencies = [
-      "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
-  ]
-  annotationProcessorAppDependencies = [
-      "com.google.dagger:dagger-compiler:$daggerVersion"
-  ]
-  annotationProcessorAndroidTestAppDependencies = [
-      "com.google.dagger:dagger-compiler:$daggerVersion"
-  ]
-  compileAppDependencies = [
-      "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion",
-      "com.android.support:appcompat-v7:$supportVersion",
-      "com.android.support:design:$supportVersion",
-      "com.google.dagger:dagger-android:$daggerVersion",
-      "com.squareup.picasso:picasso:$picassoVersion"
-  ]
-  compileUtilAndroidTestDependencies = [
+  androidTestImplementationSplashDependencies = [
       "com.android.support.test.espresso:espresso-core:$espressoVersion",
-      "com.android.support.test.espresso:espresso-idling-resource:$espressoVersion",
-      "com.android.support.test.espresso:espresso-intents:$espressoVersion"
+      "com.android.support.test:rules:$testRulesVersion"
+  ]
+  kaptSplashDependencies = [
+      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
   ]
 }
