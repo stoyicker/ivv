@@ -20,6 +20,9 @@ android {
         quiet false
         warningsAsErrors true
     }
+    sourceSets.forEach {
+        it.java.srcDirs = ["src/$it.name/kotlin"]
+    }
     variantFilter {
         if (it.buildType.name.toLowerCase(Locale.ENGLISH) == 'release') {
             ignore = true

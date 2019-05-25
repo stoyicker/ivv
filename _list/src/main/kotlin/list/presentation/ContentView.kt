@@ -3,6 +3,7 @@ package list.presentation
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.FrameLayout
+import list.impl.ListItem
 import org.jorge.test.list.R
 
 /**
@@ -12,7 +13,7 @@ internal class ContentView(
     val recyclerView: RecyclerView,
     val errorView: View,
     private val progressView: View,
-    private val guideView: View) : AdditiveLoadableContentView<PresentationItem> {
+    private val guideView: View) : AdditiveLoadableContentView<ListItem> {
   override fun showLoadingLayout() {
     pushInfoArea()
     progressView.visibility = View.VISIBLE
@@ -23,7 +24,7 @@ internal class ContentView(
     progressView.visibility = View.GONE
   }
 
-  override fun addContent(newContent: List<PresentationItem>) {
+  override fun addContent(newContent: List<ListItem>) {
     (recyclerView.adapter as Adapter).addItems(newContent)
     guideView.visibility = View.VISIBLE
   }

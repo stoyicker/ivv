@@ -7,6 +7,7 @@ import dagger.BindsInstance
 import dagger.Component
 import list.SchedulerModule
 import list.domain.DomainModule
+import list.domain.FunctionalityHolderModule
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -24,6 +25,7 @@ internal interface ListActivityComponent {
   interface Builder {
     fun contentViewModule(contentViewModule: ContentViewModule): Builder
     fun filterModule(filterModule: FilterModule): Builder
+    fun functionalityHolderModule(functionalityHolderModule: FunctionalityHolderModule): Builder
     fun domainModule(domainModule: DomainModule): Builder
     fun schedulerModule(schedulerModule: SchedulerModule): Builder
     fun consumerModule(consumerModule: ConsumerModule): Builder

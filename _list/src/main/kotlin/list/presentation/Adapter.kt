@@ -1,19 +1,13 @@
 package list.presentation
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
-import kotlinx.android.synthetic.main.item.view.thumbnail
-import kotlinx.android.synthetic.main.item.view.title_view
+import list.impl.ListItem
 import org.jorge.test.list.R
 
 /**
@@ -24,9 +18,9 @@ import org.jorge.test.list.R
 internal class Adapter(private val callback: ListViewInteractionListener)
 // TODO Make this a ListAdapter instead to get partial updates for free and reduce verbosity
 // https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter
-  : RecyclerView.Adapter<Adapter.ViewHolder>(), Filterable {
-  private var items = listOf<PresentationItem>()
-  private var shownItems = emptyList<PresentationItem>()
+  : RecyclerView.Adapter<ViewHolder>(), Filterable {
+  private var items = listOf<ListItem>()
+  private var shownItems = emptyList<ListItem>()
   private lateinit var recyclerView: RecyclerView
   private val filter = RepeatableFilter()
 
@@ -54,9 +48,9 @@ internal class Adapter(private val callback: ListViewInteractionListener)
         new
       }).getString(key))
     }
-    val combinedBundle = Bundle().also { bundle ->
+    val combinedBundle = Bundle().apply {
       arrayOf(KEY_TITLE, KEY_THUMBNAIL).forEach {
-        fold(bundle, it)
+        fold(this, it)
       }
     }
     // Now combinedBundle contains the latest version of each of the fields that can be updated
@@ -78,13 +72,11 @@ internal class Adapter(private val callback: ListViewInteractionListener)
    * the current filter.
    * @param toAdd The items to add.
    */
-  internal fun addItems(toAdd: List<PresentationItem>) {
-    items = if (toAdd.isNotEmpty()) {
-      items.plus(toAdd).distinct()
-    } else {
-      // If the list is empty the source of truth is outdated. Drop our current data and
-      // eventually we'll get fresh one
-      toAdd
+  internal fun addItems(toAdd: List<ListItem>) {
+    if (toAdd.isNotEmpty() && toAdd != items) {
+      items = items + toAdd.distinct()
+    } else if (toAdd.isEmpty()) {
+      items = emptyList()
     }
     filter.refresh()
   }
@@ -99,11 +91,12 @@ internal class Adapter(private val callback: ListViewInteractionListener)
     private lateinit var diff: DiffUtil.DiffResult
 
     override fun performFiltering(constraint: CharSequence?): FilterResults? {
+      val prevItems = shownItems
       currentQuery = constraint?.trim() ?: ""
       val filteredItems = if (currentQuery.isBlank()) {
         items
       } else {
-        items.filter { it.title.contains(currentQuery, true) }
+        items.filter { it.name?.contains(currentQuery, true) ?: false }
       }
       diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
         override fun getOldListSize() = shownItems.size
@@ -111,31 +104,34 @@ internal class Adapter(private val callback: ListViewInteractionListener)
         override fun getNewListSize() = filteredItems.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            shownItems[oldItemPosition].let { (oldId) ->
-              filteredItems[newItemPosition].let { (newId) ->
-                oldId.contentEquals(newId)
+            prevItems[oldItemPosition].id.let { oldId ->
+              filteredItems[newItemPosition].id.let { newId ->
+                oldId == newId
               }
             }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            shownItems[oldItemPosition].let {
+            prevItems[oldItemPosition].let {
               it.id == shownItems[newItemPosition].id &&
-                  it.title == shownItems[newItemPosition].title
+                  it.name == shownItems[newItemPosition].name
+              // TODO Compare the rest of the fields
             }
 
-        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int) =
-            shownItems[oldItemPosition].let { (_, oldTitle, oldThumbnail) ->
-              filteredItems[newItemPosition].let { (_, newTitle, newThumbnail) ->
-                Bundle().apply {
-                  putString(KEY_TITLE, newTitle.takeIf {
-                    !it.contentEquals(oldTitle)
-                  })
-                  putString(KEY_THUMBNAIL, newThumbnail.takeIf {
-                    it != oldThumbnail
-                  })
-                }
+        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Bundle {
+          prevItems[oldItemPosition].let { old ->
+            filteredItems[newItemPosition].let { new ->
+              return Bundle().apply {
+                putString(KEY_TITLE, new.name.takeIf {
+                  it?.contentEquals(old.name ?: it) ?: old.name != null
+                })
+                putString(KEY_THUMBNAIL, new.posterPath.takeIf {
+                  it?.contentEquals(old.posterPath ?: it) ?: old.posterPath != null
+                })
+                // TODO Diff the rest of the fields
               }
             }
+          }
+        }
       })
       return FilterResults().also {
         it.values = filteredItems
@@ -145,7 +141,7 @@ internal class Adapter(private val callback: ListViewInteractionListener)
 
     override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
       @Suppress("UNCHECKED_CAST")
-      shownItems = results?.values as List<PresentationItem>? ?: items
+      shownItems = results?.values as List<ListItem>? ?: items
       diff.dispatchUpdatesTo(this@Adapter)
     }
 
@@ -154,75 +150,7 @@ internal class Adapter(private val callback: ListViewInteractionListener)
      */
     fun refresh() = filter(currentQuery)
   }
-
-  /**
-   * Very simple viewholder that sets text and click event handling.
-   * @param itemView The view to dump the held data.
-   * @param onItemClicked What to run when a click happens.
-   */
-  internal class ViewHolder internal constructor(
-      itemView: View,
-      private val onItemClicked: (PresentationItem) -> Unit)
-    : RecyclerView.ViewHolder(itemView), Target {
-
-    /**
-     * Draw an item.
-     * @title The item to draw.
-     */
-    internal fun render(item: PresentationItem) {
-      setTitle(item.title)
-      setThumbnail(item.thumbnailLink)
-      itemView.setOnClickListener { onItemClicked(item) }
-    }
-
-    /**
-     * Performs partial re-drawing of an item.
-     * @param bundle The updates that need to be drawn.
-     * @param item The item these updates correspond to.
-     */
-    internal fun renderPartial(bundle: Bundle, item: PresentationItem) {
-      bundle.getString(KEY_TITLE)?.let { setTitle(it) }
-      setThumbnail(bundle.getString(KEY_THUMBNAIL))
-      itemView.setOnClickListener { onItemClicked(item) }
-    }
-
-    /**
-     * Updates the layout according to the changes required by a new title.
-     * @param title The new title.
-     */
-    private fun setTitle(title: String) {
-      itemView.title_view.text = title
-      itemView.thumbnail.contentDescription = title
-    }
-
-    override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-      itemView.thumbnail.visibility = View.GONE
-      itemView.thumbnail.setImageDrawable(null)
-    }
-
-    override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-      itemView.thumbnail.setImageBitmap(bitmap)
-      itemView.thumbnail.visibility = View.VISIBLE
-    }
-
-    override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {}
-
-    /**
-     * Updates the layout according to the changes required by a new thumbnail link.
-     * @param thumbnailLink The new thumbnail link, or <code>null</code> if none is applicable.
-     */
-    private fun setThumbnail(thumbnailLink: String?) {
-      itemView.thumbnail.let {
-        if (thumbnailLink != null) {
-          Picasso.get().load(thumbnailLink).into(this)
-        } else {
-          it.visibility = View.GONE
-          it.setImageDrawable(null)
-        }
-      }
-    }
-  }
 }
 
-private const val KEY_TITLE = "KEY_TITLE"
-private const val KEY_THUMBNAIL = "KEY_THUMBNAIL"
+internal const val KEY_TITLE = "KEY_TITLE"
+internal const val KEY_THUMBNAIL = "KEY_THUMBNAIL"

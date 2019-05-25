@@ -15,16 +15,16 @@ import kotlinx.android.synthetic.main.include_list_view.progress
 import kotlinx.android.synthetic.main.include_list_view.scroll_guide
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
 import list.SchedulerModule
-import list.domain.DispatchCoordinator
 import list.domain.DomainModule
+import list.domain.FunctionalityHolderModule
 import list.domain.ObserveCoordinator
+import list.domain.RefreshCoordinator
+import list.impl.ListItem
 import org.jorge.test.list.R
-import testaccessors.RequiresAccessor
 import javax.inject.Inject
 
-internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
+class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   // DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
-  @RequiresAccessor
   private val componentF = { contentView: RecyclerView,
                              progressView: View,
                              errorView: View,
@@ -34,30 +34,32 @@ internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
     DaggerListActivityComponent.builder()
         .contentViewModule(ContentViewModule)
         .filterModule(FilterModule)
+        .functionalityHolderModule(FunctionalityHolderModule)
         .domainModule(DomainModule)
         .schedulerModule(SchedulerModule)
         .contentView(contentView)
         .progressView(progressView)
         .errorView(errorView)
+        .consumerModule(ConsumerModule)
         .guideView(guideView)
         .listViewInteractionListener(listener)
         .searchView(searchView)
-        .build()
+        .build() as DaggerListActivityComponent
   }
   @Inject
-  lateinit var observeCoordinator: ObserveCoordinator
+  internal lateinit var observeCoordinator: ObserveCoordinator
   @Inject
-  lateinit var dispatchCoordinator: DispatchCoordinator
+  internal lateinit var refreshCoordinator: RefreshCoordinator
   @Inject
-  lateinit var contentView: ContentView
+  internal lateinit var contentView: ContentView
   @Inject
-  lateinit var listViewConfig: ListViewConfig
+  internal lateinit var listViewConfig: ListViewConfig
   @Inject
-  lateinit var filterDelegate: FilterDelegate
+  internal lateinit var filterDelegate: FilterDelegate
   @Inject
-  lateinit var pageLoadOnNext: PageLoadNextConsumer
+  internal lateinit var pageLoadOnNext: PageLoadNextConsumer
   @Inject
-  lateinit var pageLoadOnError: PageLoadErrorConsumer
+  internal lateinit var pageLoadOnError: PageLoadErrorConsumer
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -68,7 +70,9 @@ internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   private fun onInjected() {
     listViewConfig.on(contentView)
     observeCoordinator.run(pageLoadOnNext, pageLoadOnError)
-    dispatchCoordinator.run()
+    if (intent.getBooleanExtra(KEY_REFRESH, true)) {
+      refreshCoordinator.run()
+    }
     filterDelegate.apply {
       init(this@ListActivity)
       applyQuery(intent.getStringExtra(KEY_QUERY))
@@ -82,7 +86,7 @@ internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
    */
   override fun onDestroy() {
     observeCoordinator.abort()
-    // The dispatch coordinator won't cause leaks, so we might as well always leave it complete
+    // The refresh coordinator won't cause leaks, so we might as well always leave it complete
     // since the observe one will reuse its results upon next start
     super.onDestroy()
   }
@@ -106,16 +110,30 @@ internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   }
 
   override fun onStop() {
-    if (isChangingConfigurations) {
-      intent.putExtra(KEY_QUERY, filterDelegate.query)
+    intent.apply {
+      if (isChangingConfigurations) {
+        putExtra(KEY_QUERY, filterDelegate.query)
+        putExtra(KEY_REFRESH, false)
+      } else {
+        removeExtra(KEY_QUERY)
+        removeExtra(KEY_REFRESH)
+      }
     }
     super.onStop()
   }
 
-  override fun onItemClicked(item: PresentationItem) = TODO("Start detail activity")
+  override fun onItemClicked(item: ListItem) = TODO("Start detail activity")
 
-  override fun onPageLoadRequested() = observeCoordinator.nextPage()
+  override fun onPageLoadRequested() {
+    contentView.apply {
+      showLoadingLayout()
+      hideContentLayout()
+      hideErrorLayout()
+    }
+    observeCoordinator.nextPage()
+  }
 }
 
 fun listActivityIntent(context: Context) = Intent(context, ListActivity::class.java)
 private const val KEY_QUERY = "KEY_QUERY"
+private const val KEY_REFRESH = "KEY_REFRESH"

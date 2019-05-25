@@ -3,30 +3,29 @@ package list.domain
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
-import io.reactivex.processors.PublishProcessor
+import io.reactivex.subjects.PublishSubject
+import io.reactivex.subjects.Subject
 import list.Io
 import list.MainThread
 import list.SchedulerModule
 import javax.inject.Singleton
 
-@Module(includes = [SchedulerModule::class])
+@Module(includes = [FunctionalityHolderModule::class, SchedulerModule::class])
 internal object DomainModule {
   @Provides
-  @Singleton
-  fun functionalityHolder() = FunctionalityHolder()
+  fun valve(): Subject<Boolean> = PublishSubject.create<Boolean>()
 
   @Provides
-  fun valve() = PublishProcessor.create<Boolean>()
+  @Singleton
+  fun refresh(functionalityHolder: FunctionalityHolder) = RefreshCoordinator(functionalityHolder)
 
   @Provides
   @Singleton
   fun observe(functionalityHolder: FunctionalityHolder,
               @Io ioScheduler: Scheduler,
               @MainThread mainThreadScheduler: Scheduler,
-              valve: PublishProcessor<Boolean>) =
-      ObserveCoordinator(functionalityHolder, ioScheduler, mainThreadScheduler, valve)
-
-  @Provides
-  @Singleton
-  fun dispatch(functionalityHolder: FunctionalityHolder) = DispatchCoordinator(functionalityHolder)
+              valve: Subject<Boolean>,
+              refreshCoordinator: RefreshCoordinator) =
+      ObserveCoordinator(
+          functionalityHolder, ioScheduler, mainThreadScheduler, valve, refreshCoordinator)
 }
