@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/stoyicker/ivv.svg?style=svg&circle-token=a93f0b6033d7f45400ccdc85011af61352da6521)](https://circleci.com/gh/stoyicker/ivv)
+
 # Architecture
 This app is split follows a 'feature' split, with two features (not really, one of them is just the
 app entry point):
