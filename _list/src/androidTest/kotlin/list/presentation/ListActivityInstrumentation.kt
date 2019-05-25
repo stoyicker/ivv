@@ -2,9 +2,10 @@ package list.presentation
 
 import android.R
 import android.content.Context
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
+import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.rule.ActivityTestRule
 import dagger.Component
 import dagger.Module
@@ -37,7 +38,7 @@ internal class ListActivityInstrumentation {
 
   @Test
   fun activityIsShown() {
-    Espresso.onView(ViewMatchers.withId(R.id.content)).check(ViewAssertions.matches(ViewMatchers.isCompletelyDisplayed()))
+    onView(withId(R.id.content)).check(matches(isCompletelyDisplayed()))
   }
 }
 
