@@ -114,7 +114,6 @@ internal class Adapter(private val callback: ListViewInteractionListener)
             prevItems[oldItemPosition].let {
               it.id == shownItems[newItemPosition].id &&
                   it.name == shownItems[newItemPosition].name
-              // TODO Compare the rest of the fields
             }
 
         override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Bundle {
