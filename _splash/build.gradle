@@ -58,10 +58,9 @@ dependencies {
     implementation project(':_list')
     implementation project(':_common')
     implementation rootProject.ext.implementationDependencies
+    kapt rootProject.ext.kaptDependencies
     testImplementation rootProject.ext.testImplementationDependencies
     androidTestImplementation rootProject.ext.androidTestImplementationDependencies
-    implementation rootProject.ext.implementationSplashDependencies
-    kapt rootProject.ext.kaptSplashDependencies
 }
 
 kapt {

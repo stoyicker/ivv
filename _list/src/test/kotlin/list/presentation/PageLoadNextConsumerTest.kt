@@ -1,14 +1,13 @@
 package list.presentation
 
+import io.mockk.mockk
+import io.mockk.verify
 import list.impl.ListItem
 import org.junit.Before
 import org.junit.Test
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
-import org.mockito.Mockito.verifyNoMoreInteractions
 
 internal class PageLoadNextConsumerTest {
-  private val view = mock(AdditiveLoadableContentView::class.java) as AdditiveLoadableContentView<ListItem>
+  private val view = mockk<AdditiveLoadableContentView<ListItem>>(relaxUnitFun = true)
   private lateinit var subject: PageLoadNextConsumer
 
   @Before
@@ -18,13 +17,16 @@ internal class PageLoadNextConsumerTest {
 
   @Test
   fun accept() {
-    val t = mock(List::class.java) as List<ListItem>
+    val t = mockk<List<ListItem>>()
 
     subject.accept(t)
 
-    verify(view).addContent(t)
-    verify(view).hideLoadingLayout()
-    verify(view).hideErrorLayout()
-    verifyNoMoreInteractions(t, view)
+    verify {
+      view.apply {
+        addContent(t)
+        hideLoadingLayout()
+        hideErrorLayout()
+      }
+    }
   }
 }

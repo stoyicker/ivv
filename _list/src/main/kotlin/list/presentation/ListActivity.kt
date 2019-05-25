@@ -3,6 +3,7 @@ package list.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.VisibleForTesting
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
@@ -17,39 +18,17 @@ import kotlinx.android.synthetic.main.include_toolbar.toolbar
 import list.SchedulerModule
 import list.domain.DomainModule
 import list.domain.FunctionalityHolderModule
-import list.domain.ObserveCoordinator
-import list.domain.RefreshCoordinator
+import list.domain.IObserveCoordinator
+import list.domain.IRefreshCoordinator
 import list.impl.ListItem
 import org.jorge.test.list.R
 import javax.inject.Inject
 
 class ListActivity : AppCompatActivity(), ListViewInteractionListener {
-  // DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
-  private val componentF = { contentView: RecyclerView,
-                             progressView: View,
-                             errorView: View,
-                             guideView: View,
-                             listener: ListViewInteractionListener,
-                             searchView: SearchView ->
-    DaggerListActivityComponent.builder()
-        .contentViewModule(ContentViewModule)
-        .filterModule(FilterModule)
-        .functionalityHolderModule(FunctionalityHolderModule)
-        .domainModule(DomainModule)
-        .schedulerModule(SchedulerModule)
-        .contentView(contentView)
-        .progressView(progressView)
-        .errorView(errorView)
-        .consumerModule(ConsumerModule)
-        .guideView(guideView)
-        .listViewInteractionListener(listener)
-        .searchView(searchView)
-        .build() as DaggerListActivityComponent
-  }
   @Inject
-  internal lateinit var observeCoordinator: ObserveCoordinator
+  internal lateinit var observeCoordinator: IObserveCoordinator
   @Inject
-  internal lateinit var refreshCoordinator: RefreshCoordinator
+  internal lateinit var refreshCoordinator: IRefreshCoordinator
   @Inject
   internal lateinit var contentView: ContentView
   @Inject
@@ -132,6 +111,30 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
     }
     observeCoordinator.nextPage()
   }
+}
+
+// DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
+@VisibleForTesting // Unfortunately https://github.com/stoyicker/test-accessors/issues/106 stops @RequiresAccessor
+internal var componentF = { contentView: RecyclerView,
+                           progressView: View,
+                           errorView: View,
+                           guideView: View,
+                           listener: ListViewInteractionListener,
+                           searchView: SearchView ->
+  DaggerListActivityComponent.builder()
+      .contentViewModule(ContentViewModule)
+      .filterModule(FilterModule)
+      .functionalityHolderModule(FunctionalityHolderModule)
+      .domainModule(DomainModule)
+      .schedulerModule(SchedulerModule)
+      .contentView(contentView)
+      .progressView(progressView)
+      .errorView(errorView)
+      .consumerModule(ConsumerModule)
+      .guideView(guideView)
+      .listViewInteractionListener(listener)
+      .searchView(searchView)
+      .build()
 }
 
 fun listActivityIntent(context: Context) = Intent(context, ListActivity::class.java)

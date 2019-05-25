@@ -71,7 +71,7 @@ internal class ViewHolder internal constructor(
     itemView.thumbnail.let {
       if (thumbnailLink != null) {
         // TODO have the field be the whole string instead by combining the results of the call to
-        //  getting the list and the config endpoint. Bit too much for the time given
+        //  getting the list and the config endpoint. Bit too much for this scope
         val fullLink = "https://image.tmdb.org/t/p/w780$thumbnailLink"
         Picasso.get().load(fullLink).into(this)
       } else {

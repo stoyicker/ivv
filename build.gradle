@@ -36,7 +36,9 @@ subprojects {
           "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlinVersion",
           "org.jetbrains.kotlin:kotlin-reflect:$rootProject.ext.kotlinVersion",
           'com.android.support:support-annotations:28.0.0',
-          'com.android.support:exifinterface:28.0.0'
+          'com.android.support:exifinterface:28.0.0',
+          // https://github.com/mockk/mockk/issues/281
+          'org.objenesis:objenesis:2.6'
       ]
     }
   }

@@ -4,7 +4,6 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
-import android.support.annotation.VisibleForTesting
 import list.NetworkClientModule
 import list.NetworkModule
 import list.ParserModule
@@ -24,6 +23,20 @@ import javax.inject.Inject
  */
 internal class InitializationContentProvider : ContentProvider() {
   // DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
+  private val componentF: (Context) -> InitializationContentProviderComponent = {
+    DaggerInitializationContentProviderComponent.builder()
+        .context(it)
+        .functionalityHolderModule(FunctionalityHolderModule)
+        .observeModule(ObserveModule)
+        .refreshModule(RefreshModule)
+        .apiKeyInterceptorModule(ApiKeyInterceptorModule)
+        .listApiModule(ListApiModule)
+        .networkClientModule(NetworkClientModule)
+        .networkModule(NetworkModule)
+        .parserModule(ParserModule)
+        .schedulerModule(SchedulerModule)
+        .build()
+  }
   @Inject
   lateinit var functionalityHolder: FunctionalityHolder
   @Inject
@@ -65,20 +78,4 @@ internal class InitializationContentProvider : ContentProvider() {
       uri: Uri,
       selection: String?,
       selectionArgs: Array<String>?) = throw UnsupportedOperationException()
-}
-
-@VisibleForTesting // https://github.com/stoyicker/test-accessors/issues/106 stops RequiresAccessor
-internal var componentF: (Context) -> InitializationContentProviderComponent = {
-  DaggerInitializationContentProviderComponent.builder()
-      .context(it)
-      .functionalityHolderModule(FunctionalityHolderModule)
-      .observeModule(ObserveModule)
-      .refreshModule(RefreshModule)
-      .apiKeyInterceptorModule(ApiKeyInterceptorModule)
-      .listApiModule(ListApiModule)
-      .networkClientModule(NetworkClientModule)
-      .networkModule(NetworkModule)
-      .parserModule(ParserModule)
-      .schedulerModule(SchedulerModule)
-      .build()
 }

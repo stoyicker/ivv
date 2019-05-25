@@ -55,6 +55,7 @@ repositories {
 dependencies {
     implementation project(':_common')
     implementation rootProject.ext.implementationDependencies
+    kapt rootProject.ext.kaptDependencies
     testImplementation rootProject.ext.testImplementationDependencies
     androidTestImplementation rootProject.ext.androidTestImplementationDependencies
     implementation rootProject.ext.implementationListDependencies

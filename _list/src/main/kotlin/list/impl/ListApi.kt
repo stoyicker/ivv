@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 internal interface ListApi {
-  @GET("tv/top_rated")
+  @GET("tv/popular")
   fun topRated(@Query(value = "page") page: Int): Single<ResponseBody>
 }
 
