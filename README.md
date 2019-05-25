@@ -25,8 +25,8 @@ refactor away into a pre-compiled binary (which will solve the aforementioned is
 before adding more feature modules.
 
 Finally, the app is built to follow general user expectations: 
-* If started offline, content will be immediately fetched after the user goes back offline (if 
-the app is open).
+* If started offline or a connection is list, content will be immediately fetched after the user 
+comes back online (if the app is open).
 * Upon rotation (or overall configuration change) no network traffic occurs.
 * If content was fetched sometime in the past and the app is open while offline, the last version of
 the available content will be used until a newer one is available.
