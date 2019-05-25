@@ -70,14 +70,10 @@ internal class Adapter(private val callback: ListViewInteractionListener)
    * Requests a list of items to be added to this adapter. This call re-applies the current
    * filter, which means some of the items passed in to be added will not be shown they don't meet
    * the current filter.
-   * @param toAdd The items to add.
+   * @param newItems The items to add.
    */
-  internal fun addItems(toAdd: List<ListItem>) {
-    if (toAdd.isNotEmpty() && toAdd != items) {
-      items = items + toAdd.distinct()
-    } else if (toAdd.isEmpty()) {
-      items = emptyList()
-    }
+  internal fun setItems(newItems: List<ListItem>) {
+    items = newItems
     filter.refresh()
   }
 

@@ -62,7 +62,6 @@ internal class ListActivityInstrumentation {
   @Test
   fun activityIsShown() {
     every { MOCK_OBSERVE.run(any(), any()) } just Runs
-    every { MOCK_OBSERVE.nextPage() } just Runs
     every { MOCK_REFRESH.run() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
     activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
@@ -77,7 +76,6 @@ internal class ListActivityInstrumentation {
           id = 31917,
           name = "Pretty Little Liars")))
     }
-    every { MOCK_OBSERVE.nextPage() } just Runs
     every { MOCK_REFRESH.run() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
     activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))

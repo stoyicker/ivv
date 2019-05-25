@@ -10,9 +10,9 @@ import javax.inject.Singleton
 internal object ObserveModule {
   @Provides
   @Singleton
-  fun pages() = BehaviorSubject.create<ItemPage>()
+  fun pages() = BehaviorSubject.create<List<ListItem>>()
 
   @Provides
   @Singleton
-  fun observe(pages: BehaviorSubject<ItemPage>): Observe = pages.map { it.items }
+  fun observe(impl: BehaviorSubject<List<ListItem>>): Observe = impl
 }

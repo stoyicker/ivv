@@ -18,6 +18,6 @@ internal object RefreshModule {
   @Singleton
   fun refresh(refreshSource: RefreshSource,
                @Io scheduler: Scheduler,
-               truthSource: BehaviorSubject<ItemPage>): Refresh  =
+               truthSource: BehaviorSubject<List<ListItem>>): Refresh  =
       RefreshImpl(refreshSource, scheduler, truthSource)
 }
