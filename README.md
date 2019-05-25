@@ -1,8 +1,9 @@
 [![CircleCI](https://circleci.com/gh/stoyicker/ivv.svg?style=svg&circle-token=a93f0b6033d7f45400ccdc85011af61352da6521)](https://circleci.com/gh/stoyicker/ivv)
 
 # Building
-Put your api key in a gradle.properties file, like this, at the top level of the repo:
+* Put your api key in a gradle.properties file, like this, at the top level of the repo:
 api.key="yourApiKeyHereTheQuotesAreRequired"
+* `./gradlew :_splash:assemble` (or Windows equivalent)
 
 # Architecture
 This app is split follows a 'feature' split, with two features (not really, one of them is just the
