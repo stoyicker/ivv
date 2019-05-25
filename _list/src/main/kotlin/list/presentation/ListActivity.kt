@@ -1,5 +1,6 @@
 package list.presentation
 
+import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -45,6 +46,13 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_list)
     setSupportActionBar(toolbar)
+  }
+
+  override fun onNewIntent(intent: Intent) {
+    super.onNewIntent(intent)
+    if (intent.action == Intent.ACTION_SEARCH) {
+      filterDelegate.applyQuery(intent.getStringExtra(SearchManager.QUERY))
+    }
   }
 
   private fun onInjected() {
