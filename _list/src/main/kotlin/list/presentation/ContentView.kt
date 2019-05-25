@@ -26,6 +26,7 @@ internal class ContentView(
 
   override fun setContent(newContent: List<ListItem>) {
     (recyclerView.adapter as Adapter).setItems(newContent)
+    pushInfoArea()
     guideView.visibility = View.VISIBLE
   }
 
