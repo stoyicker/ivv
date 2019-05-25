@@ -1,5 +1,9 @@
 [![CircleCI](https://circleci.com/gh/stoyicker/ivv.svg?style=svg&circle-token=a93f0b6033d7f45400ccdc85011af61352da6521)](https://circleci.com/gh/stoyicker/ivv)
 
+# Building
+Put your api key in a gradle.properties file, like this, at the top level of the repo:
+api.key="yourApiKeyHereTheQuotesAreRequired"
+
 # Architecture
 This app is split follows a 'feature' split, with two features (not really, one of them is just the
 app entry point):
@@ -50,10 +54,6 @@ $<project-dir>: ./hooks/setup.
 ```
 If you face any issues with execution of the hook, push from a bash prompt. Also, the hook needs a 
 connected device to run instrumentation tests on.
-
-# Building
-Put your api key in a gradle.properties file, like this, at the top level of the repo:
-api.key="yourApiKeyHereTheQuotesAreRequired"
 
 # Potential improvements
 * Running instrumented and monkey tests on CI. Also there's some room for optimization in the CI 
