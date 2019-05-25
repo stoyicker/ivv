@@ -30,7 +30,7 @@ internal class ListActivityInstrumentation {
       list.impl.componentF = { _: Context ->
         DaggerInitializationContentProviderInstrumentationComponent.builder()
             .initializationContentProviderInstrumentationModule(InitializationContentProviderInstrumentationModule)
-            .build() as InitializationContentProviderComponent
+            .build()
       }
     }
   }
