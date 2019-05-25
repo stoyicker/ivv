@@ -35,20 +35,22 @@ final def rxJavaExtensionsVersion = '0.20.8'
 ext {
   implementationDependencies = [
       "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
-      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
       "com.android.support:appcompat-v7:$supportVersion"
   ]
   testImplementationDependencies = [
       "junit:junit:$jUnitVersion",
       "org.mockito:mockito-core:$mockitoVersion"
   ]
-  kaptDependencies = [
-      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
-  ]
   androidTestImplementationDependencies = [
       "com.android.support.test.espresso:espresso-core:$espressoVersion",
       "com.android.support.test:rules:$testRulesVersion",
       "org.mockito:mockito-core:$mockitoVersion"
+  ]
+  implementationSplashDependencies = [
+      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
+  ]
+  kaptSplashDependencies = [
+      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
   ]
   implementationListDependencies = [
       "com.android.support:design:$supportVersion",

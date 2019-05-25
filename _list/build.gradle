@@ -57,7 +57,6 @@ dependencies {
     implementation rootProject.ext.implementationDependencies
     testImplementation rootProject.ext.testImplementationDependencies
     androidTestImplementation rootProject.ext.androidTestImplementationDependencies
-    kapt rootProject.ext.kaptDependencies
     implementation rootProject.ext.implementationListDependencies
     compileOnly rootProject.ext.compileOnlyListDependencies
     kapt rootProject.ext.kaptListDependencies
