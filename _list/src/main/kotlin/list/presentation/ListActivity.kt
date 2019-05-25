@@ -10,6 +10,7 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import kotlinx.android.synthetic.main.include_list_view.content
 import kotlinx.android.synthetic.main.include_list_view.error
 import kotlinx.android.synthetic.main.include_list_view.progress
@@ -101,7 +102,8 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
     super.onStop()
   }
 
-  override fun onItemClicked(item: ListItem) = TODO("Start detail activity")
+  override fun onItemClicked(item: ListItem) =
+      Toast.makeText(this, "TODO: Start detail activity", Toast.LENGTH_SHORT).show()
 
   override fun onPageLoadRequested() {
     contentView.apply {
