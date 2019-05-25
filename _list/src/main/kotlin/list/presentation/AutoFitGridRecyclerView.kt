@@ -15,7 +15,7 @@ import org.jorge.test.list.R
  * @see <a href="http://blog.sqisland.com/2014/12/recyclerview-autofit-grid.html">
  *     Square Island: RecyclerView: Autofit grid</a>
  */
-internal class AutoFitStaggeredGridRecyclerView(context: Context, attrs: AttributeSet?)
+internal class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet?)
   : RecyclerView(context, attrs) {
   @Px
   private val columnWidth: Int
