@@ -1,3 +1,5 @@
-./gradlew --refresh-dependencies clean check assemble test cAT || { exit 1; }
+./gradlew --refresh-dependencies clean check assemble test || { exit 1; }
+./gradlew --refresh-dependencies clean :_splash:cAT  || { exit 1; }
+./gradlew --refresh-dependencies clean :_list:cAT || { exit 1; }
 adb install _splash/build/outputs/apk/debug/_splash-debug.apk
 adb shell monkey -p org.jorge.test -v 5000

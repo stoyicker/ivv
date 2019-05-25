@@ -18,7 +18,7 @@ buildscript {
 
 rootProject.ext {
   androidCompileSdkVersion = 28
-  androidMinSdkVersion = 14
+  androidMinSdkVersion = 21
   androidTargetSdkVersion = 28
   androidBuildToolsVersion = '28.0.3'
   androidVersionCode = 1
