@@ -60,7 +60,8 @@ dependencies {
     implementation rootProject.ext.implementationDependencies
     testImplementation rootProject.ext.testImplementationDependencies
     androidTestImplementation rootProject.ext.androidTestImplementationDependencies
-    kapt rootProject.ext.kaptDependencies
+    implementation rootProject.ext.implementationSplashDependencies
+    kapt rootProject.ext.kaptSplashDependencies
 }
 
 kapt {
