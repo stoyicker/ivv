@@ -13,9 +13,9 @@ internal interface AdditiveLoadableContentView<in T : Any?> {
 
   /**
    * Called to notify the implementation that the content should be updated.
-   * @param newContent A list of items that need to be added to the display.
+   * @param newContent A list of items that need to be displayed.
    */
-  fun addContent(newContent: List<T>)
+  fun setContent(newContent: List<T>)
 
   /**
    * Called to notify the implementation that the content layout should be hidden. Optional.

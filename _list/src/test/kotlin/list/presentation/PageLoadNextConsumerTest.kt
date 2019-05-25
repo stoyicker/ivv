@@ -23,7 +23,7 @@ internal class PageLoadNextConsumerTest {
 
     verify {
       view.apply {
-        addContent(t)
+        setContent(t)
         hideLoadingLayout()
         hideErrorLayout()
       }

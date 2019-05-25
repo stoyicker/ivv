@@ -24,8 +24,8 @@ internal class ContentView(
     progressView.visibility = View.GONE
   }
 
-  override fun addContent(newContent: List<ListItem>) {
-    (recyclerView.adapter as Adapter).addItems(newContent)
+  override fun setContent(newContent: List<ListItem>) {
+    (recyclerView.adapter as Adapter).setItems(newContent)
     guideView.visibility = View.VISIBLE
   }
 

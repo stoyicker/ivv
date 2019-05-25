@@ -9,22 +9,20 @@ import list.domain.Refresh
 internal class RefreshImpl(
     private val refreshSource: RefreshSource,
     private val scheduler: Scheduler,
-    private val truthSource: BehaviorSubject<ItemPage>) : Refresh {
+    private val truthSource: BehaviorSubject<List<ListItem>>) : Refresh {
   override fun invoke(page: Int) {
     refreshSource(page)
         .retry()
         .subscribeOn(scheduler)
         .subscribe(object : SingleObserver<RefreshResponse> {
-          /**
-           * If we asked for a new page, add it to the truth. Otherwise, reset the truth to what we
-           * just got.
-           */
           override fun onSuccess(t: RefreshResponse) {
-            val resetTruth = truthSource.value?.page ?: Int.MAX_VALUE >= page
-            if (resetTruth) {
-              truthSource.onNext(ItemPage(0, emptyList()))
+            val previousTruth = truthSource.value
+            if (previousTruth != null) {
+              val updated: Set<ListItem> = t.results.intersect(previousTruth)
+              truthSource.onNext(updated.union(previousTruth).union(t.results).toList())
+            } else {
+              truthSource.onNext(t.results)
             }
-            truthSource.onNext(ItemPage(page, t.results))
           }
 
           override fun onSubscribe(d: Disposable) = Unit

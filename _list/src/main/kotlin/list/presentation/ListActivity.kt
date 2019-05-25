@@ -119,7 +119,7 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
       hideContentLayout()
       hideErrorLayout()
     }
-    observeCoordinator.nextPage()
+    refreshCoordinator.run()
   }
 }
 

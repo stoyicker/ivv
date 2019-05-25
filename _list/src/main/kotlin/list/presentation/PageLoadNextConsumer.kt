@@ -7,7 +7,7 @@ internal class PageLoadNextConsumer(private val view: AdditiveLoadableContentVie
   : Consumer<List<ListItem>> {
   override fun accept(t: List<ListItem>) {
     view.apply {
-      addContent(t)
+      setContent(t)
       hideLoadingLayout()
       hideErrorLayout()
     }

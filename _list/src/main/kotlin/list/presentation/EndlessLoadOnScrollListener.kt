@@ -19,7 +19,7 @@ internal abstract class EndlessLoadOnScrollListener(
       loading = false
       previousTotalItemCount = totalItemCount
     }
-    if (!loading && lastVisibleItemPosition == totalItemCount - 1) {
+    if (!loading && lastVisibleItemPosition == totalItemCount - ITEM_THRESHOLD) {
       loading = true
       onLoadMore()
     }
@@ -42,3 +42,5 @@ internal abstract class EndlessLoadOnScrollListener(
    */
   protected abstract fun onLoadMore()
 }
+
+private const val ITEM_THRESHOLD = 1
