@@ -2,4 +2,4 @@
 ./gradlew --refresh-dependencies :_splash:cAT  || { exit 1; }
 ./gradlew --refresh-dependencies :_list:cAT || { exit 1; }
 adb install _splash/build/outputs/apk/debug/_splash-debug.apk
-adb shell monkey -p org.jorge.test -v 5000
+adb shell monkey -p org.jorge.test -v --pct-syskeys 0 5000
