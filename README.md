@@ -1,19 +1,23 @@
 # Architecture
-This app is split follows a 'feature' split, with three features:
+This app is split follows a 'feature' split, with two features (not really, one of them is just the
+app entry point):
 * `_splash`, for the splash screen.
 * `_list`, for the item list.
-* `_detail`, for the item detail.
 
-Both `_list` and `_detail` are built upon a Redux-like architecture, where the UI reacts to a source
+`_splash` hardly has any code, not much architecture to see here.
+
+`_list` is built upon a Redux-like architecture, where the UI reacts to a source
 of truth which is updated by UI actions. This allows for a highly scalable development with very low
 coupling which favors not only maintainability, but also popular practises such as flavoring, 
 features toggles and dynamic delivery.
 
-As a trade-off, due to Dagger limitations when it comes to cross-module dependencies, there's a 
-little bit of code duplication, but it should be quite feasible to refactor away with a bit more 
-time.
+As a trade-off, due to Dagger limitations when it comes to cross-module dependencies, there would be
+a little bit of code duplication if we were to scale straight-up from this (the schedulers and 
+network modules, which are currently present in `_list`), but it should be quite feasible to 
+refactor away into a pre-compiled binary (which will solve the aforementioned issues with Dagger) 
+before adding more feature modules.
 
-Finally, the app is built in to follow general user expectations: 
+Finally, the app is built to follow general user expectations: 
 * If started offline, content will be immediately fetched after the user goes back offline (if 
 the app is open).
 * Upon rotation (or overall configuration change) no network traffic occurs.
@@ -39,17 +43,23 @@ different `test` and `cAT` Gradle tasks in each module.
 
 # Setup for contributions
 Once cloned, just setup the hooks:
-
 ```shell
-$<project-dir>: ./hooks/setup (or equivalent if on Windows).
+$<project-dir>: ./hooks/setup.
 ```
+If you face any issues with execution of the hook, push from a bash prompt.
+
+# Building
+Put your api key in a gradle.properties file, like this, at the top level of the repo:
+api.key="yourApiKeyHereTheQuotesAreRequired"
 
 # Potential improvements
 * Running instrumented and monkey tests on CI. Also there's some room for optimization in the CI 
 pipeline.
 * Refining infrastructure; there's a fair amount of duplication as things are now. Also maybe drop 
 Groovy for Kotlin.
-* There are very few tests.
+* There are very few tests. The existing ones are there more to show how different types of tests 
+are written rather than to judge the quality of the app (even though they are meaningful, just not
+enough).
 * Some assets only include mdpi densities, which will cause crashes in devices in lower resolution 
 screen buckets and memory overhead to upscale the resource in device in higher resolution buckets 
 (plus, in some cases, visual artifacts).
