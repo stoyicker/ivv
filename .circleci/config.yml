@@ -1,16 +1,27 @@
 version: 2.1
 jobs:
-  test_splash:
+  splash:
     docker:
       - image: circleci/android:api-28
     environment:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
-      - run: ./gradlew :splash:test --no-daemon --no-build-cache --refresh-dependencies
+      - run: echo api.key=\"dummyApiKey\" > gradle.properties
+      - run: ./gradlew :_splash:testDebugUnitTest :_splash:assemble --no-daemon --no-build-cache --refresh-dependencies
+  list:
+    docker:
+        - image: circleci/android:api-28
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - run: echo api.key=\"dummyApiKey\" > gradle.properties
+      - run: ./gradlew :_list:testDebugUnitTest  :_list:assemble --no-daemon --no-build-cache --refresh-dependencies
 workflows:
   version: 2.1
   test:
     jobs:
-      - test_splash
+      - splash
+      - list
 # TODO Setup to run cAT as well

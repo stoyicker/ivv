@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="org.jorge.test.list">
-
+  <uses-permission android:name="android.permission.INTERNET" />
   <application>
     <activity
       android:name="list.presentation.ListActivity"
@@ -14,5 +14,11 @@
         android:name="android.app.searchable"
         android:resource="@xml/searchable" />
     </activity>
+    <provider
+      android:name="list.impl.InitializationContentProvider"
+      android:authorities="list.impl.InitializationContentProvider"
+      android:exported="false"
+      android:permission="DO_NOT_ACCESS_THIS"
+      android:syncable="false" />
   </application>
 </manifest>

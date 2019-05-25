@@ -1,6 +1,7 @@
 package splash
 
 import android.app.Application
+import android.os.Build
 import android.os.StrictMode
 
 /**
@@ -20,9 +21,19 @@ internal class DebugApplication : Application() {
    */
   private fun enforceThreadStrictMode() =
       StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.Builder()
-          .detectAll()
+          .detectCustomSlowCalls()
+          .detectDiskReads()
+          .detectDiskWrites()
+          .detectNetwork()
           .penaltyLog()
-          .penaltyDialog()
+          .apply {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+              detectResourceMismatches()
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                detectUnbufferedIo()
+              }
+            }
+          }
           .build())
 
   /**
@@ -30,9 +41,25 @@ internal class DebugApplication : Application() {
    * @see <a href="https://developer.android.com/reference/android/os/StrictMode.html">
    *     Strict Mode | Android Developers</a>
    */
-  private fun enforceVMStrictMode() =
-      StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder()
-          .detectAll()
-          .penaltyLog()
-          .build())
+  private fun enforceVMStrictMode() = StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder()
+      .detectActivityLeaks()
+      .detectLeakedClosableObjects()
+      .detectLeakedSqlLiteObjects()
+      .penaltyLog()
+      .apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+          detectLeakedRegistrationObjects()
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            detectCleartextNetwork()
+            detectFileUriExposure()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+              detectContentUriWithoutPermission()
+              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                detectNonSdkApiUsage()
+              }
+            }
+          }
+        }
+      }
+      .build())
 }

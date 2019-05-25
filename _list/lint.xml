@@ -8,7 +8,10 @@
         <ignore regexp="okio" />
         <ignore regexp="retrofit" />
     </issue>
-    <issue id="ImplicitSamInstance">
-        <ignore path="**/SplashActivity.kt" />
+    <issue id="MergeRootFrame">
+        <ignore path="**/include_list_view.xml" />
+    </issue>
+    <issue id="SyntheticAccessor">
+        <ignore path="**/Adapter.kt" />
     </issue>
 </lint>

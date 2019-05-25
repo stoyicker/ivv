@@ -1,35 +1,39 @@
 package list.domain
 
+import hu.akarnokd.rxjava2.operators.ObservableTransformers
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
-import io.reactivex.processors.PublishProcessor
-import list.presentation.PresentationItem
+import io.reactivex.subjects.Subject
+import list.impl.ListItem
 
 internal class ObserveCoordinator(
     private val functionalityHolder: FunctionalityHolder,
     private val subscribeScheduler: Scheduler,
     private val observeScheduler: Scheduler,
-    private val valveSource: PublishProcessor<Boolean>) {
+    private val valveSource: Subject<Boolean>,
+    private val refreshCoordinator: RefreshCoordinator) {
   private var disposable: Disposable? = null
 
-  fun run(onNext: Consumer<List<PresentationItem>>, onError: Consumer<Throwable>) {
-    // TODO Use a relay here instead, this is never going to complete
+  fun run(onNext: Consumer<List<ListItem>>, onError: Consumer<Throwable>) {
+    var chunkCounter = 0
+    var chunks = -1
     disposable = functionalityHolder.observe
-        .doOnNext {
-          // Whenever the source of truth refreshes, we need to
-          // (1) drop non-emitted pages from the previous source -> Ditch this subscription
-          // (2) notify that the previous items are no longer valid -> Emit an empty list
-          // (will trigger a clear)
-          onNext.accept(emptyList())
-          disposable?.dispose()
-          run(onNext, onError)
-        }
         .subscribeOn(subscribeScheduler)
         .observeOn(observeScheduler)
         .flatMapIterable {
-          // Client-side paging to avoid overwhelming the list
-          it.chunked(PAGE_SIZE)
+          // Client-side pagination to avoid overwhelming the list in case the server misbehaves or
+          // doesn't support pagination
+          val list = it.chunked(CLIENT_PAGE_SIZE)
+          chunks = list.size
+          list
+        }
+        .compose(ObservableTransformers.valve<List<ListItem>>(valveSource))
+        .doOnNext {
+          if (++chunkCounter == chunks) {
+            refreshCoordinator.run()
+            chunkCounter = 0
+          }
         }
         .doAfterNext {
           // Close the valve after we've moved one page
@@ -40,7 +44,9 @@ internal class ObserveCoordinator(
 
   fun abort() = disposable?.dispose()
 
-  fun nextPage() = valveSource.onNext(true)
+  fun nextPage() {
+    valveSource.onNext(true)
+  }
 }
 
-private const val PAGE_SIZE = 50
+private const val CLIENT_PAGE_SIZE = 15

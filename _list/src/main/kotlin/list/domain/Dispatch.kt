@@ -1,7 +1,8 @@
 package list.domain
 
 /**
- * Describes the requirement for the action of dispatching a refresh of the source of truth of the
+ * Describes the requirement for the action of refreshing a refresh of the source of truth of the
  * contents in the list.
+ * I wish this could be a typealias, but that won't work with Dagger.
  */
-internal typealias Dispatch = () -> Unit
+internal interface Refresh : (Int) -> Unit

@@ -2,8 +2,8 @@ package list.presentation
 
 import android.content.Context
 import android.support.annotation.Px
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.AttributeSet
 import org.jorge.test.list.R
 
@@ -30,14 +30,14 @@ internal class AutoFitStaggeredGridRecyclerView(context: Context, attrs: Attribu
     } else {
       columnWidth = defaultColumnWidth
     }
-    layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+    layoutManager = GridLayoutManager(context, 1)
   }
 
   override fun onMeasure(widthSpec: Int, heightSpec: Int) {
     super.onMeasure(widthSpec, heightSpec)
     if (!isInEditMode && columnWidth > 0) {
       val spanCount = Math.max(1, measuredWidth / columnWidth)
-      (layoutManager as StaggeredGridLayoutManager).spanCount = spanCount
+      (layoutManager as GridLayoutManager).spanCount = spanCount
     }
   }
 }
