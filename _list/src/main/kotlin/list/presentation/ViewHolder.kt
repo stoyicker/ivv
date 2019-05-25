@@ -46,38 +46,45 @@ internal class ViewHolder internal constructor(
    * Updates the layout according to the changes required by a new title.
    * @param title The new title.
    */
-  private fun setTitle(title: String) {
-    itemView.title_view.text = title
-    itemView.thumbnail.contentDescription = title
-  }
+  private fun setTitle(title: String) =
+      itemView.apply {
+        title_view.text = title
+        thumbnail.contentDescription = title
+      }
 
-  override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-    itemView.thumbnail.visibility = View.GONE
-    itemView.thumbnail.setImageDrawable(null)
-  }
+  override fun onPrepareLoad(placeHolderDrawable: Drawable?) =
+      itemView.thumbnail.run {
+        // TODO Put a progress drawable here
+        visibility = View.GONE
+        setImageDrawable(null)
+      }
 
-  override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) {
-    itemView.thumbnail.setImageBitmap(bitmap)
-    itemView.thumbnail.visibility = View.VISIBLE
-  }
+  override fun onBitmapLoaded(bitmap: Bitmap, from: Picasso.LoadedFrom) =
+      itemView.thumbnail.run {
+        visibility = View.VISIBLE
+        setImageBitmap(bitmap)
+      }
 
-  override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) = Unit
+  override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) =
+      itemView.thumbnail.run {
+        visibility = View.GONE
+        setImageDrawable(null)
+      }
 
   /**
    * Updates the layout according to the changes required by a new thumbnail link.
    * @param thumbnailLink The new thumbnail link, or <code>null</code> if none is applicable.
    */
-  private fun setThumbnail(thumbnailLink: String?) {
-    itemView.thumbnail.let {
+  private fun setThumbnail(thumbnailLink: String?) =
       if (thumbnailLink != null) {
         // TODO have the field be the whole string instead by combining the results of the call to
         //  getting the list and the config endpoint. Bit too much for this scope
         val fullLink = "https://image.tmdb.org/t/p/w780$thumbnailLink"
-        Picasso.get().load(fullLink).into(this)
+        Picasso.get().load(fullLink).into(this@ViewHolder)
       } else {
-        it.visibility = View.GONE
-        it.setImageDrawable(null)
+        itemView.thumbnail.run {
+          visibility = View.GONE
+          setImageDrawable(null)
+        }
       }
-    }
-  }
 }
