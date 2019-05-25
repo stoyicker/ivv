@@ -4,7 +4,7 @@ final def testRulesVersion = '1.0.2'
 final def jsr250Version = '1.0'
 final def jUnitVersion = '4.12'
 final def kotlinVersion = rootProject.ext.kotlinVersion
-final def mockitoVersion = '2.27.0'
+final def mockkVersion = '1.9.3'
 final def picassoVersion = '2.71828'
 final def retrofitVersion = '2.5.0'
 final def rxAndroidVersion = '2.1.1'
@@ -35,22 +35,20 @@ final def rxJavaExtensionsVersion = '0.20.8'
 ext {
   implementationDependencies = [
       "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
+      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
       "com.android.support:appcompat-v7:$supportVersion"
   ]
   testImplementationDependencies = [
       "junit:junit:$jUnitVersion",
-      "org.mockito:mockito-core:$mockitoVersion"
+      "io.mockk:mockk:$mockkVersion"
+  ]
+  kaptDependencies = [
+      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
   ]
   androidTestImplementationDependencies = [
       "com.android.support.test.espresso:espresso-core:$espressoVersion",
       "com.android.support.test:rules:$testRulesVersion",
-      "org.mockito:mockito-core:$mockitoVersion"
-  ]
-  implementationSplashDependencies = [
-      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
-  ]
-  kaptSplashDependencies = [
-      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
+      "io.mockk:mockk-android:$mockkVersion"
   ]
   implementationListDependencies = [
       "com.android.support:design:$supportVersion",

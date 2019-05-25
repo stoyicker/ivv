@@ -17,7 +17,8 @@ internal object DomainModule {
 
   @Provides
   @Singleton
-  fun refresh(functionalityHolder: FunctionalityHolder) = RefreshCoordinator(functionalityHolder)
+  fun refresh(functionalityHolder: FunctionalityHolder): IRefreshCoordinator
+      = RefreshCoordinator(functionalityHolder)
 
   @Provides
   @Singleton
@@ -25,7 +26,7 @@ internal object DomainModule {
               @Io ioScheduler: Scheduler,
               @MainThread mainThreadScheduler: Scheduler,
               valve: Subject<Boolean>,
-              refreshCoordinator: RefreshCoordinator) =
+              refreshCoordinator: IRefreshCoordinator): IObserveCoordinator =
       ObserveCoordinator(
           functionalityHolder, ioScheduler, mainThreadScheduler, valve, refreshCoordinator)
 }

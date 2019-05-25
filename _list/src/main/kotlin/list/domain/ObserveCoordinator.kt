@@ -12,10 +12,10 @@ internal class ObserveCoordinator(
     private val subscribeScheduler: Scheduler,
     private val observeScheduler: Scheduler,
     private val valveSource: Subject<Boolean>,
-    private val refreshCoordinator: RefreshCoordinator) {
+    private val refreshCoordinator: IRefreshCoordinator) : IObserveCoordinator {
   private var disposable: Disposable? = null
 
-  fun run(onNext: Consumer<List<ListItem>>, onError: Consumer<Throwable>) {
+  override fun run(onNext: Consumer<List<ListItem>>, onError: Consumer<Throwable>) {
     var chunkCounter = 0
     var chunks = -1
     disposable = functionalityHolder.observe
@@ -42,11 +42,20 @@ internal class ObserveCoordinator(
         .subscribe(onNext, onError)
   }
 
-  fun abort() = disposable?.dispose()
-
-  fun nextPage() {
-    valveSource.onNext(true)
+  override fun abort() {
+    disposable?.dispose()
   }
+
+  override fun nextPage() = valveSource.onNext(true)
+}
+
+// For testing
+internal interface IObserveCoordinator {
+  fun run(onNext: Consumer<List<ListItem>>, onError: Consumer<Throwable>)
+
+  fun abort()
+
+  fun nextPage()
 }
 
 private const val CLIENT_PAGE_SIZE = 15
