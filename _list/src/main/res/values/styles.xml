@@ -5,15 +5,11 @@
     <item name="android:progressBarStyleHorizontal">@style/ProgressBarHorizontalMaterial</item>
   </style>
 
-  <style name="ProgressBarHorizontalMaterial" parent="@style/Widget.AppCompat.ProgressBar.Horizontal">
-    <!-- Unify (and color-change, tinting is slow) pre-lollipop.
-    The material one is an animated vector so it is a no-go -->
-    <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal_holo
-    </item>
-  </style>
+  <style name="ProgressBarHorizontalMaterial" parent="@style/Widget.AppCompat.ProgressBar.Horizontal" />
 
   <style name="App.Card">
     <item name="android:background">@drawable/card_background</item>
+    <item name="android:foreground">?attr/selectableItemBackground</item>
   </style>
 
   <style name="App.AppTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">

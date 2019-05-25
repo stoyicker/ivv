@@ -45,10 +45,9 @@ internal class DebugApplication : Application() {
       .detectActivityLeaks()
       .detectLeakedClosableObjects()
       .detectLeakedSqlLiteObjects()
+      .detectLeakedRegistrationObjects()
       .penaltyLog()
       .apply {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-          detectLeakedRegistrationObjects()
           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             detectCleartextNetwork()
             detectFileUriExposure()
@@ -58,7 +57,7 @@ internal class DebugApplication : Application() {
                 detectNonSdkApiUsage()
               }
             }
-          }
+
         }
       }
       .build())
