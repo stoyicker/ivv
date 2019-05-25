@@ -4,6 +4,7 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import android.support.annotation.VisibleForTesting
 import list.NetworkClientModule
 import list.NetworkModule
 import list.ParserModule
@@ -12,7 +13,6 @@ import list.domain.FunctionalityHolder
 import list.domain.FunctionalityHolderModule
 import list.domain.Observe
 import list.domain.Refresh
-import testaccessors.RequiresAccessor
 import javax.inject.Inject
 
 /**
@@ -24,21 +24,6 @@ import javax.inject.Inject
  */
 internal class InitializationContentProvider : ContentProvider() {
   // DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
-  @RequiresAccessor
-  private val componentF = { context: Context ->
-    DaggerInitializationContentProviderComponent.builder()
-        .context(context)
-        .functionalityHolderModule(FunctionalityHolderModule)
-        .observeModule(ObserveModule)
-        .refreshModule(RefreshModule)
-        .apiKeyInterceptorModule(ApiKeyInterceptorModule)
-        .listApiModule(ListApiModule)
-        .networkClientModule(NetworkClientModule)
-        .networkModule(NetworkModule)
-        .parserModule(ParserModule)
-        .schedulerModule(SchedulerModule)
-        .build() as DaggerInitializationContentProviderComponent
-  }
   @Inject
   lateinit var functionalityHolder: FunctionalityHolder
   @Inject
@@ -80,4 +65,20 @@ internal class InitializationContentProvider : ContentProvider() {
       uri: Uri,
       selection: String?,
       selectionArgs: Array<String>?) = throw UnsupportedOperationException()
+}
+
+@VisibleForTesting // https://github.com/stoyicker/test-accessors/issues/106 stops RequiresAccessor
+internal var componentF: (Context) -> InitializationContentProviderComponent = {
+  DaggerInitializationContentProviderComponent.builder()
+      .context(it)
+      .functionalityHolderModule(FunctionalityHolderModule)
+      .observeModule(ObserveModule)
+      .refreshModule(RefreshModule)
+      .apiKeyInterceptorModule(ApiKeyInterceptorModule)
+      .listApiModule(ListApiModule)
+      .networkClientModule(NetworkClientModule)
+      .networkModule(NetworkModule)
+      .parserModule(ParserModule)
+      .schedulerModule(SchedulerModule)
+      .build()
 }

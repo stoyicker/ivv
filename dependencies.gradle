@@ -47,7 +47,8 @@ ext {
   ]
   androidTestImplementationDependencies = [
       "com.android.support.test.espresso:espresso-core:$espressoVersion",
-      "com.android.support.test:rules:$testRulesVersion"
+      "com.android.support.test:rules:$testRulesVersion",
+      "org.mockito:mockito-core:$mockitoVersion"
   ]
   implementationListDependencies = [
       "com.android.support:design:$supportVersion",
@@ -72,10 +73,7 @@ ext {
   kaptListDependencies = [
       "com.google.dagger:dagger-compiler:$daggerVersion"
   ]
-  compileOnlyCommonDependencies = [
-      "javax.annotation:jsr250-api:$jsr250Version"
-  ]
-  kaptCommonDependencies = [
+  kaptAndroidTestListDependencies = [
       "com.google.dagger:dagger-compiler:$daggerVersion"
   ]
 }
