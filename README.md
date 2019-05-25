@@ -46,7 +46,8 @@ Once cloned, just setup the hooks:
 ```shell
 $<project-dir>: ./hooks/setup.
 ```
-If you face any issues with execution of the hook, push from a bash prompt.
+If you face any issues with execution of the hook, push from a bash prompt. Also, the hook needs a 
+connected device to run instrumentation tests on.
 
 # Building
 Put your api key in a gradle.properties file, like this, at the top level of the repo:
