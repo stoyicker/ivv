@@ -6,9 +6,6 @@ import android.widget.FrameLayout
 import list.impl.ListItem
 import org.jorge.test.list.R
 
-/**
- * Wraps UI behavior for top all time gaming posts scenario.
- */
 internal class ContentView(
     val recyclerView: RecyclerView,
     val errorView: View,
