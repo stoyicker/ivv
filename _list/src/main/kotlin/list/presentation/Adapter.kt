@@ -121,7 +121,6 @@ internal class Adapter(private val callback: ListViewInteractionListener)
                 putString(KEY_THUMBNAIL, new.posterPath.takeIf {
                   it?.contentEquals(old.posterPath ?: it) ?: old.posterPath != null
                 })
-                // TODO Diff the rest of the fields
               }
             }
           }
