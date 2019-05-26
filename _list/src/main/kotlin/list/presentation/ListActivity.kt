@@ -4,7 +4,6 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.VisibleForTesting
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
@@ -24,6 +23,7 @@ import list.domain.IObserveCoordinator
 import list.domain.IRefreshCoordinator
 import list.impl.ListItem
 import org.jorge.test.list.R
+import testaccessors.RequiresAccessor
 import javax.inject.Inject
 
 class ListActivity : AppCompatActivity(), ListViewInteractionListener {
@@ -124,7 +124,7 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
 }
 
 // DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
-@VisibleForTesting // Unfortunately https://github.com/stoyicker/test-accessors/issues/106 stops @RequiresAccessor
+@RequiresAccessor
 internal var componentF = { contentView: RecyclerView,
                            progressView: View,
                            errorView: View,
