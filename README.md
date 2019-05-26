@@ -1,7 +1,10 @@
 [![CircleCI](https://circleci.com/gh/stoyicker/ivv.svg?style=svg&circle-token=a93f0b6033d7f45400ccdc85011af61352da6521)](https://circleci.com/gh/stoyicker/ivv)
 
 # Building
-* `./gradlew :_splash:assemble` (or Windows equivalent)
+* `./gradlew :_splash:assemble` (or Windows equivalent). Find the apk in 
+`_splash/build/outputs/apk/debug/_splash-debug.apk`.
+
+You can also download the APK already built [here](https://github.com/stoyicker/ivv/releases/download/0/_splash-debug.apk).
 
 # Architecture
 This app is split follows a 'feature' split, with two features (not really, one of them is just the
@@ -40,7 +43,7 @@ I chose Kotlin over Java because:
 Documentation is generated using [Dokka](https://github.com/Kotlin/dokka), which is the
 code documentation generation tool for Kotlin, similar to what Javadoc is for Java.
 `index.html` for the documentation of each module can be found in their `build` directories:
- `module_name/build/dokka/module_name/index.html`.
+`module_name/build/dokka/module_name/index.html`.
 
 # Tests
 Several types of tests are written using JUnit and Espresso. Feel free to run them using the 
