@@ -7,7 +7,6 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
-      - run: echo api.key=\"dummyApiKey\" > gradle.properties
       - run: ./gradlew :_splash:testDebugUnitTest :_splash:assemble --no-daemon --no-build-cache --refresh-dependencies
   list:
     docker:
@@ -16,7 +15,6 @@ jobs:
       JVM_OPTS: -Xmx3200m
     steps:
       - checkout
-      - run: echo api.key=\"dummyApiKey\" > gradle.properties
       - run: ./gradlew :_list:testDebugUnitTest  :_list:assemble --no-daemon --no-build-cache --refresh-dependencies
 workflows:
   version: 2.1
