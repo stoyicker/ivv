@@ -67,10 +67,9 @@ internal class Adapter(private val callback: ListViewInteractionListener)
   override fun getItemId(position: Int) = shownItems[position].hashCode().toLong()
 
   /**
-   * Requests a list of items to be added to this adapter. This call re-applies the current
-   * filter, which means some of the items passed in to be added will not be shown they don't meet
-   * the current filter.
-   * @param newItems The items to add.
+   * Requests a list of items to be set in this adapter. This call re-applies the current
+   * filter, which means items which do not meet the current filter will not be shown.
+   * @param newItems The items.
    */
   internal fun setItems(newItems: List<ListItem>) {
     items = newItems
