@@ -1,6 +1,5 @@
 package list.presentation
 
-import android.R
 import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.assertion.ViewAssertions.matches
@@ -16,6 +15,7 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import io.mockk.Runs
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -23,6 +23,8 @@ import io.reactivex.functions.Consumer
 import list.domain.IObserveCoordinator
 import list.domain.IRefreshCoordinator
 import list.impl.ListItem
+import org.jorge.test.list.R
+import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -59,13 +61,16 @@ internal class ListActivityInstrumentation {
     }
   }
 
+  @Before
+  fun before() = clearMocks(MOCK_OBSERVE, MOCK_REFRESH)
+
   @Test
   fun activityIsShown() {
     every { MOCK_OBSERVE.run(any(), any()) } just Runs
     every { MOCK_REFRESH.run() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
     activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
-    onView(withId(R.id.content)).check(matches(isCompletelyDisplayed()))
+    onView(withId(android.R.id.content)).check(matches(isCompletelyDisplayed()))
   }
 
   @Test
@@ -80,6 +85,15 @@ internal class ListActivityInstrumentation {
     every { MOCK_OBSERVE.abort() } just Runs
     activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
     onView(withText("Pretty Little Liars")).check(matches(isCompletelyDisplayed()))
+  }
+
+  @Test
+  fun progressIsShown() {
+    every { MOCK_OBSERVE.run(any(), any()) } just Runs
+    every { MOCK_REFRESH.run() } just Runs
+    every { MOCK_OBSERVE.abort() } just Runs
+    activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
+    onView(withId(R.id.progress)).check(matches(isCompletelyDisplayed()))
   }
 }
 
