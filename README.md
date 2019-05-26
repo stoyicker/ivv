@@ -51,10 +51,10 @@ different `test` and `cAT` Gradle tasks in each module.
 # Setup for contributions
 Once cloned, just setup the hooks:
 ```shell
-$<project-dir>: ./hooks/setup.
+$<project-dir>: ./hooks/setup
 ```
 If you face any issues with execution of the hook, push from a bash prompt. Also, the hook needs a 
-connected device to run instrumentation tests on.
+connected device to run instrumentation tests and monkey on.
 
 # Potential improvements
 * Running instrumented and monkey tests on CI. Also there's some room for optimization in the CI 
@@ -67,5 +67,6 @@ enough).
 * Some assets only include mdpi densities, which will cause crashes in devices in lower resolution 
 screen buckets and memory overhead to upscale the resource in device in higher resolution buckets 
 (plus, in some cases, visual artifacts).
+* Pull-to-refresh.
 * Crash reporting!
 * Some other TODOs left around.
