@@ -23,6 +23,7 @@ import io.reactivex.functions.Consumer
 import list.domain.IObserveCoordinator
 import list.domain.IRefreshCoordinator
 import list.impl.ListItem
+import list.presentation.ListActivityKtTestAccessors.componentF
 import org.jorge.test.list.R
 import org.junit.Before
 import org.junit.BeforeClass
@@ -39,7 +40,7 @@ internal class ListActivityInstrumentation {
     @JvmStatic
     @BeforeClass
     fun beforeClass() {
-      componentF = { contentView: RecyclerView,
+      componentF { contentView: RecyclerView,
                      progressView: View,
                      errorView: View,
                      guideView: View,
@@ -56,7 +57,7 @@ internal class ListActivityInstrumentation {
             .guideView(guideView)
             .listViewInteractionListener(listener)
             .searchView(searchView)
-            .build()
+            .build() as ListActivityInstrumentationComponent
       }
     }
   }
