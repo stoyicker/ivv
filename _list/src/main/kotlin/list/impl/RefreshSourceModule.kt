@@ -1,8 +1,10 @@
 package list.impl
 
 import android.content.Context
-import com.nytimes.android.external.fs3.FileSystemPersisterFactory
+import com.nytimes.android.external.fs3.FileSystemRecordPersister
+import com.nytimes.android.external.fs3.filesystem.FileSystemFactory
 import com.nytimes.android.external.store3.base.Fetcher
+import com.nytimes.android.external.store3.base.impl.FluentMemoryPolicyBuilder
 import com.nytimes.android.external.store3.base.impl.FluentStoreBuilder
 import com.nytimes.android.external.store3.base.impl.StalePolicy
 import com.nytimes.android.external.store3.base.impl.Store
@@ -13,6 +15,7 @@ import dagger.Module
 import dagger.Provides
 import list.ParserModule
 import okio.BufferedSource
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module(includes = [ParserModule::class, ListApiModule::class])
@@ -24,11 +27,19 @@ internal class RefreshSourceModule {
       moshiBuilder: Moshi.Builder,
       api: ListApi) =
       FluentStoreBuilder.parsedWithKey<RefreshRequestParameters, BufferedSource, RefreshResponse>(
-          Fetcher { fetch(it, api) }) {
+          Fetcher { op(it, api) }) {
         parsers = listOf(MoshiParserFactory.createSourceParser(
             moshiBuilder.build(),
             RefreshResponse::class.java))
-        persister = FileSystemPersisterFactory.create(context.externalCacheDir!!) { it.toString() }
+        persister = FileSystemRecordPersister.create(
+            FileSystemFactory.create(context.externalCacheDir!!),
+            { it.toString() },
+            1,
+            TimeUnit.HOURS)
+        memoryPolicy = FluentMemoryPolicyBuilder.build {
+          expireAfterWrite = 30
+          expireAfterTimeUnit = TimeUnit.MINUTES
+        }
         stalePolicy = StalePolicy.NETWORK_BEFORE_STALE
       }
 
@@ -37,6 +48,6 @@ internal class RefreshSourceModule {
   fun source(store: Lazy<Store<RefreshResponse, RefreshRequestParameters>>) =
       RefreshSource(store)
 
-  private fun fetch(requestParameters: RefreshRequestParameters, api: ListApi) =
+  private fun op(requestParameters: RefreshRequestParameters, api: ListApi) =
       api.topRated(requestParameters).map { it.source() }
 }

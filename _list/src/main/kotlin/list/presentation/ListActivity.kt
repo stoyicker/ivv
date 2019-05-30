@@ -58,9 +58,7 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   private fun onInjected() {
     listViewConfig.on(contentView)
     observeCoordinator.run(pageLoadOnNext, pageLoadOnError)
-    if (intent.getBooleanExtra(KEY_REFRESH, true)) {
-      refreshCoordinator.run()
-    }
+    refreshCoordinator.run()
     filterDelegate.apply {
       init(this@ListActivity)
       applyQuery(intent.getStringExtra(KEY_QUERY))
@@ -101,10 +99,8 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
     intent.apply {
       if (isChangingConfigurations) {
         putExtra(KEY_QUERY, filterDelegate.query)
-        putExtra(KEY_REFRESH, false)
       } else {
         removeExtra(KEY_QUERY)
-        removeExtra(KEY_REFRESH)
       }
     }
     super.onStop()
@@ -149,4 +145,3 @@ internal var componentF = { contentView: RecyclerView,
 
 fun listActivityIntent(context: Context) = Intent(context, ListActivity::class.java)
 private const val KEY_QUERY = "KEY_QUERY"
-private const val KEY_REFRESH = "KEY_REFRESH"

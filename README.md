@@ -30,7 +30,12 @@ Finally, the app is built to follow general user expectations:
 comes back online (if the app is open).
 * Upon rotation (or overall configuration change) no network traffic occurs.
 * If content was fetched sometime in the past and the app is open while offline, the last version of
-the available content will be used until a newer one is available.
+the available content will be used until a newer one is available. 
+* Otherwise, contents are managed in the following manner:
+    * Memory cache is held for 30 minutes from write. After that, content requests will try to fetch
+    fresh data, but will fallback to the disk cache on failure (even if it was stale).
+    * Disk cache is held for one hour from write. After that, content requests will try to fetch 
+    fresh data, but will fallback to whatever there was on disk on failure (even if it was stale).    
 
 # Language choice
 I chose Kotlin over Java because:
