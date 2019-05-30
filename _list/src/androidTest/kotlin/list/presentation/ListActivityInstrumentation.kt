@@ -50,7 +50,7 @@ internal class ListActivityInstrumentation {
             .contentViewModule(ContentViewModule)
             .filterModule(FilterModule)
             .contentView(contentView)
-            .listActvityInstrumentationModule(ListActivityInstrumentationModule)
+            .listActuvityInstrumentationModule(ListActivityInstrumentationModule)
             .progressView(progressView)
             .errorView(errorView)
             .consumerModule(ConsumerModule)
@@ -112,7 +112,7 @@ internal interface ListActivityInstrumentationComponent : ListActivityComponent 
     fun listViewConfigModule(listViewConfigModule: ListViewConfigModule): Builder
     fun filterModule(filterModule: FilterModule): Builder
     fun consumerModule(consumerModule: ConsumerModule): Builder
-    fun listActvityInstrumentationModule(listActivityInstrumentationModule: ListActivityInstrumentationModule): Builder
+    fun listActuvityInstrumentationModule(listActivityInstrumentationModule: ListActivityInstrumentationModule): Builder
     @BindsInstance
     fun contentView(contentView: RecyclerView): Builder
 
