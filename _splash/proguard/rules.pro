@@ -1,5 +1,5 @@
 -optimizations !code/allocation/variable
-
+-dontpreverify
 -keep class android.support.v7.widget.SearchView { *; }
 
 # ------------------ Retrofit START --------------------- #
