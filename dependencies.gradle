@@ -59,7 +59,6 @@ ext {
       "com.google.dagger:dagger:$daggerVersion",
       "com.nytimes.android:store3:$storeVersion",
       "com.nytimes.android:store-kotlin3:$storeVersion",
-      "com.nytimes.android:store3:$storeVersion",
       "com.nytimes.android:middleware-moshi3:$storeVersion",
       "com.nytimes.android:filesystem3:$storeVersion",
       "com.squareup.moshi:moshi:$moshiVersion",
