@@ -4,13 +4,13 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
+import io.reactivex.Observable
 import list.NetworkClientModule
 import list.NetworkModule
 import list.ParserModule
 import list.SchedulerModule
 import list.domain.FunctionalityHolder
 import list.domain.FunctionalityHolderModule
-import list.domain.Observe
 import list.domain.Refresh
 import javax.inject.Inject
 
@@ -40,7 +40,7 @@ internal class InitializationContentProvider : ContentProvider() {
   @Inject
   lateinit var functionalityHolder: FunctionalityHolder
   @Inject
-  lateinit var observeImpl: Observe
+  lateinit var observeImpl: Observable<List<ListItem>>
   @Inject
   lateinit var refreshImpl: Refresh
 
