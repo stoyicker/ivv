@@ -28,7 +28,7 @@ final def supportVersion = '28.0.0'
 // application-as-root approach, are implemented via factory methods. During instrumented testing,
 // these methods are replaced by alternatives that return test components before launching the
 // target activity, achieving the same goal but this time respecting the architecture.
-final def testAccessorsVersions = '1.1.4'
+final def testAccessorsVersions = '1.1.5'
 final def moshiVersion = '1.8.0'
 final def rxJavaExtensionsVersion = '0.20.8'
 
