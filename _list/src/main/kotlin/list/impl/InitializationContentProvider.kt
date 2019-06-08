@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import io.reactivex.Observable
+import list.FileSystemModule
 import list.NetworkClientModule
 import list.NetworkModule
 import list.ParserModule
@@ -33,6 +34,7 @@ internal class InitializationContentProvider : ContentProvider() {
         .listApiModule(ListApiModule)
         .networkClientModule(NetworkClientModule)
         .networkModule(NetworkModule)
+        .filesystemModule(FileSystemModule)
         .parserModule(ParserModule)
         .schedulerModule(SchedulerModule)
         .build()

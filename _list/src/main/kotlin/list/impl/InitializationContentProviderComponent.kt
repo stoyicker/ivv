@@ -3,6 +3,7 @@ package list.impl
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import list.FileSystemModule
 import list.NetworkClientModule
 import list.NetworkModule
 import list.ParserModule
@@ -29,6 +30,7 @@ internal interface InitializationContentProviderComponent {
     fun listApiModule(listApiModule: ListApiModule): Builder
     fun networkClientModule(networkClientModule: NetworkClientModule): Builder
     fun networkModule(networkModule: NetworkModule): Builder
+    fun filesystemModule(filesystemModule: FileSystemModule): Builder
     fun parserModule(parserModule: ParserModule): Builder
     fun schedulerModule(schedulerModule: SchedulerModule): Builder
     fun build(): InitializationContentProviderComponent
