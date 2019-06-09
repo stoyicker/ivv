@@ -67,7 +67,5 @@ dependencies {
 kapt {
     arguments {
         arg('testaccessors.defaultSupportRestrictTo', 'TESTS')
-        // https://github.com/stoyicker/test-accessors/issues/105
-        arg('testaccessors.requiredPatternInClasspath', '.')
     }
 }
