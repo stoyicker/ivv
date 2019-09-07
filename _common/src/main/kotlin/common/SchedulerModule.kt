@@ -8,7 +8,7 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-object SchedulerModule {
+class SchedulerModule {
   @Provides
   @Singleton
   @Io

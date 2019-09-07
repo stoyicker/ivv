@@ -19,10 +19,9 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.reactivex.functions.Consumer
-import list.domain.IObserveCoordinator
-import list.domain.IRefreshCoordinator
+import list.domain.ObserveCoordinator
+import list.domain.RefreshCoordinator
 import list.impl.ListItem
-import list.presentation.ListActivityKtTestAccessors.componentF
 import org.jorge.test.list.R
 import org.junit.Rule
 import org.junit.Test
@@ -35,24 +34,20 @@ internal class ListActivityInstrumentation {
       ListActivity::class.java, false, false) {
     override fun beforeActivityLaunched() {
       super.beforeActivityLaunched()
-      componentF { contentView: RecyclerView,
+      ListActivityKtTestAccessors.componentF { contentView: RecyclerView,
                    progressView: View,
                    errorView: View,
                    guideView: View,
                    listener: ListViewInteractionListener,
                    searchView: SearchView ->
         DaggerListActivityInstrumentationComponent.builder()
-            .contentViewModule(ContentViewModule)
-            .filterModule(FilterModule)
             .contentView(contentView)
-            .listActivityInstrumentationModule(ListActivityInstrumentationModule)
             .progressView(progressView)
             .errorView(errorView)
-            .consumerModule(ConsumerModule)
             .guideView(guideView)
             .listViewInteractionListener(listener)
             .searchView(searchView)
-            .build() as ListActivityInstrumentationComponent
+            .build()
       }
     }
   }
@@ -60,7 +55,7 @@ internal class ListActivityInstrumentation {
   @Test
   fun activityIsShown() {
     every { MOCK_OBSERVE.run(any(), any()) } just Runs
-    every { MOCK_REFRESH.run() } just Runs
+    every { MOCK_REFRESH() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
     activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
     onView(withId(android.R.id.content)).check(matches(isCompletelyDisplayed()))
@@ -75,7 +70,7 @@ internal class ListActivityInstrumentation {
           id = 31917,
           name = "Pretty Little Liars")))
     }
-    every { MOCK_REFRESH.run() } just Runs
+    every { MOCK_REFRESH() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
     activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
     onView(withText("Pretty Little Liars")).check(matches(isCompletelyDisplayed()))
@@ -84,7 +79,7 @@ internal class ListActivityInstrumentation {
   @Test
   fun progressIsShown() {
     every { MOCK_OBSERVE.run(any(), any()) } just Runs
-    every { MOCK_REFRESH.run() } just Runs
+    every { MOCK_REFRESH() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
     activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
     onView(withId(R.id.progress)).check(matches(isCompletelyDisplayed()))
@@ -101,11 +96,10 @@ internal class ListActivityInstrumentation {
 internal interface ListActivityInstrumentationComponent : ListActivityComponent {
   @Component.Builder
   interface Builder {
-    fun contentViewModule(contentViewModule: ContentViewModule): Builder
     fun listViewConfigModule(listViewConfigModule: ListViewConfigModule): Builder
-    fun filterModule(filterModule: FilterModule): Builder
+
     fun consumerModule(consumerModule: ConsumerModule): Builder
-    fun listActivityInstrumentationModule(listActivityInstrumentationModule: ListActivityInstrumentationModule): Builder
+
     @BindsInstance
     fun contentView(contentView: RecyclerView): Builder
 
@@ -129,7 +123,7 @@ internal interface ListActivityInstrumentationComponent : ListActivityComponent 
 }
 
 @Module
-internal object ListActivityInstrumentationModule {
+internal class ListActivityInstrumentationModule {
   @Provides
   @Singleton
   fun observe() = MOCK_OBSERVE
@@ -139,5 +133,5 @@ internal object ListActivityInstrumentationModule {
   fun refresh() = MOCK_REFRESH
 }
 
-private val MOCK_OBSERVE = mockk<IObserveCoordinator>()
-private val MOCK_REFRESH = mockk<IRefreshCoordinator>()
+private val MOCK_OBSERVE = mockk<ObserveCoordinator>()
+private val MOCK_REFRESH = mockk<RefreshCoordinator>()

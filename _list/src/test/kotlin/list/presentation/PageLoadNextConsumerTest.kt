@@ -1,19 +1,18 @@
 package list.presentation
 
+import io.mockk.confirmVerified
 import io.mockk.mockk
 import io.mockk.verify
 import list.impl.ListItem
-import org.junit.Before
+import org.junit.After
 import org.junit.Test
 
 internal class PageLoadNextConsumerTest {
-  private val view = mockk<AdditiveLoadableContentView<ListItem>>(relaxUnitFun = true)
-  private lateinit var subject: PageLoadNextConsumer
+  private val view = mockk<ContentView>(relaxUnitFun = true)
+  private val subject = PageLoadNextConsumer(view)
 
-  @Before
-  fun setUp() {
-    subject = PageLoadNextConsumer(view)
-  }
+  @After
+  fun after() = confirmVerified(view)
 
   @Test
   fun accept() {
@@ -28,5 +27,6 @@ internal class PageLoadNextConsumerTest {
         hideErrorLayout()
       }
     }
+    confirmVerified(t)
   }
 }

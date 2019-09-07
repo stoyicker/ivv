@@ -7,7 +7,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-internal object ContentViewModule {
+internal class ContentViewModule {
   @Provides
   @Singleton
   fun contentView(recyclerView: RecyclerView,

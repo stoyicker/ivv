@@ -16,8 +16,9 @@ import list.impl.ListItem
  * @param itemView The view to dump the held data.
  * @param onItemClicked What to run when a click happens.
  */
-internal class ViewHolder internal constructor(
+internal class ViewHolder(
     itemView: View,
+    private val picasso: Picasso,
     private val onItemClicked: (ListItem) -> Unit)
   : RecyclerView.ViewHolder(itemView), Target {
 
@@ -80,7 +81,7 @@ internal class ViewHolder internal constructor(
         // TODO have the field be the whole string instead by combining the results of the call to
         //  getting the list and the config endpoint @ https://developers.themoviedb.org/3/configuration/get-api-configuration
         val fullLink = "https://image.tmdb.org/t/p/w780$thumbnailLink"
-        Picasso.get().load(fullLink).into(this@ViewHolder)
+        picasso.load(fullLink).into(this@ViewHolder)
       } else {
         itemView.thumbnail.run {
           visibility = View.GONE

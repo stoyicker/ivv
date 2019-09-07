@@ -1,12 +1,11 @@
 package list.impl
 
+import common.Io
+import common.SchedulerModule
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
 import io.reactivex.subjects.BehaviorSubject
-import common.Io
-import common.SchedulerModule
-import list.domain.Refresh
 import javax.inject.Singleton
 
 @Module(includes = [
@@ -18,6 +17,6 @@ internal object RefreshModule {
   @Singleton
   fun refresh(refreshSource: RefreshSource,
               @Io scheduler: Scheduler,
-              truthSource: BehaviorSubject<List<ListItem>>): Refresh  =
-      RefreshImpl(refreshSource, scheduler, truthSource)
+              truthSource: BehaviorSubject<List<ListItem>>) = Refresh(
+      refreshSource, scheduler, truthSource)
 }

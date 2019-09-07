@@ -6,7 +6,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module(includes = [ListViewConfigModule::class])
-internal object FilterModule {
+internal class FilterModule {
   @Provides
   @Singleton
   fun filterDelegate(searchView: SearchView,

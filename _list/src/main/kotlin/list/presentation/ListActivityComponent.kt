@@ -5,7 +5,6 @@ import android.support.v7.widget.SearchView
 import android.view.View
 import dagger.BindsInstance
 import dagger.Component
-import common.SchedulerModule
 import list.domain.DomainModule
 import list.domain.FunctionalityHolderModule
 import javax.inject.Qualifier
@@ -23,12 +22,7 @@ internal interface ListActivityComponent {
 
   @Component.Builder
   interface Builder {
-    fun contentViewModule(contentViewModule: ContentViewModule): Builder
-    fun filterModule(filterModule: FilterModule): Builder
     fun functionalityHolderModule(functionalityHolderModule: FunctionalityHolderModule): Builder
-    fun domainModule(domainModule: DomainModule): Builder
-    fun schedulerModule(schedulerModule: SchedulerModule): Builder
-    fun consumerModule(consumerModule: ConsumerModule): Builder
     @BindsInstance
     fun contentView(contentView: RecyclerView): Builder
     @BindsInstance
@@ -41,6 +35,7 @@ internal interface ListActivityComponent {
     fun listViewInteractionListener(listViewInteractionListener: ListViewInteractionListener): Builder
     @BindsInstance
     fun searchView(searchView: SearchView): Builder
+
     fun build(): ListActivityComponent
   }
 }

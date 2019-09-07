@@ -48,9 +48,8 @@ conflicting providers as the name of list.impl.InitializationContentProvider is 
 normal and test APKs.
 
 # Points of discussion
-* Mockk vs Mockito: Not too different from each other. Mockk is almost exclusively a Kotlin DSL for 
-wrapper Mockito, plus a couple of added 'niceties' such as taking advantage of Kotlin's reified 
-types to provide compile-time safe mocks of generic types.
+* Mockk vs Mockito: Not too different from each other. Mockk is mostly a Kotlin DSL for wrapper 
+Mockito.
 * Full-stack integration vs mocked-data instrumentation tests: The only instrumented tests in this 
 project are using mocked data to avoid false negatives - failures where the culprit is outside of 
 the app, such as for example server issues or network problems in a test where we need/assume that 
@@ -113,4 +112,7 @@ of introducing unused dependencies in the final APK (which would be lowered in a
 we'd use some minification tool such as ProGuard or R8, but still).
 * Make the name of list.impl.InitializationContentProvider change depending whether we're on a test
 or not so that instrumented tests can be run regardless of whether the app is installed or not.
+* There are anonymous classes and some static DI violations around the project. These will greatly 
+difficult testing and should be refactored into named classes/injected dependencies respectively to
+appropriately address the problems they create.
 * A couple of other TODOs left around.

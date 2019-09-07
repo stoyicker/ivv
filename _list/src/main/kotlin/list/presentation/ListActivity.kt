@@ -16,11 +16,9 @@ import kotlinx.android.synthetic.main.include_list_view.error
 import kotlinx.android.synthetic.main.include_list_view.progress
 import kotlinx.android.synthetic.main.include_list_view.scroll_guide
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
-import common.SchedulerModule
-import list.domain.DomainModule
 import list.domain.FunctionalityHolderModule
-import list.domain.IObserveCoordinator
-import list.domain.IRefreshCoordinator
+import list.domain.ObserveCoordinator
+import list.domain.RefreshCoordinator
 import list.impl.ListItem
 import org.jorge.test.list.R
 import testaccessors.RequiresAccessor
@@ -28,9 +26,9 @@ import javax.inject.Inject
 
 class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   @Inject
-  internal lateinit var observeCoordinator: IObserveCoordinator
+  internal lateinit var observeCoordinator: ObserveCoordinator
   @Inject
-  internal lateinit var refreshCoordinator: IRefreshCoordinator
+  internal lateinit var refreshCoordinator: RefreshCoordinator
   @Inject
   internal lateinit var contentView: ContentView
   @Inject
@@ -58,7 +56,7 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   private fun onInjected() {
     listViewConfig.on(contentView)
     observeCoordinator.run(pageLoadOnNext, pageLoadOnError)
-    refreshCoordinator.run()
+    refreshCoordinator()
     filterDelegate.apply {
       init(this@ListActivity)
       applyQuery(intent.getStringExtra(KEY_QUERY))
@@ -85,7 +83,8 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
         error,
         scroll_guide,
         this,
-        menu.findItem(R.id.search).actionView as SearchView).inject(this)
+        menu.findItem(R.id.search).actionView as SearchView)
+        .inject(this)
     onInjected()
     return true
   }
@@ -112,10 +111,9 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   override fun onPageLoadRequested() {
     contentView.apply {
       showLoadingLayout()
-      hideContentLayout()
       hideErrorLayout()
     }
-    refreshCoordinator.run()
+    refreshCoordinator()
   }
 }
 
@@ -128,15 +126,10 @@ internal var componentF = { contentView: RecyclerView,
                            listener: ListViewInteractionListener,
                            searchView: SearchView ->
   DaggerListActivityComponent.builder()
-      .contentViewModule(ContentViewModule)
-      .filterModule(FilterModule)
       .functionalityHolderModule(FunctionalityHolderModule)
-      .domainModule(DomainModule)
-      .schedulerModule(SchedulerModule)
       .contentView(contentView)
       .progressView(progressView)
       .errorView(errorView)
-      .consumerModule(ConsumerModule)
       .guideView(guideView)
       .listViewInteractionListener(listener)
       .searchView(searchView)

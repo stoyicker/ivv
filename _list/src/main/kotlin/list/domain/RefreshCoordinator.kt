@@ -1,12 +1,7 @@
 package list.domain
 
-internal object RefreshCoordinator : IRefreshCoordinator {
+internal object RefreshCoordinator : () -> Unit {
   private var nextPage = 1
 
-  override fun run() = FunctionalityHolder.refresh(nextPage++)
-}
-
-// For testing
-internal interface IRefreshCoordinator {
-  fun run()
+  override fun invoke() = FunctionalityHolder.refresh(nextPage++)
 }

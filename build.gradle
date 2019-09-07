@@ -25,7 +25,7 @@ rootProject.ext {
   androidTestInstrumentationRunner = 'android.support.test.runner.AndroidJUnitRunner'
   androidApplicationIdBase = 'org.jorge.test'
   staticAnalysisReportTarget = "$project.rootDir.absolutePath${File.separatorChar}staticAnalysisReport"
-  javaVersion = JavaVersion.VERSION_1_7
+  javaVersion = JavaVersion.VERSION_1_8
 }
 
 subprojects {

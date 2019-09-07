@@ -5,14 +5,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import io.reactivex.Observable
-import common.FileSystemModule
-import common.NetworkClientModule
-import common.NetworkModule
-import common.ParserModule
-import common.SchedulerModule
 import list.domain.FunctionalityHolder
 import list.domain.FunctionalityHolderModule
-import list.domain.Refresh
 import javax.inject.Inject
 
 /**
@@ -30,13 +24,7 @@ internal class InitializationContentProvider : ContentProvider() {
         .functionalityHolderModule(FunctionalityHolderModule)
         .observeModule(ObserveModule)
         .refreshModule(RefreshModule)
-        .apiKeyInterceptorModule(ApiKeyInterceptorModule)
         .listApiModule(ListApiModule)
-        .networkClientModule(NetworkClientModule)
-        .networkModule(NetworkModule)
-        .filesystemModule(FileSystemModule)
-        .parserModule(ParserModule)
-        .schedulerModule(SchedulerModule)
         .build()
   }
   @Inject
