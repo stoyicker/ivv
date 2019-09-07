@@ -15,7 +15,6 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import io.mockk.Runs
-import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -25,8 +24,6 @@ import list.domain.IRefreshCoordinator
 import list.impl.ListItem
 import list.presentation.ListActivityKtTestAccessors.componentF
 import org.jorge.test.list.R
-import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Singleton
@@ -34,18 +31,16 @@ import javax.inject.Singleton
 internal class ListActivityInstrumentation {
   @JvmField
   @Rule
-  val activityTestRule = ActivityTestRule<ListActivity>(ListActivity::class.java, false, false)
-
-  companion object {
-    @JvmStatic
-    @BeforeClass
-    fun beforeClass() {
+  val activityTestRule = object : ActivityTestRule<ListActivity>(
+      ListActivity::class.java, false, false) {
+    override fun beforeActivityLaunched() {
+      super.beforeActivityLaunched()
       componentF { contentView: RecyclerView,
-                     progressView: View,
-                     errorView: View,
-                     guideView: View,
-                     listener: ListViewInteractionListener,
-                     searchView: SearchView ->
+                   progressView: View,
+                   errorView: View,
+                   guideView: View,
+                   listener: ListViewInteractionListener,
+                   searchView: SearchView ->
         DaggerListActivityInstrumentationComponent.builder()
             .contentViewModule(ContentViewModule)
             .filterModule(FilterModule)
@@ -61,9 +56,6 @@ internal class ListActivityInstrumentation {
       }
     }
   }
-
-  @Before
-  fun before() = clearMocks(MOCK_OBSERVE, MOCK_REFRESH)
 
   @Test
   fun activityIsShown() {
