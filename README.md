@@ -50,6 +50,18 @@ normal and test APKs.
 # Points of discussion
 * Mockk vs Mockito: Not too different from each other. Mockk is mostly a Kotlin DSL for wrapper 
 Mockito.
+* Why no AAC? First, I think AAC are too constraining. Everything works very well as long as you use
+the whole suite, but the use cases it is capable of filling in are very limited, and even a simple
+infinite scrolling list takes a ridiculously large amount of code to implement, plus other minor 
+issues such as static factories that repeatedly require being wrapped for testability. But most 
+importantly, AAC is built around [implicit lifecycle awareness](https://developer.android.com/reference/androidx/lifecycle/LifecycleOwner.html)
+via the use of hidden hook Fragments. In my opinion this is a negative trade-off, managing the
+Activity lifecycle manually is not complicated and more often than not there are going to be 
+conditions where a component that would otherwise be managed automatically needs to be manipulated 
+manually, in which case if we're using AAC we're taking the Fragment pretty much for free. Moreover,
+over the years the complexity (let alone the bugs) in the Fragment lifecycle has caused problems 
+left and right and introducing it so that in exchange you can lift a slight bit of complexity from 
+somewhere else seems counter-intuitive to me.
 * Full-stack integration vs mocked-data instrumentation tests: The only instrumented tests in this 
 project are using mocked data to avoid false negatives - failures where the culprit is outside of 
 the app, such as for example server issues or network problems in a test where we need/assume that 
