@@ -18,6 +18,9 @@ features:
 and which is observed by the UI, that adapts to each change in the source of truth. This allows 
 for a highly scalable development with very low coupling which favors not only maintainability, 
 but also popular practises such as flavoring, features toggles and dynamic delivery.
+The feature module is split in the 3 classic Clean Architecture layers clearly represented in the 
+package structure. The 'data' (impl) layer is initialized by using a content provider for increased
+independence.
 
 These are mapped 1-to-1 to modules, and then there's also the `_common` module, which only contains
 some shared resources.
