@@ -22,8 +22,7 @@ The feature module is split in the 3 classic Clean Architecture layers clearly r
 package structure. The 'data' (impl) layer is initialized by using a content provider for increased
 independence.
 
-These are mapped 1-to-1 to modules, and then there's also the `_common` module, which only contains
-some shared resources.
+Each of these features is represented by a module, and then there's also the `_common` module, which contains some shared items.
 
 Finally, the app is built to follow general user expectations: 
 * If started offline or a connection is lost, content will be immediately fetched after the user 
@@ -112,7 +111,7 @@ off). Read more about it in `dependencies.gradle`.
 # Potential improvements
 * CI: Run instrumented and monkey tests. Automated deployments.
 * Refining infrastructure; there's a bit of duplication as things are now. The current setup helps 
-Gradle when building its dependency graph by avoiding things such as `_allProjects`, but it hurts 
+Gradle when building its dependency graph by avoiding things such as `allProjects`, but it hurts 
 maintainability slightly in exchange. Also there is the possibility to drop Groovy for Kotlin. I am 
 not sure I would do it on a production app because I think it's still [a little problematic](https://youtrack.jetbrains.com/issues?q=-Resolved%20build.gradle.kts%20sort%20by:%20Priority%20asc) 
 (particularly serious examples could be [this one](https://youtrack.jetbrains.com/issue/KT-11978) 
