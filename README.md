@@ -4,20 +4,20 @@
 * `./gradlew :_splash:assemble` (or Windows equivalent). Find the apk in 
 `_splash/build/outputs/apk/debug/_splash-debug.apk`.
 
-You can also download the APK already built [here](https://github.com/stoyicker/ivv/releases/download/0/_splash-debug.apk).
+You can also download the APK already built [here](https://github.com/stoyicker/ivv/releases/latest).
 
 # Architecture
-This app is split follows a 'feature' split, with two features (not really, one of them is just the
-app entry point):
+This app follows a 'feature'-based split, with two features (not really, one of them is just the
+app entry point, so it would have to go into any combination of features):
 * `_splash`, for the splash screen.
 * `_list`, for the item list.
 
 `_splash` hardly has any code, not much architecture to see here.
 
-`_list` is built upon a Redux-like architecture, where the UI reacts to a source
-of truth which is updated by UI actions. This allows for a highly scalable development with very low
-coupling which favors not only maintainability, but also popular practises such as flavoring, 
-features toggles and dynamic delivery.
+`_list` is around a source of truth which is updated by actions triggered for example by the user
+and which is observed by the UI, that adapts to each change in the source of truth. This allows 
+for a highly scalable development with very low coupling which favors not only maintainability, 
+but also popular practises such as flavoring, features toggles and dynamic delivery.
 
 As a trade-off, due to Dagger limitations when it comes to cross-module dependencies, there would be
 a little bit of code duplication if we were to scale straight-up from this (the schedulers and 
@@ -37,13 +37,6 @@ the available content will be used until a newer one is available.
     * Disk cache is held for one hour from write. After that, content requests will try to fetch 
     fresh data, but will fallback to whatever there was on disk on failure (even if it was stale).    
 
-# Language choice
-I chose Kotlin over Java because:
-* It is less verbose than Java.
-* It is more natural both to read and write, and is easy to approach for Java developers as well.
-* It can be configured to generate up to Java 6 bytecode, which means its evolution is independent of that of the platform.
-* It is [officially supported by Google as a first-class language for Android](https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/).
-
 # Documentation
 Documentation is generated using [Dokka](https://github.com/Kotlin/dokka), which is the
 code documentation generation tool for Kotlin, similar to what Javadoc is for Java.
@@ -53,14 +46,6 @@ code documentation generation tool for Kotlin, similar to what Javadoc is for Ja
 # Tests
 Several types of tests are written using JUnit and Espresso. Feel free to run them using the 
 different `test` and `cAT` Gradle tasks in each module.
-
-# Setup for contributions
-Once cloned, just setup the hooks:
-```shell
-$<project-dir>: ./hooks/setup
-```
-If you face any issues with execution of the hook, push from a bash prompt. Also, the hook needs a 
-connected device to run instrumentation tests and monkey on.
 
 # Potential improvements
 * Running instrumented and monkey tests on CI. Also there's some room for optimization in the CI 
@@ -74,5 +59,5 @@ enough).
 screen buckets and memory overhead to upscale the resource in device in higher resolution buckets 
 (plus, in some cases, visual artifacts).
 * Pull-to-refresh.
-* Crash reporting!
+* Crash reporting.
 * Some other TODOs left around.
