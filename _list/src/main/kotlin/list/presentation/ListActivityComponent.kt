@@ -23,14 +23,19 @@ internal interface ListActivityComponent {
   interface Builder {
     @BindsInstance
     fun contentView(contentView: RecyclerView): Builder
+
     @BindsInstance
     fun progressView(@Progress progressView: View): Builder
+
     @BindsInstance
     fun errorView(@Error errorView: View): Builder
+
     @BindsInstance
     fun guideView(@Guide guideView: View): Builder
+
     @BindsInstance
     fun listViewInteractionListener(listViewInteractionListener: ListViewInteractionListener): Builder
+
     @BindsInstance
     fun searchView(searchView: SearchView): Builder
 
