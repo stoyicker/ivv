@@ -4,12 +4,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 internal class ContentViewModule {
   @Provides
-  @Singleton
+  @ListActivityScope
   fun contentView(recyclerView: RecyclerView,
                   @Error
                   errorView: View,

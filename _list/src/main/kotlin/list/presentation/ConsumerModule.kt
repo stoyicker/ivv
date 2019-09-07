@@ -2,15 +2,14 @@ package list.presentation
 
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 internal class ConsumerModule {
   @Provides
-  @Singleton
+  @ListActivityScope
   fun onNext(view: ContentView) = PageLoadNextConsumer(view)
 
   @Provides
-  @Singleton
+  @ListActivityScope
   fun onError(view: ContentView) = PageLoadErrorConsumer(view)
 }

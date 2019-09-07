@@ -19,7 +19,7 @@ import org.jorge.test.list.R
 internal class Adapter(
     private val picasso: Picasso,
     private val callback: ListViewInteractionListener)
-// TODO Make this a ListAdapter instead to get partial updates for free
+// TODO Make this a ListAdapter instead to getComponentSync partial updates for free
 // https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter
   : RecyclerView.Adapter<ViewHolder>(), Filterable {
   private var items = listOf<ListItem>()

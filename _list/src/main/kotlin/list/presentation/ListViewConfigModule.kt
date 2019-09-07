@@ -1,15 +1,13 @@
 package list.presentation
 
 import com.squareup.picasso.Picasso
-import common.PicassoModule
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
-@Module(includes = [PicassoModule::class])
+@Module
 internal class ListViewConfigModule {
   @Provides
-  @Singleton
+  @ListActivityScope
   fun listViewConfig(
       picasso: Picasso,
       listener: ListViewInteractionListener) = ListViewConfig(picasso, listener)

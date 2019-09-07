@@ -2,7 +2,7 @@ package list.impl
 
 import com.squareup.moshi.Json
 
-internal class RefreshResponse private constructor(
+class RefreshResponse private constructor(
     @field:Json(name = "page")
   val page: Int?,
     @field:Json(name = "results")

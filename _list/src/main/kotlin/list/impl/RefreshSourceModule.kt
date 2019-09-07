@@ -11,35 +11,32 @@ import com.nytimes.android.external.store3.base.impl.StalePolicy
 import com.nytimes.android.external.store3.base.impl.Store
 import com.nytimes.android.external.store3.middleware.moshi.MoshiParserFactory
 import com.squareup.moshi.Moshi
-import common.FileSystemModule
-import common.ParserModule
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import okio.BufferedSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
-import javax.inject.Singleton
 
-@Module(includes = [ParserModule::class, ListApiModule::class, FileSystemModule::class])
+@Module(includes = [ListApiModule::class])
 internal class RefreshSourceModule {
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   @Local
-  fun fetcher(api: ListApi) = ListFetcher(api)
+  internal fun fetcher(api: ListApi) = ListFetcher(api)
 
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   @Local
-  fun parsers(moshiBuilder: Moshi.Builder): List<Parser<BufferedSource, RefreshResponse>> =
+  internal fun parsers(moshiBuilder: Moshi.Builder): List<Parser<BufferedSource, RefreshResponse>> =
       listOf(MoshiParserFactory.createSourceParser<RefreshResponse>(
           moshiBuilder.build(),
           RefreshResponse::class.java))
 
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   @Local
-  fun filesystemRecordPersister(fileSystem: FileSystem)
+  internal fun filesystemRecordPersister(fileSystem: FileSystem)
       : Persister<BufferedSource, Int> = FileSystemRecordPersister.create(
       fileSystem,
       { it.toString() },
@@ -47,22 +44,22 @@ internal class RefreshSourceModule {
       TimeUnit.HOURS)
 
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   @Local
-  fun memPolicy() = FluentMemoryPolicyBuilder.build {
+  internal fun memPolicy() = FluentMemoryPolicyBuilder.build {
     expireAfterWrite = 30
     expireAfterTimeUnit = TimeUnit.MINUTES
   }
 
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   @Local
-  fun stalePolicy() = StalePolicy.NETWORK_BEFORE_STALE
+  internal fun stalePolicy() = StalePolicy.NETWORK_BEFORE_STALE
 
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   @Local
-  fun store(
+  internal fun store(
       @Local
       fetcher: ListFetcher,
       @Local
@@ -82,8 +79,8 @@ internal class RefreshSourceModule {
       }
 
   @Provides
-  @Singleton
-  fun source(@Local store: Lazy<Store<RefreshResponse, Int>>) = RefreshSource(store)
+  @InitializationContentProviderScope
+  internal fun source(@Local store: Lazy<Store<RefreshResponse, Int>>) = RefreshSource(store)
 
   @Qualifier
   @Retention(AnnotationRetention.RUNTIME)

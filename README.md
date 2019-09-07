@@ -44,9 +44,9 @@ code documentation generation tool for Kotlin, similar to what Javadoc is for Ja
 `module_name/build/dokka/module_name/index.html`.
 
 # Tests
-White-box JVM-based unit tests are written using JUnit and instrumented ones using Espresso. 
-Feel free to run them using the different `test` and `cAT` Gradle tasks. Note that to be able to run
-cAT the application must not be installed on the device already or there will be an issue with 
+White-box JVM-based unit tests are written using JUnit and instrumented black-box ones using 
+Espresso. Feel free to run them using the different `test` and `cAT` Gradle tasks. Note that to be 
+able to run cAT the application must not be installed on the device already or there will be an issue with 
 conflicting providers as the name of list.impl.InitializationContentProvider is the same in the 
 normal and test APKs.
 Also note that for the JVM tests, although the requirements mentioned 'Complete coverage of clean 
@@ -134,4 +134,7 @@ or not so that instrumented tests can be run regardless of whether the app is in
 * There are anonymous classes and some static DI violations around the project. These will greatly 
 difficult testing and should be refactored into named classes/injected dependencies respectively to
 appropriately address the problems they create.
+* Static @Provides methods for dependencies that do not need instance information: See [this link](
+https://stackoverflow.com/questions/38607503/static-provide-method-in-dagger2) for more detail. 
+Basically just a tiny bit of theoretical performance gain.
 * A couple of other TODOs left around.

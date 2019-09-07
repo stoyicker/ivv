@@ -1,4 +1,4 @@
-final def daggerVersion = '2.22.1'
+final def daggerVersion = '2.24'
 final def espressoVersion = '3.0.2'
 final def testRulesVersion = '1.0.2'
 final def jsr250Version = '1.0'

@@ -2,20 +2,19 @@ package list.domain
 
 import common.Io
 import common.MainThread
-import common.SchedulerModule
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
-import javax.inject.Singleton
+import list.presentation.ListActivityScope
 
-@Module(includes = [FunctionalityHolderModule::class, SchedulerModule::class])
+@Module
 internal class DomainModule {
   @Provides
-  @Singleton
+  @ListActivityScope
   fun refresh() = RefreshCoordinator()
 
   @Provides
-  @Singleton
+  @ListActivityScope
   fun observe(functionalityHolder: FunctionalityHolder,
               @Io ioScheduler: Scheduler,
               @MainThread mainThreadScheduler: Scheduler) = ObserveCoordinator(

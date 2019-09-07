@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="org.jorge.test.splash">
-    <application
-        android:name="splash.DebugApplication"
-        tools:ignore="AllowBackup" />
-        <!-- The main manifest takes care of AllowBackup -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="org.jorge.test.splash">
+
+  <application
+    android:name="splash.MyApplication"
+    tools:ignore="AllowBackup" />
+  <!-- The main manifest takes care of AllowBackup -->
 </manifest>
