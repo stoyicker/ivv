@@ -45,5 +45,4 @@ internal class SplashActivity : AppCompatActivity() {
   }
 }
 
-@RequiresAccessor(requires = [RequiresAccessor.AccessorType.TYPE_GETTER])
 private const val SHOW_TIME_MILLIS = 1000L

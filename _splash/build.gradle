@@ -8,7 +8,7 @@ android {
     compileSdkVersion rootProject.ext.androidCompileSdkVersion
     buildToolsVersion rootProject.ext.androidBuildToolsVersion
     defaultConfig {
-        applicationId "org.jorge.test"
+        applicationId 'org.jorge.test'
         versionCode rootProject.ext.androidVersionCode
         versionName rootProject.ext.androidVersionName
         minSdkVersion rootProject.ext.androidMinSdkVersion
@@ -61,10 +61,4 @@ dependencies {
     kapt rootProject.ext.kaptDependencies
     testImplementation rootProject.ext.testImplementationDependencies
     androidTestImplementation rootProject.ext.androidTestImplementationDependencies
-}
-
-kapt {
-    arguments {
-        arg('testaccessors.defaultSupportRestrictTo', 'TESTS')
-    }
 }

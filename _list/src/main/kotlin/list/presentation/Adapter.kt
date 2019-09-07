@@ -16,7 +16,7 @@ import org.jorge.test.list.R
  * support merge layouts would make diverse screen support more complicated.
  */
 internal class Adapter(private val callback: ListViewInteractionListener)
-// TODO Make this a ListAdapter instead to get partial updates for free and reduce verbosity
+// TODO Make this a ListAdapter instead to get partial updates for free
 // https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter
   : RecyclerView.Adapter<ViewHolder>(), Filterable {
   private var items = listOf<ListItem>()

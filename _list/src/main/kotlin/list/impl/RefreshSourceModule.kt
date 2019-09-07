@@ -28,15 +28,15 @@ internal class RefreshSourceModule {
 
   @Provides
   @Singleton
-  fun parsers(moshiBuilder: Moshi.Builder): List<Parser<BufferedSource, RefreshResponse>> = mutableListOf(MoshiParserFactory
-      .createSourceParser<RefreshResponse>(
+  fun parsers(moshiBuilder: Moshi.Builder): List<Parser<BufferedSource, RefreshResponse>> =
+      listOf(MoshiParserFactory.createSourceParser<RefreshResponse>(
           moshiBuilder.build(),
           RefreshResponse::class.java))
 
   @Provides
   @Singleton
   fun filesystemRecordPersister(fileSystem: FileSystem)
-      : Persister<BufferedSource, RefreshRequestParameters> = FileSystemRecordPersister.create(
+      : Persister<BufferedSource, Int> = FileSystemRecordPersister.create(
       fileSystem,
       { it.toString() },
       1,
@@ -58,10 +58,10 @@ internal class RefreshSourceModule {
   fun store(
       fetcher: ListFetcher,
       parserList: MutableList<Parser<BufferedSource, RefreshResponse>>,
-      recordPersister: Persister<BufferedSource, RefreshRequestParameters>,
+      recordPersister: Persister<BufferedSource, Int>,
       memPolicy: MemoryPolicy,
       stPolicy: StalePolicy) =
-      FluentStoreBuilder.parsedWithKey<RefreshRequestParameters, BufferedSource, RefreshResponse>(
+      FluentStoreBuilder.parsedWithKey<Int, BufferedSource, RefreshResponse>(
           fetcher) {
         parsers = parserList
         persister = recordPersister
@@ -71,6 +71,5 @@ internal class RefreshSourceModule {
 
   @Provides
   @Singleton
-  fun source(store: Lazy<Store<RefreshResponse, RefreshRequestParameters>>) =
-      RefreshSource(store)
+  fun source(store: Lazy<Store<RefreshResponse, Int>>) = RefreshSource(store)
 }
