@@ -6,7 +6,6 @@ import android.content.Context
 import android.net.Uri
 import io.reactivex.Observable
 import list.domain.FunctionalityHolder
-import list.domain.FunctionalityHolderModule
 import javax.inject.Inject
 
 /**
@@ -21,10 +20,6 @@ internal class InitializationContentProvider : ContentProvider() {
   private val componentF: (Context) -> InitializationContentProviderComponent = {
     DaggerInitializationContentProviderComponent.builder()
         .context(it)
-        .functionalityHolderModule(FunctionalityHolderModule)
-        .observeModule(ObserveModule)
-        .refreshModule(RefreshModule)
-        .listApiModule(ListApiModule)
         .build()
   }
   @Inject

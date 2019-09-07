@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module(includes = [
   NetworkClientModule::class, ApiKeyInterceptorModule::class, NetworkModule::class])
-internal object ListApiModule {
+internal class ListApiModule {
   @Provides
   @Singleton
   fun client(

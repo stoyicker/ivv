@@ -126,7 +126,6 @@ internal var componentF = { contentView: RecyclerView,
                            listener: ListViewInteractionListener,
                            searchView: SearchView ->
   DaggerListActivityComponent.builder()
-      .functionalityHolderModule(FunctionalityHolderModule)
       .contentView(contentView)
       .progressView(progressView)
       .errorView(errorView)

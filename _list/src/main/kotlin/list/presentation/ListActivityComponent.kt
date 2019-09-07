@@ -6,7 +6,6 @@ import android.view.View
 import dagger.BindsInstance
 import dagger.Component
 import list.domain.DomainModule
-import list.domain.FunctionalityHolderModule
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -22,7 +21,6 @@ internal interface ListActivityComponent {
 
   @Component.Builder
   interface Builder {
-    fun functionalityHolderModule(functionalityHolderModule: FunctionalityHolderModule): Builder
     @BindsInstance
     fun contentView(contentView: RecyclerView): Builder
     @BindsInstance
