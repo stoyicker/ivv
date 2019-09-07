@@ -2,13 +2,11 @@ package list.presentation
 
 import io.reactivex.functions.Consumer
 
-internal class PageLoadErrorConsumer(private val view: AdditiveLoadableContentView<*>)
+internal class PageLoadErrorConsumer(private val view: ContentView)
   : Consumer<Throwable> {
-  override fun accept(t: Throwable) {
-    view.apply {
-      showErrorLayout()
-      hideLoadingLayout()
-      hideContentLayout()
-    }
-  }
+  override fun accept(t: Throwable) =
+      view.run {
+        showErrorLayout()
+        hideLoadingLayout()
+      }
 }

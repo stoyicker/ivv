@@ -20,14 +20,9 @@ android {
             }
         }
     }
-    buildTypes {
-        debug {
-            buildConfigField "String", "API_KEY", rootProject.properties['api.key']
-        }
-    }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility rootProject.ext.javaVersion
+        targetCompatibility rootProject.ext.javaVersion
     }
     dexOptions {
         preDexLibraries false

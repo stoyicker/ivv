@@ -1,13 +1,13 @@
 package common
 
-import com.squareup.moshi.Moshi
+import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ParserModule {
+class PicassoModule {
   @Provides
   @Singleton
-  fun moshiBuilder() = Moshi.Builder()
+  fun picasso() = Picasso.get()
 }

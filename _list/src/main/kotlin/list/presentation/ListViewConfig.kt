@@ -1,12 +1,15 @@
 package list.presentation
 
 import android.support.v7.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 /**
  * Configuration for the recycler view holding the post list.
  */
-internal class ListViewConfig(private val callback: ListViewInteractionListener) {
-  private val myAdapter = Adapter(callback).apply { setHasStableIds(true) }
+internal class ListViewConfig(
+    picasso: Picasso,
+    private val callback: ListViewInteractionListener) {
+  private val myAdapter = Adapter(picasso, callback).apply { setHasStableIds(true) }
 
   fun on(contentView: ContentView) =
     contentView.run {

@@ -4,12 +4,11 @@ import io.reactivex.Scheduler
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.BehaviorSubject
-import list.domain.Refresh
 
-internal class RefreshImpl(
+internal class Refresh(
     private val refreshSource: RefreshSource,
     private val scheduler: Scheduler,
-    private val truthSource: BehaviorSubject<List<ListItem>>) : Refresh {
+    private val truthSource: BehaviorSubject<List<ListItem>>) : (Int) -> Unit {
   override fun invoke(page: Int) {
     refreshSource(page)
         .retry()

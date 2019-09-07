@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import com.squareup.picasso.Picasso
 import list.impl.ListItem
 import org.jorge.test.list.R
 
@@ -15,7 +16,9 @@ import org.jorge.test.list.R
  * An alternative would have been to use the databinding library, but the fact that it does not
  * support merge layouts would make diverse screen support more complicated.
  */
-internal class Adapter(private val callback: ListViewInteractionListener)
+internal class Adapter(
+    private val picasso: Picasso,
+    private val callback: ListViewInteractionListener)
 // TODO Make this a ListAdapter instead to get partial updates for free
 // https://developer.android.com/reference/android/support/v7/recyclerview/extensions/ListAdapter
   : RecyclerView.Adapter<ViewHolder>(), Filterable {
@@ -28,8 +31,10 @@ internal class Adapter(private val callback: ListViewInteractionListener)
     recyclerView = target
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(LayoutInflater.from(parent.context).inflate(
-      R.layout.item, parent, false)) { callback.onItemClicked(it) }
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(
+      LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false), picasso) {
+    callback.onItemClicked(it)
+  }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) =
       holder.render(shownItems[position])

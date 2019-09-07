@@ -5,7 +5,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-internal object ConsumerModule {
+internal class ConsumerModule {
   @Provides
   @Singleton
   fun onNext(view: ContentView) = PageLoadNextConsumer(view)

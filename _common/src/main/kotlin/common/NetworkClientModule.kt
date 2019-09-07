@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-object NetworkClientModule {
+class NetworkClientModule {
   @Provides
   @Singleton
   fun client(): OkHttpClient.Builder = OkHttpClient.Builder()
