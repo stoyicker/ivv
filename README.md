@@ -48,21 +48,24 @@ code documentation generation tool for Kotlin, similar to what Javadoc is for Ja
 
 # Tests
 White-box JVM-based unit tests are written using JUnit and instrumented ones using Espresso. 
-Feel free to run them using the different `test` and `cAT` Gradle tasks in each module.
+Feel free to run them using the different `test` and `cAT` Gradle tasks. Note that to be able to run
+cAT the application must not be installed on the device already or there will be an issue with 
+conflicting providers as the name of list.impl.InitializationContentProvider is the same in the 
+normal and test APKs.
 
 # Points of discussion
 * Mockk vs Mockito: Not too different from each other. Mockk is almost exclusively a Kotlin DSL for 
 wrapper Mockito, plus a couple of added 'niceties' such as taking advantage of Kotlin's reified 
 types to provide compile-time safe mocks of generic types.
 * Full-stack integration vs mocked-data instrumentation tests: The only instrumented tests in this 
-project (let's leave the ones in `_splash` out, they are too simple) are using mocked data to avoid 
-false negatives - failures where the culprit is outside of the app, such as for example server 
-issues or network problems in a test where we need/assume that these work fine). These are good 
-tests, but I also think that tests that rely on the actual situation also provide useful information
-when the entire stack is part of the product, as they can help identify situations that are still 
-relevant to the product, such as breaking changes to the contract between server and clients. It's 
-also important to mention however that they should not be relied on to test the client itself as, 
-like mentioned before, can fail due to circumstances independent of the correctness of the app.
+project are using mocked data to avoid false negatives - failures where the culprit is outside of 
+the app, such as for example server issues or network problems in a test where we need/assume that 
+these work fine). These are good tests, but I also think that tests that rely on the actual 
+situation also provide useful information when the entire stack is part of the product, as they can 
+help identify situations that are still relevant to the product, such as breaking changes to the 
+contract between server and clients. It's also important to mention however that they should not be 
+relied on to test the client itself as, like mentioned before, can fail due to circumstances 
+independent of the correctness of the app.
 In this case there are no tests of this kind as I've chosen to focus on other things, but it may
 have been a good idea to have a couple if only to verify that the endpoint is correct, for example.
 * White- vs black-box JVM tests: As you can see the only JVM tests I've written are white-box. This
@@ -107,4 +110,6 @@ cause crashes in devices in lower resolution screen buckets and memory overhead 
 resource in device in higher resolution buckets (plus, in some cases, visual artifacts).
 * Pull-to-refresh.
 * Crash reporting.
+* Make the name of list.impl.InitializationContentProvider change depending whether we're on a test
+or not so that instrumented tests can be run regardless of whether the app is installed or not.
 * A couple of other TODOs left around.
