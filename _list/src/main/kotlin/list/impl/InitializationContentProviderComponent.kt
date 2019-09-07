@@ -21,11 +21,7 @@ internal interface InitializationContentProviderComponent {
 
     fun functionalityHolderModule(functionalityHolderModule: FunctionalityHolderModule): Builder
 
-    fun observeModule(observeModule: ObserveModule): Builder
-
     fun refreshModule(refreshModule: RefreshModule): Builder
-
-    fun listApiModule(listApiModule: ListApiModule): Builder
 
     fun build(): InitializationContentProviderComponent
   }

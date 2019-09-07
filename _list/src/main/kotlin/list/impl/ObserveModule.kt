@@ -7,7 +7,7 @@ import io.reactivex.subjects.BehaviorSubject
 import javax.inject.Singleton
 
 @Module
-internal object ObserveModule {
+internal class ObserveModule {
   @Provides
   @Singleton
   fun pages() = BehaviorSubject.create<List<ListItem>>()

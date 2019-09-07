@@ -12,7 +12,7 @@ import javax.inject.Singleton
 internal class DomainModule {
   @Provides
   @Singleton
-  fun refresh() = RefreshCoordinator
+  fun refresh() = RefreshCoordinator()
 
   @Provides
   @Singleton

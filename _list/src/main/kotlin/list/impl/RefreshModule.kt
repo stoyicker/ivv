@@ -12,7 +12,7 @@ import javax.inject.Singleton
   RefreshSourceModule::class,
   SchedulerModule::class,
   ObserveModule::class])
-internal object RefreshModule {
+internal class RefreshModule {
   @Provides
   @Singleton
   fun refresh(refreshSource: RefreshSource,

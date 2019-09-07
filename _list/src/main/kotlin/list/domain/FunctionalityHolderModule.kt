@@ -5,7 +5,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-internal object FunctionalityHolderModule {
+internal class FunctionalityHolderModule {
   @Provides
   @Singleton
   fun functionalityHolder() = FunctionalityHolder
