@@ -13,16 +13,17 @@ final def rxJavaVersion = '2.2.8'
 // I wrote their Kotlin DSL artifacts so I thought I might as well show off a bit!
 final def storeVersion = '3.1.1'
 final def supportVersion = '28.0.0'
-// test-accessors is a couple of annotation processors I wrote that generate code to access
-// fields from tests that would be otherwise inaccessible. Think of it as a safer version of
-// @VisibleForTesting
+// test-accessors are a couple of annotation processors I wrote that generate code to access
+// fields from tests that would be otherwise inaccessible by generating code that can only be used
+// from the tests. Think of it as a safer version of @VisibleForTesting. Check it out
+// at https://github.com/stoyicker/test-accessors
 // In _splash, these are used to access a private field from tests, and in other modules to inject
 // factories for the Dagger components. In a more traditional project you may have seen the
 // application class be used as a DI root for the entire app and then in instrumented tests replace
 // the runner with one which invokes a test-specific application instance that replaces production
 // components with the desired replacements for testing. This approach is not appropriate for this
 // project as it would require that every module leaks the boundary of its dependency graph to
-// _splash, which is where the application class lives, killing one of the pros of this1
+// _splash, which is where the application class lives, killing one of the pros of this
 // architectural approach: feature independence. To avoid this, instead of using the application as
 // DI root, each module has its own DI root(s), which live in activities, and just like in the
 // application-as-root approach, are implemented via factory methods. During instrumented testing,
