@@ -4,15 +4,14 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import javax.inject.Singleton
 
 @Module
 internal class ObserveModule {
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   fun pages() = BehaviorSubject.create<List<ListItem>>()
 
   @Provides
-  @Singleton
+  @InitializationContentProviderScope
   fun observe(impl: BehaviorSubject<List<ListItem>>): Observable<List<ListItem>> = impl
 }

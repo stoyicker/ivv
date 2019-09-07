@@ -14,11 +14,6 @@ android {
         minSdkVersion rootProject.ext.androidMinSdkVersion
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments << ["dagger.gradle.incremental": "true"]
-            }
-        }
     }
     compileOptions {
         sourceCompatibility rootProject.ext.javaVersion

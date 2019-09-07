@@ -2,9 +2,9 @@ package list.impl
 
 import android.content.ContentProvider
 import android.content.ContentValues
-import android.content.Context
 import android.net.Uri
 import io.reactivex.Observable
+import list.RootListComponentHolder
 import list.domain.FunctionalityHolder
 import javax.inject.Inject
 
@@ -16,10 +16,10 @@ import javax.inject.Inject
  * The Firebase Blog: How does Firebase initialize on Android</a>
  */
 internal class InitializationContentProvider : ContentProvider() {
-  // DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
-  private val componentF: (Context) -> InitializationContentProviderComponent = {
-    DaggerInitializationContentProviderComponent.builder()
-        .context(it)
+  // DI root for this layer in the module. See dependencies.gradle for a more detailed explanation
+  private val componentF: () -> InitializationContentProviderComponent = {
+    RootListComponentHolder.rootListComponent.initializationContentProviderComponent()
+        .refreshModule(RefreshModule())
         .build()
   }
   @Inject
@@ -35,7 +35,8 @@ internal class InitializationContentProvider : ContentProvider() {
    * implementations.
    */
   override fun onCreate() = true.also {
-    componentF(context!!).inject(this)
+    RootListComponentHolder.init(context!!) // This would normally be done from the application, but the CP is called first
+    componentF().inject(this)
     functionalityHolder.apply {
       observe = observeImpl
       refresh = refreshImpl

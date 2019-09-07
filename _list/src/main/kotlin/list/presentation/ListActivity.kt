@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.include_list_view.error
 import kotlinx.android.synthetic.main.include_list_view.progress
 import kotlinx.android.synthetic.main.include_list_view.scroll_guide
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
-import list.domain.FunctionalityHolderModule
+import list.RootListComponentHolder
 import list.domain.ObserveCoordinator
 import list.domain.RefreshCoordinator
 import list.impl.ListItem
@@ -24,7 +24,7 @@ import org.jorge.test.list.R
 import testaccessors.RequiresAccessor
 import javax.inject.Inject
 
-class ListActivity : AppCompatActivity(), ListViewInteractionListener {
+internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   @Inject
   internal lateinit var observeCoordinator: ObserveCoordinator
   @Inject
@@ -65,7 +65,7 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
 
   /**
    * This gets called before a configuration change happens, so we use it to prevent leaking
-   * the observable in the use case. It does not get called when the process finishes abnormally,
+   * the observable in the use case. It does not getComponentSync called when the process finishes abnormally,
    * bun in that case there is no leak to worry about.
    */
   override fun onDestroy() {
@@ -120,12 +120,12 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
 // DI root for this layer in the module. See dependencies.gradle for a more detailed explanation
 @RequiresAccessor
 internal var componentF = { contentView: RecyclerView,
-                           progressView: View,
-                           errorView: View,
-                           guideView: View,
-                           listener: ListViewInteractionListener,
-                           searchView: SearchView ->
-  DaggerListActivityComponent.builder()
+                            progressView: View,
+                            errorView: View,
+                            guideView: View,
+                            listener: ListViewInteractionListener,
+                            searchView: SearchView ->
+  RootListComponentHolder.rootListComponent.listActivityComponent()
       .contentView(contentView)
       .progressView(progressView)
       .errorView(errorView)

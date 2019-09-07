@@ -4,10 +4,7 @@ import android.app.Application
 import android.os.Build
 import android.os.StrictMode
 
-/**
- * Debug application, for (guess what?!) debugging purposes.
- */
-internal class DebugApplication : Application() {
+internal class MyApplication : Application() {
   override fun onCreate() {
     super.onCreate()
     enforceThreadStrictMode()
@@ -15,7 +12,6 @@ internal class DebugApplication : Application() {
   }
 
   /**
-   * Enforces StrictMode for the current thread.
    * @see <a href="https://developer.android.com/reference/android/os/StrictMode.html">
    *     Strict Mode | Android Developers</a>
    */
@@ -37,7 +33,6 @@ internal class DebugApplication : Application() {
           .build())
 
   /**
-   * Enforces StrictMode for the VM.
    * @see <a href="https://developer.android.com/reference/android/os/StrictMode.html">
    *     Strict Mode | Android Developers</a>
    */

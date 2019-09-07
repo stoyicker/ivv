@@ -15,11 +15,6 @@ android {
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
         multiDexEnabled true
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments << ["dagger.gradle.incremental": "true"]
-            }
-        }
     }
     compileOptions {
         sourceCompatibility rootProject.ext.javaVersion

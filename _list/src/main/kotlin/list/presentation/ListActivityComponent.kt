@@ -4,22 +4,21 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
 import android.view.View
 import dagger.BindsInstance
-import dagger.Component
+import dagger.Subcomponent
 import list.domain.DomainModule
 import javax.inject.Qualifier
-import javax.inject.Singleton
 
-@Component(modules = [
+@Subcomponent(modules = [
   ContentViewModule::class,
   ListViewConfigModule::class,
   FilterModule::class,
   ConsumerModule::class,
   DomainModule::class])
-@Singleton
+@ListActivityScope
 internal interface ListActivityComponent {
   fun inject(target: ListActivity)
 
-  @Component.Builder
+  @Subcomponent.Builder
   interface Builder {
     @BindsInstance
     fun contentView(contentView: RecyclerView): Builder

@@ -80,7 +80,7 @@ internal class ViewHolder(
       if (thumbnailLink != null) {
         // TODO have the field be the whole string instead by combining the results of the call to
         //  getting the list and the config endpoint @ https://developers.themoviedb.org/3/configuration/get-api-configuration
-        val fullLink = "https://image.tmdb.org/t/p/w780$thumbnailLink"
+        val fullLink = "https://image.tmdb.org/t/p/w780/$thumbnailLink"
         picasso.load(fullLink).into(this@ViewHolder)
       } else {
         itemView.thumbnail.run {
