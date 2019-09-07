@@ -61,7 +61,7 @@ issues or network problems in a test where we need/assume that these work fine).
 tests, but I also think that tests that rely on the actual situation also provide useful information
 when the entire stack is part of the product, as they can help identify situations that are still 
 relevant to the product, such as breaking changes to the contract between server and clients. It's 
-also important to mention however that they shouldn't be relied on to test the client itself as, 
+also important to mention however that they should not be relied on to test the client itself as, 
 like mentioned before, can fail due to circumstances independent of the correctness of the app.
 In this case there are no tests of this kind as I've chosen to focus on other things, but it may
 have been a good idea to have a couple if only to verify that the endpoint is correct, for example.

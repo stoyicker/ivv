@@ -16,14 +16,14 @@ internal object ListApiModule {
   @Singleton
   fun client(
       clientBuilder: OkHttpClient.Builder,
-      interceptor: Interceptor) = clientBuilder.addInterceptor(interceptor)
+      interceptor: Interceptor): OkHttpClient = clientBuilder.addInterceptor(interceptor)
       .build()
 
   @Provides
   @Singleton
   fun listApi(
       retrofitBuilder: Retrofit.Builder,
-      client: OkHttpClient) = retrofitBuilder.client(client)
+      client: OkHttpClient): ListApi = retrofitBuilder.client(client)
       .baseUrl(BASE_URL)
       .build()
       .create(ListApi::class.java)

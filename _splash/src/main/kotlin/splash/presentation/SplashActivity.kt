@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
 import list.presentation.listActivityIntent
-import testaccessors.RequiresAccessor
 
 /**
  * A simple activity that acts as a splash screen.

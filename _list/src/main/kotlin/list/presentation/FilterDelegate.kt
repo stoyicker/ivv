@@ -39,7 +39,5 @@ internal class FilterDelegate(
    * Delegates a query to the query handler in order to filter the list.
    * @param newQuery The query.
    */
-  internal fun applyQuery(newQuery: CharSequence?) {
-    searchView.setQuery(newQuery, false)
-  }
+  internal fun applyQuery(newQuery: CharSequence?) = searchView.setQuery(newQuery, false)
 }
