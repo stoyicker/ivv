@@ -50,7 +50,7 @@ internal class ListActivityInstrumentation {
             .contentViewModule(ContentViewModule)
             .filterModule(FilterModule)
             .contentView(contentView)
-            .listActuvityInstrumentationModule(ListActivityInstrumentationModule)
+            .listActivityInstrumentationModule(ListActivityInstrumentationModule)
             .progressView(progressView)
             .errorView(errorView)
             .consumerModule(ConsumerModule)
@@ -77,6 +77,7 @@ internal class ListActivityInstrumentation {
   @Test
   fun oneItemIsShown() {
     every { MOCK_OBSERVE.run(any(), any()) } answers {
+      @Suppress("SpellCheckingInspection", "UNCHECKED_CAST")
       (it.invocation.args.first() as Consumer<List<ListItem>>).accept(listOf(ListItem(
           posterPath = "/vC324sdfcS313vh9QXwijLIHPJp.jpg",
           id = 31917,
@@ -112,7 +113,7 @@ internal interface ListActivityInstrumentationComponent : ListActivityComponent 
     fun listViewConfigModule(listViewConfigModule: ListViewConfigModule): Builder
     fun filterModule(filterModule: FilterModule): Builder
     fun consumerModule(consumerModule: ConsumerModule): Builder
-    fun listActuvityInstrumentationModule(listActivityInstrumentationModule: ListActivityInstrumentationModule): Builder
+    fun listActivityInstrumentationModule(listActivityInstrumentationModule: ListActivityInstrumentationModule): Builder
     @BindsInstance
     fun contentView(contentView: RecyclerView): Builder
 

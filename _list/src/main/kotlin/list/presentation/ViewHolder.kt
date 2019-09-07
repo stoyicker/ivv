@@ -78,7 +78,7 @@ internal class ViewHolder internal constructor(
   private fun setThumbnail(thumbnailLink: String?) =
       if (thumbnailLink != null) {
         // TODO have the field be the whole string instead by combining the results of the call to
-        //  getting the list and the config endpoint
+        //  getting the list and the config endpoint @ https://developers.themoviedb.org/3/configuration/get-api-configuration
         val fullLink = "https://image.tmdb.org/t/p/w780$thumbnailLink"
         Picasso.get().load(fullLink).into(this@ViewHolder)
       } else {

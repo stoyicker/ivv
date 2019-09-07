@@ -36,7 +36,7 @@ internal class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet?)
   override fun onMeasure(widthSpec: Int, heightSpec: Int) {
     super.onMeasure(widthSpec, heightSpec)
     if (!isInEditMode && columnWidth > 0) {
-      val spanCount = Math.max(1, measuredWidth / columnWidth)
+      val spanCount = (measuredWidth / columnWidth).coerceAtLeast(1)
       (layoutManager as GridLayoutManager).spanCount = spanCount
     }
   }

@@ -119,7 +119,7 @@ class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   }
 }
 
-// DI root for this layer in this module. See dependencies.gradle for a more detailed explanation
+// DI root for this layer in the module. See dependencies.gradle for a more detailed explanation
 @RequiresAccessor
 internal var componentF = { contentView: RecyclerView,
                            progressView: View,

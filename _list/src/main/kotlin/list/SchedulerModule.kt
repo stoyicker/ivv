@@ -17,7 +17,7 @@ internal object SchedulerModule {
   @Provides
   @Singleton
   @MainThread
-  fun mainThread() = AndroidSchedulers.mainThread()
+  fun mainThread() = AndroidSchedulers.mainThread()!!
 }
 
 @Qualifier
