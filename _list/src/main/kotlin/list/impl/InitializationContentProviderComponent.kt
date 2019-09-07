@@ -3,11 +3,11 @@ package list.impl
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import list.FileSystemModule
-import list.NetworkClientModule
-import list.NetworkModule
-import list.ParserModule
-import list.SchedulerModule
+import common.FileSystemModule
+import common.NetworkClientModule
+import common.NetworkModule
+import common.ParserModule
+import common.SchedulerModule
 import list.domain.FunctionalityHolderModule
 import javax.inject.Singleton
 

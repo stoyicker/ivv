@@ -1,4 +1,4 @@
-package list
+package common
 
 import dagger.Module
 import dagger.Provides
@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-internal object NetworkClientModule {
+object NetworkClientModule {
   @Provides
   @Singleton
   fun client(): OkHttpClient.Builder = OkHttpClient.Builder()

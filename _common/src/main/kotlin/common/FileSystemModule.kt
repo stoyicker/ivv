@@ -1,4 +1,4 @@
-package list
+package common
 
 import android.content.Context
 import com.nytimes.android.external.fs3.filesystem.FileSystemFactory
@@ -7,7 +7,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-internal object FileSystemModule {
+object FileSystemModule {
   @Provides
   @Singleton
   fun filesystem(context: Context) = FileSystemFactory.create(context.externalCacheDir!!)

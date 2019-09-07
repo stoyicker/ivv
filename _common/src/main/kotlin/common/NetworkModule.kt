@@ -1,4 +1,4 @@
-package list
+package common
 
 import dagger.Module
 import dagger.Provides
@@ -9,7 +9,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
-internal object NetworkModule {
+object NetworkModule {
   @Provides
   @Singleton
   fun retrofitBuilder(): Retrofit.Builder = Retrofit.Builder()

@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.include_list_view.error
 import kotlinx.android.synthetic.main.include_list_view.progress
 import kotlinx.android.synthetic.main.include_list_view.scroll_guide
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
-import list.SchedulerModule
+import common.SchedulerModule
 import list.domain.DomainModule
 import list.domain.FunctionalityHolderModule
 import list.domain.IObserveCoordinator

@@ -22,12 +22,6 @@ but also popular practises such as flavoring, features toggles and dynamic deliv
 These are mapped 1-to-1 to modules, and then there's also the `_common` module, which only contains
 some shared resources.
 
-As a trade-off to this approach, due to Dagger limitations when it comes to cross-module 
-dependencies, there would be a little bit of code duplication if we were to scale straight-up from 
-this (the schedulers and network modules, which are currently present in `_list`), but it should be 
-quite feasible to refactor away into a pre-compiled binary (which will solve the aforementioned 
-issues with Dagger) before adding more feature modules.
-
 Finally, the app is built to follow general user expectations: 
 * If started offline or a connection is lost, content will be immediately fetched after the user 
 comes back online (if the app is open).
@@ -110,6 +104,13 @@ cause crashes in devices in lower resolution screen buckets and memory overhead 
 resource in device in higher resolution buckets (plus, in some cases, visual artifacts).
 * Pull-to-refresh.
 * Crash reporting.
+* Module-specific dependency declaration of binaries: Non-project dependencies declared in 
+dependencies.gradle are only split by scope, but not grouped by modules (so all of the modules use 
+the same non-project dependencies). In this case the APK is not affected because all modules are in
+use anyway, but build performance is probably impacted and in the case where we were to introduce a
+more complex structure (such as flavoring, where not all flavors use all modules) there's the risk
+of introducing unused dependencies in the final APK (which would be lowered in a real case because
+we'd use some minification tool such as ProGuard or R8, but still).
 * Make the name of list.impl.InitializationContentProvider change depending whether we're on a test
 or not so that instrumented tests can be run regardless of whether the app is installed or not.
 * A couple of other TODOs left around.

@@ -2,8 +2,8 @@ package list.impl
 
 import dagger.Module
 import dagger.Provides
-import list.NetworkClientModule
-import list.NetworkModule
+import common.NetworkClientModule
+import common.NetworkModule
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
