@@ -3,9 +3,9 @@ package list.domain
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
-import list.Io
-import list.MainThread
-import list.SchedulerModule
+import common.Io
+import common.MainThread
+import common.SchedulerModule
 import javax.inject.Singleton
 
 @Module(includes = [FunctionalityHolderModule::class, SchedulerModule::class])

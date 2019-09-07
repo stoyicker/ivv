@@ -5,11 +5,11 @@ import android.content.ContentValues
 import android.content.Context
 import android.net.Uri
 import io.reactivex.Observable
-import list.FileSystemModule
-import list.NetworkClientModule
-import list.NetworkModule
-import list.ParserModule
-import list.SchedulerModule
+import common.FileSystemModule
+import common.NetworkClientModule
+import common.NetworkModule
+import common.ParserModule
+import common.SchedulerModule
 import list.domain.FunctionalityHolder
 import list.domain.FunctionalityHolderModule
 import list.domain.Refresh

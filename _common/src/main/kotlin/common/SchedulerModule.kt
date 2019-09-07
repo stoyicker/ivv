@@ -1,4 +1,4 @@
-package list
+package common
 
 import dagger.Module
 import dagger.Provides
@@ -8,7 +8,7 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-internal object SchedulerModule {
+object SchedulerModule {
   @Provides
   @Singleton
   @Io
@@ -22,8 +22,8 @@ internal object SchedulerModule {
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-internal annotation class Io
+annotation class Io
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-internal annotation class MainThread
+annotation class MainThread

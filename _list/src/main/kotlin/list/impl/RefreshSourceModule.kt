@@ -14,8 +14,8 @@ import com.squareup.moshi.Moshi
 import dagger.Lazy
 import dagger.Module
 import dagger.Provides
-import list.FileSystemModule
-import list.ParserModule
+import common.FileSystemModule
+import common.ParserModule
 import okio.BufferedSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton

@@ -5,7 +5,7 @@ import android.support.v7.widget.SearchView
 import android.view.View
 import dagger.BindsInstance
 import dagger.Component
-import list.SchedulerModule
+import common.SchedulerModule
 import list.domain.DomainModule
 import list.domain.FunctionalityHolderModule
 import javax.inject.Qualifier
