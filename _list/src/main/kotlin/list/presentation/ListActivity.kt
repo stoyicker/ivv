@@ -125,7 +125,7 @@ internal var componentF = { contentView: RecyclerView,
                             guideView: View,
                             listener: ListViewInteractionListener,
                             searchView: SearchView ->
-  RootListComponentHolder.rootListComponent.listActivityComponent()
+  RootListComponentHolder.rootListComponent.listActivityComponentBuilder()
       .contentView(contentView)
       .progressView(progressView)
       .errorView(errorView)

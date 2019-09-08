@@ -18,7 +18,7 @@ import javax.inject.Inject
 internal class InitializationContentProvider : ContentProvider() {
   // DI root for this layer in the module. See dependencies.gradle for a more detailed explanation
   private val componentF: () -> InitializationContentProviderComponent = {
-    RootListComponentHolder.rootListComponent.initializationContentProviderComponent()
+    RootListComponentHolder.rootListComponent.initializationContentProviderComponentBuilder()
         .refreshModule(RefreshModule())
         .build()
   }

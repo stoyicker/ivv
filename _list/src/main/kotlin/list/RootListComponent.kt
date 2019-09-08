@@ -26,9 +26,9 @@ import javax.inject.Singleton
   FileSystemModule::class])
 @Singleton
 internal interface RootListComponent {
-  fun listActivityComponent(): ListActivityComponent.Builder
+  fun listActivityComponentBuilder(): ListActivityComponent.Builder
 
-  fun initializationContentProviderComponent(): InitializationContentProviderComponent.Builder
+  fun initializationContentProviderComponentBuilder(): InitializationContentProviderComponent.Builder
 
   @Component.Builder
   interface Builder {
