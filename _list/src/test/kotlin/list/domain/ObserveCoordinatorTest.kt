@@ -6,7 +6,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
@@ -33,13 +33,13 @@ internal class ObserveCoordinatorTest {
     val disposable = mockk<Disposable>()
     val onNext = mockk<Consumer<List<ListItem>>>()
     val onError = mockk<Consumer<Throwable>>()
-    val observed = mockk<Observable<List<ListItem>>> {
+    val observed = mockk<Flowable<List<ListItem>>> {
       every { subscribe(onNext, onError) } returns disposable
     }
-    val subscribed = mockk<Observable<List<ListItem>>> {
+    val subscribed = mockk<Flowable<List<ListItem>>> {
       every { observeOn(observeScheduler) } returns observed
     }
-    val initial = mockk<Observable<List<ListItem>>> {
+    val initial = mockk<Flowable<List<ListItem>>> {
       every { subscribeOn(subscribeScheduler) } returns subscribed
     }
     every { functionalityHolder.observe } returns initial

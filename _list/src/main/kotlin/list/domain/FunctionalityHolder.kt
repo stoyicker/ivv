@@ -1,9 +1,9 @@
 package list.domain
 
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import list.impl.ListItem
 
 internal class FunctionalityHolder {
-  lateinit var observe: Observable<List<ListItem>>
+  lateinit var observe: Flowable<List<ListItem>>
   lateinit var refresh: (Int) -> Unit
 }
