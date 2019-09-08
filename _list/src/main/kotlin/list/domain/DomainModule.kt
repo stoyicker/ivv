@@ -11,7 +11,7 @@ import list.presentation.ListActivityScope
 internal class DomainModule {
   @Provides
   @ListActivityScope
-  fun refresh() = RefreshCoordinator()
+  fun refresh(functionalityHolder: FunctionalityHolder) = RefreshCoordinator(functionalityHolder)
 
   @Provides
   @ListActivityScope

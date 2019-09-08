@@ -37,7 +37,7 @@ internal class Adapter(
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-      holder.render(shownItems[position])
+      holder.present(shownItems[position])
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: List<Any>) {
     if (payloads.isEmpty()) {
@@ -60,7 +60,7 @@ internal class Adapter(
     }
     // Now combinedBundle contains the latest version of each of the fields that can be updated
     // individually
-    holder.renderPartial(combinedBundle, shownItems[position])
+    holder.presentPartial(combinedBundle, shownItems[position])
   }
 
   override fun getItemCount() = shownItems.size

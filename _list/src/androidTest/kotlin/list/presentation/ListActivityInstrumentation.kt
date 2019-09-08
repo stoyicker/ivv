@@ -65,7 +65,7 @@ internal class ListActivityInstrumentation {
 
   @Test
   fun oneItemIsShown() {
-    val posterPath = "vC324sdfcS313vh9QXwijLIHPJp.jpg"
+    val posterPath = "holahola"
     every { MOCK_OBSERVE.run(any(), any()) } answers {
       @Suppress("SpellCheckingInspection", "UNCHECKED_CAST")
       (it.invocation.args.first() as Consumer<List<ListItem>>).accept(listOf(ListItem(

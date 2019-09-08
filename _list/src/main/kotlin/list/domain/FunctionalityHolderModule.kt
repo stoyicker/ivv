@@ -8,5 +8,5 @@ import javax.inject.Singleton
 internal class FunctionalityHolderModule {
   @Provides
   @Singleton
-  fun functionalityHolder() = FunctionalityHolder
+  fun functionalityHolder() = FunctionalityHolder()
 }
