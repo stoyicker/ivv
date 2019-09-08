@@ -11,29 +11,29 @@ internal class ContentView(
     val errorView: View,
     private val progressView: View,
     private val guideView: View) {
-   fun showLoadingLayout() {
+  fun showLoadingLayout() {
     pushInfoArea()
     progressView.visibility = View.VISIBLE
     guideView.visibility = View.INVISIBLE
   }
 
-   fun hideLoadingLayout() {
+  fun hideLoadingLayout() {
     progressView.visibility = View.GONE
   }
 
-   fun setContent(newContent: List<ListItem>) {
+  fun setContent(newContent: List<ListItem>) {
     (recyclerView.adapter as Adapter).setItems(newContent)
     pushInfoArea()
     guideView.visibility = View.VISIBLE
   }
 
-   fun showErrorLayout() {
+  fun showErrorLayout() {
     pushInfoArea()
     errorView.visibility = View.VISIBLE
     guideView.visibility = View.INVISIBLE
   }
 
-   fun hideErrorLayout() {
+  fun hideErrorLayout() {
     errorView.visibility = View.GONE
   }
 

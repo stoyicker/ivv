@@ -43,15 +43,15 @@ internal class MyApplication : Application() {
       .detectLeakedRegistrationObjects()
       .penaltyLog()
       .apply {
-          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            detectCleartextNetwork()
-            detectFileUriExposure()
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-              detectContentUriWithoutPermission()
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                detectNonSdkApiUsage()
-              }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+          detectCleartextNetwork()
+          detectFileUriExposure()
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            detectContentUriWithoutPermission()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+              detectNonSdkApiUsage()
             }
+          }
 
         }
       }

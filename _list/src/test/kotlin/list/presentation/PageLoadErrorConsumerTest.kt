@@ -26,7 +26,7 @@ internal class PageLoadErrorConsumerTest {
 
     subject.accept(throwable)
 
-    verify(exactly = 1){
+    verify(exactly = 1) {
       contentView.apply {
         showErrorLayout()
         hideLoadingLayout()
