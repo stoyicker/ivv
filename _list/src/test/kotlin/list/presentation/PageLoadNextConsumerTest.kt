@@ -28,7 +28,7 @@ internal class PageLoadNextConsumerTest {
 
     subject.accept(t)
 
-    verify {
+    verify(exactly = 1) {
       view.apply {
         setContent(t)
         hideLoadingLayout()

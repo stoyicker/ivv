@@ -45,13 +45,12 @@ code documentation generation tool for Kotlin, similar to what Javadoc is for Ja
 # Tests
 White-box JVM-based unit tests are written using JUnit and instrumented black-box ones using 
 Espresso. Feel free to run them using the different `test` and `cAT` Gradle tasks. Note that to be 
-able to run cAT the application must not be installed on the device already or there will be an issue with 
-conflicting providers as the name of list.impl.InitializationContentProvider is the same in the 
-normal and test APKs.
+able to run cAT the application must not be installed on the device already or there will be an 
+issue with conflicting providers as the name of list.impl.InitializationContentProvider is the same 
+in the 'production' and test APKs.
 Also note that for the JVM tests, although the requirements mentioned 'Complete coverage of clean 
 unit tests', I'm assuming that this does not mean 100% statement/line coverage. I've written tests
-for some of the classes, but obviously not enough for full code coverage as I think it's a bit 
-overly ambitious for an interview assignment.
+for some of the classes, but obviously not enough for full code coverage.
 
 # Points of discussion
 * Mockk vs Mockito: Not too different from each other. Mockk is mostly a Kotlin DSL for wrapper 
