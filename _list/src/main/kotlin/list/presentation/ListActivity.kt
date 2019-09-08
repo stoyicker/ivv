@@ -65,7 +65,7 @@ internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
 
   /**
    * This gets called before a configuration change happens, so we use it to prevent leaking
-   * the observable in the use case. It does not getComponentSync called when the process finishes abnormally,
+   * the stream in the use case. It does not getComponentSync called when the process finishes abnormally,
    * bun in that case there is no leak to worry about.
    */
   override fun onDestroy() {

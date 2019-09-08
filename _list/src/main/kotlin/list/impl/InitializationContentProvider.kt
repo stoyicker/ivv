@@ -3,7 +3,7 @@ package list.impl
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.net.Uri
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import list.RootListComponentHolder
 import list.domain.FunctionalityHolder
 import javax.inject.Inject
@@ -25,7 +25,7 @@ internal class InitializationContentProvider : ContentProvider() {
   @Inject
   lateinit var functionalityHolder: FunctionalityHolder
   @Inject
-  lateinit var observeImpl: Observable<List<ListItem>>
+  lateinit var observeImpl: Flowable<List<ListItem>>
   @Inject
   lateinit var refreshImpl: Refresh
 
