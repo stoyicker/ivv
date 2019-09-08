@@ -5,58 +5,58 @@ apply plugin: 'org.jmailen.kotlinter'
 apply plugin: 'org.jetbrains.dokka-android'
 
 android {
-    compileSdkVersion rootProject.ext.androidCompileSdkVersion
-    buildToolsVersion rootProject.ext.androidBuildToolsVersion
-    defaultConfig {
-        applicationId 'org.jorge.test'
-        versionCode rootProject.ext.androidVersionCode
-        versionName rootProject.ext.androidVersionName
-        minSdkVersion rootProject.ext.androidMinSdkVersion
-        targetSdkVersion rootProject.ext.androidTargetSdkVersion
-        testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
-        multiDexEnabled true
+  compileSdkVersion rootProject.ext.androidCompileSdkVersion
+  buildToolsVersion rootProject.ext.androidBuildToolsVersion
+  defaultConfig {
+    applicationId 'org.jorge.test'
+    versionCode rootProject.ext.androidVersionCode
+    versionName rootProject.ext.androidVersionName
+    minSdkVersion rootProject.ext.androidMinSdkVersion
+    targetSdkVersion rootProject.ext.androidTargetSdkVersion
+    testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
+    multiDexEnabled true
+  }
+  compileOptions {
+    sourceCompatibility rootProject.ext.javaVersion
+    targetCompatibility rootProject.ext.javaVersion
+  }
+  dexOptions {
+    preDexLibraries false
+    javaMaxHeapSize "8g"
+  }
+  lintOptions {
+    abortOnError true
+    absolutePaths true
+    checkAllWarnings true
+    htmlOutput = new File("$rootProject.ext.staticAnalysisReportTarget/$project.name/lint.html")
+    quiet false
+    warningsAsErrors true
+  }
+  packagingOptions {
+    exclude 'META-INF/services/javax.annotation.processing.Processor'
+  }
+  sourceSets.forEach {
+    it.java.srcDirs = ["src/$it.name/kotlin"]
+  }
+  variantFilter {
+    if (it.buildType.name.toLowerCase(Locale.ENGLISH) == 'release') {
+      ignore = true
     }
-    compileOptions {
-        sourceCompatibility rootProject.ext.javaVersion
-        targetCompatibility rootProject.ext.javaVersion
-    }
-    dexOptions {
-        preDexLibraries false
-        javaMaxHeapSize "8g"
-    }
-    lintOptions {
-        abortOnError true
-        absolutePaths true
-        checkAllWarnings true
-        htmlOutput = new File("$rootProject.ext.staticAnalysisReportTarget/$project.name/lint.html")
-        quiet false
-        warningsAsErrors true
-    }
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-    }
-    sourceSets.forEach {
-        it.java.srcDirs = ["src/$it.name/kotlin"]
-    }
-    variantFilter {
-        if (it.buildType.name.toLowerCase(Locale.ENGLISH) == 'release') {
-            ignore = true
-        }
-    }
+  }
 }
 repositories {
-    jcenter()
-    google()
+  jcenter()
+  google()
 }
 dependencies {
-    implementation project(':_list')
-    implementation project(':_common')
-    implementation rootProject.ext.implementationDependencies
-    kapt rootProject.ext.kaptDependencies
-    testImplementation rootProject.ext.testImplementationDependencies
-    androidTestImplementation rootProject.ext.androidTestImplementationDependencies
-    implementation rootProject.ext.implementationListDependencies
-    compileOnly rootProject.ext.compileOnlyListDependencies
-    kapt rootProject.ext.kaptListDependencies
-    kaptAndroidTest rootProject.ext.kaptAndroidTestListDependencies
+  implementation project(':_list')
+  implementation project(':_common')
+  implementation rootProject.ext.implementationDependencies
+  kapt rootProject.ext.kaptDependencies
+  testImplementation rootProject.ext.testImplementationDependencies
+  androidTestImplementation rootProject.ext.androidTestImplementationDependencies
+  implementation rootProject.ext.implementationListDependencies
+  compileOnly rootProject.ext.compileOnlyListDependencies
+  kapt rootProject.ext.kaptListDependencies
+  kaptAndroidTest rootProject.ext.kaptAndroidTestListDependencies
 }

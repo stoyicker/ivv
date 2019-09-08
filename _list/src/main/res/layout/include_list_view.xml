@@ -3,21 +3,6 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <list.presentation.AutoFitGridRecyclerView
-    android:id="@+id/content"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:columnWidth="@dimen/list_column_width"
-    android:overScrollMode="never" />
-
-  <android.support.v4.widget.ContentLoadingProgressBar
-    android:id="@+id/progress"
-    style="?android:attr/progressBarStyleHorizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom"
-    android:indeterminate="true" />
-
   <LinearLayout
     android:id="@+id/error"
     android:layout_width="match_parent"
@@ -51,4 +36,19 @@
     android:textAppearance="@style/TextAppearance.AppCompat.Small"
     android:textStyle="bold"
     android:visibility="invisible" />
+
+  <android.support.v4.widget.ContentLoadingProgressBar
+    android:id="@+id/progress"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:indeterminate="true" />
+
+  <list.presentation.AutoFitGridRecyclerView
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnWidth="@dimen/list_column_width"
+    android:overScrollMode="never" />
 </FrameLayout>

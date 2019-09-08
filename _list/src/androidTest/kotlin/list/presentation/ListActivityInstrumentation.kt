@@ -35,11 +35,11 @@ internal class ListActivityInstrumentation {
     override fun beforeActivityLaunched() {
       super.beforeActivityLaunched()
       ListActivityKtTestAccessors.componentF { contentView: RecyclerView,
-                   progressView: View,
-                   errorView: View,
-                   guideView: View,
-                   listener: ListViewInteractionListener,
-                   searchView: SearchView ->
+                                               progressView: View,
+                                               errorView: View,
+                                               guideView: View,
+                                               listener: ListViewInteractionListener,
+                                               searchView: SearchView ->
         DaggerListActivityInstrumentationComponent.builder()
             .contentView(contentView)
             .progressView(progressView)

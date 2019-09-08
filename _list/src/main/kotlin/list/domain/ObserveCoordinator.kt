@@ -14,7 +14,7 @@ internal class ObserveCoordinator(
     RequiresAccessor.AccessorType.TYPE_SETTER, RequiresAccessor.AccessorType.TYPE_GETTER])
   private var disposable: Disposable? = null
 
-   fun run(onNext: Consumer<List<ListItem>>, onError: Consumer<Throwable>) {
+  fun run(onNext: Consumer<List<ListItem>>, onError: Consumer<Throwable>) {
     disposable = functionalityHolder.observe
         .subscribeOn(subscribeScheduler)
         .observeOn(observeScheduler)

@@ -12,14 +12,14 @@ internal class ListViewConfig(
   private val myAdapter = Adapter(picasso, callback).apply { setHasStableIds(true) }
 
   fun on(contentView: ContentView) =
-    contentView.run {
-      recyclerView.apply {
-        adapter = myAdapter
-        addOnScrollListener(endlessLoadListener(layoutManager!!))
-        setHasFixedSize(false)
+      contentView.run {
+        recyclerView.apply {
+          adapter = myAdapter
+          addOnScrollListener(endlessLoadListener(layoutManager!!))
+          setHasFixedSize(false)
+        }
+        errorView.setOnClickListener { callback.onPageLoadRequested() }
       }
-      errorView.setOnClickListener { callback.onPageLoadRequested() }
-    }
 
   /**
    * Requests a filtering command to be performed.
