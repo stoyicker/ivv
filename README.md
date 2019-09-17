@@ -99,7 +99,7 @@ amount of cases, but has a couple of issues:
     * It works at the application level. In simple apps with only one component that is going to be
     stubbed and no dependencies or subcomponents, this is not an issue. But as projects grow, tests
     will enter situations where let's say 10 different activities need to be tested. This kind of 
-    setup forces all component to be mocked. Not a big problem, and there are ways to work around 
+    setup forces all components to be mocked. Not a big problem, and there are ways to work around 
     this, such as lazy evaluation or subcomponents (in the particular case of Dagger), but certainly
     a constraint on flexibility.
 The approach that I show on this project leverages the capabilities of Espresso with regards to 
