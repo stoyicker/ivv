@@ -1,8 +1,8 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'org.jmailen.kotlinter'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+apply plugin: "org.jmailen.kotlinter"
+apply plugin: "org.jetbrains.dokka-android"
 
 android {
   compileSdkVersion rootProject.ext.androidCompileSdkVersion
@@ -15,7 +15,7 @@ android {
   }
   buildTypes {
     debug {
-      buildConfigField "String", "API_KEY", rootProject.properties['api.key']
+      buildConfigField "String", "API_KEY", rootProject.properties["api.key"]
     }
   }
   compileOptions {
@@ -37,7 +37,7 @@ android {
     it.java.srcDirs = ["src/$it.name/kotlin"]
   }
   variantFilter {
-    if (it.buildType.name.toLowerCase(Locale.ENGLISH) == 'release') {
+    if (it.buildType.name.toLowerCase(Locale.ENGLISH) == "release") {
       ignore = true
     }
   }
