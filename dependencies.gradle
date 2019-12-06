@@ -25,10 +25,12 @@ final def supportVersion = "28.0.0"
 // project as it would require that every module leaks the boundary of its dependency graph to
 // _splash, which is where the application class lives, killing one of the pros of this
 // architectural approach: feature independence. To avoid this, instead of using the application as
-// DI root, each module has its own DI root(s), which live in activities, and just like in the
-// application-as-root approach, are implemented via factory methods. During instrumented testing,
-// these methods are replaced by alternatives that return test components before launching the
-// target activity, achieving the same goal but this time respecting the architecture.
+// DI root, each module has its own DI root(s), which live in Android components (Services
+// BroadcastReceivers, Content Providers and Activities - Activities only in this project since we
+// have no other components), and just like in the application-as-root approach, are implemented via
+// factory methods. During instrumented testing, these methods are replaced by alternatives that
+// return test components before launching the test subject, achieving the same goal but this
+// time respecting the architecture.
 final def testAccessorsVersions = "1.2.0"
 final def moshiVersion = "1.8.0"
 final def rxJavaExtensionsVersion = "0.20.8"
