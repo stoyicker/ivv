@@ -117,7 +117,7 @@ not sure I would do it on a production app because I think it's still [a little 
 or [this other one](https://youtrack.jetbrains.com/issue/KT-26983)) but it could be considered.
 * Include assets for missing densities. Some assets are only present for mdpi densities, which will 
 cause crashes in devices in lower resolution screen buckets and memory overhead to upscale the 
-resource in device in higher resolution buckets (plus, in some cases, visual artifacts).
+resource in devices in higher resolution buckets (plus, in some cases, visual artifacts).
 * Pull-to-refresh.
 * Crash reporting.
 * Module-specific dependency declaration of binaries: Non-project dependencies declared in 
