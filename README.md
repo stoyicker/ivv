@@ -53,8 +53,8 @@ unit tests', I'm assuming that this does not mean 100% statement/line coverage. 
 for some of the classes, but obviously not enough for full code coverage.
 
 # Points of discussion
-* Mockk vs Mockito: Not too different from each other. Mockk is mostly a Kotlin DSL for wrapper 
-Mockito.
+* Mockk vs Mockito: Not too different from each other. Mockk is mostly a re-write of mockito with a
+Kotlin DSL for convenience.
 * Why no AAC? First, I think AAC are too constraining. Everything works very well as long as you use
 the whole suite, but the use cases it is capable of filling in are very limited, and even a simple
 infinite scrolling list takes a ridiculously large amount of code to implement, plus other minor 
