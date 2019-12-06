@@ -19,7 +19,7 @@ rootProject.ext {
   androidCompileSdkVersion = 29
   androidMinSdkVersion = 21
   androidTargetSdkVersion = 29
-  androidBuildToolsVersion = "29.0.0"
+  androidBuildToolsVersion = "29.0.2"
   androidVersionCode = 1
   androidVersionName = String.valueOf(androidVersionCode)
   androidTestInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
