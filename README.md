@@ -12,13 +12,15 @@ features:
 
 `_splash` hardly has any code, not much architecture to see here.
 
-`_list` is around a source of truth which is updated by actions triggered for example by the user
-and which is observed by the UI, that adapts to each change in the source of truth. This allows 
-for a highly scalable development with very low coupling which favors not only maintainability, 
+`_list` is built around a source of truth which is updated by actions triggered for example by the 
+user and which is observed by the UI, that adapts to each change in the source of truth. This allows 
+for a highly scalable structure with very low coupling which favors not only maintainability, 
 but also popular practises such as flavoring, features toggles and dynamic delivery.
 The feature module is split in the 3 classic Clean Architecture layers clearly represented in the 
 package structure. The 'data' (impl) layer is initialized by using a content provider for increased
-independence.
+isolation. The 'domain' layer contains use cases that use interfaces to define requirements that 
+must be implemented by the 'data' layer, and the 'presentation' layer features MVP to bind use case 
+triggers and react to data updates.
 
 Each of these features is represented by a module, and then there's also the `_common` module, which contains some shared items.
 
