@@ -1,9 +1,9 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'org.jmailen.kotlinter'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-kapt"
+apply plugin: "org.jmailen.kotlinter"
+apply plugin: "org.jetbrains.dokka-android"
 
 android {
   compileSdkVersion rootProject.ext.androidCompileSdkVersion
@@ -32,13 +32,13 @@ android {
     warningsAsErrors true
   }
   packagingOptions {
-    exclude 'META-INF/services/javax.annotation.processing.Processor'
+    exclude "META-INF/services/javax.annotation.processing.Processor"
   }
   sourceSets.forEach {
     it.java.srcDirs = ["src/$it.name/kotlin"]
   }
   variantFilter {
-    if (it.buildType.name.toLowerCase(Locale.ENGLISH) == 'release') {
+    if (it.buildType.name.toLowerCase(Locale.ENGLISH) == "release") {
       ignore = true
     }
   }
@@ -48,7 +48,7 @@ repositories {
   google()
 }
 dependencies {
-  implementation project(':_common')
+  implementation project(":_common")
   implementation rootProject.ext.implementationDependencies
   kapt rootProject.ext.kaptDependencies
   testImplementation rootProject.ext.testImplementationDependencies
@@ -61,6 +61,6 @@ dependencies {
 
 kapt {
   arguments {
-    arg('testaccessors.defaultSupportRestrictTo', 'TESTS')
+    arg("testaccessors.defaultSupportRestrictTo", "TESTS")
   }
 }

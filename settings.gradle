@@ -1,1 +1,1 @@
-include ':_common', ':_splash', ':_list'
+include ":_common", ":_splash", ":_list"
