@@ -124,9 +124,9 @@ resource in devices in higher resolution buckets (plus, in some cases, visual ar
 dependencies.gradle are only split by scope, but not grouped by modules (so all of the modules use 
 the same non-project dependencies). In this case the APK is not affected because all modules are in
 use anyway, but build performance is probably impacted and in the case where we were to introduce a
-more complex structure (such as flavoring, where not all flavors use all modules) there's the risk
-of introducing unused dependencies in the final APK (which would be lowered in a real case because
-we'd use some minification tool such as ProGuard or R8, but still).
+more complex structure (such as flavoring, where not all flavors may use all modules) there's the
+risk of introducing unused dependencies in the final APK (which would be lowered in a real case
+because we'd use some minification tool such as ProGuard or R8, but still).
 * Make the name of list.impl.InitializationContentProvider change depending whether we're on a test
 or not so that instrumented tests can be run regardless of whether the app is installed or not.
 * There are anonymous classes and some static DI violations around the project. These will greatly 
