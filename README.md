@@ -4,8 +4,6 @@
 * `./gradlew :_splash:assemble` (or Windows equivalent). Find the apk in 
 `_splash/build/outputs/apk/debug/_splash-debug.apk`.
 
-You can also download the APK already built [here](https://github.com/stoyicker/ivv/releases/latest).
-
 # Architecture
 This app follows a 'feature'-based split, with two-ish (`_splash is just the app entry point) 
 features:
