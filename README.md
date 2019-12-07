@@ -115,7 +115,6 @@ or [this other one](https://youtrack.jetbrains.com/issue/KT-26983)) but it could
 * Include assets for missing densities. Some assets are only present for mdpi densities, which will 
 cause crashes in devices in lower resolution screen buckets and memory overhead to upscale the 
 resource in devices in higher resolution buckets (plus, in some cases, visual artifacts).
-* Pull-to-refresh.
 * Crash reporting.
 * Module-specific dependency declaration of binaries: Non-project dependencies declared in 
 dependencies.gradle are only split by scope, but not grouped by modules (so all of the modules use 
