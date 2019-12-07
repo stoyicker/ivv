@@ -40,14 +40,14 @@ internal class ListActivityInstrumentation {
                                                guideView: View,
                                                listener: ListViewInteractionListener,
                                                searchView: SearchView ->
-        DaggerListActivityInstrumentationComponent.builder()
-            .contentView(contentView)
-            .progressView(progressView)
-            .errorView(errorView)
-            .guideView(guideView)
-            .listViewInteractionListener(listener)
-            .searchView(searchView)
-            .build()
+        DaggerListActivityInstrumentationComponent.factory()
+            .create(
+              contentView,
+              progressView,
+              errorView,
+              guideView,
+              listener,
+              searchView)
       }
     }
   }
@@ -103,31 +103,15 @@ internal class ListActivityInstrumentation {
   ListActivityInstrumentationModule::class])
 @ListActivityScope
 internal interface ListActivityInstrumentationComponent : ListActivityComponent {
-  @Component.Builder
-  interface Builder {
-    fun listViewConfigModule(listViewConfigModule: ListViewConfigModule): Builder
-
-    fun consumerModule(consumerModule: ConsumerModule): Builder
-
-    @BindsInstance
-    fun contentView(contentView: RecyclerView): Builder
-
-    @BindsInstance
-    fun progressView(@Progress progressView: View): Builder
-
-    @BindsInstance
-    fun errorView(@Error errorView: View): Builder
-
-    @BindsInstance
-    fun guideView(@Guide guideView: View): Builder
-
-    @BindsInstance
-    fun listViewInteractionListener(listViewInteractionListener: ListViewInteractionListener): Builder
-
-    @BindsInstance
-    fun searchView(searchView: SearchView): Builder
-
-    fun build(): ListActivityComponent
+  @Component.Factory
+  interface Factory {
+    fun create(
+        @BindsInstance contentView: RecyclerView,
+        @BindsInstance @Progress progressView: View,
+        @BindsInstance @Error errorView: View,
+        @BindsInstance @Guide guideView: View,
+        @BindsInstance listViewInteractionListener: ListViewInteractionListener,
+        @BindsInstance searchView: SearchView): ListActivityComponent
   }
 }
 

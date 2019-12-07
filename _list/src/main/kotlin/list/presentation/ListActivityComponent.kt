@@ -18,27 +18,15 @@ import javax.inject.Qualifier
 internal interface ListActivityComponent {
   fun inject(target: ListActivity)
 
-  @Subcomponent.Builder
-  interface Builder {
-    @BindsInstance
-    fun contentView(contentView: RecyclerView): Builder
-
-    @BindsInstance
-    fun progressView(@Progress progressView: View): Builder
-
-    @BindsInstance
-    fun errorView(@Error errorView: View): Builder
-
-    @BindsInstance
-    fun guideView(@Guide guideView: View): Builder
-
-    @BindsInstance
-    fun listViewInteractionListener(listViewInteractionListener: ListViewInteractionListener): Builder
-
-    @BindsInstance
-    fun searchView(searchView: SearchView): Builder
-
-    fun build(): ListActivityComponent
+  @Subcomponent.Factory
+  interface Factory {
+    fun create(
+        @BindsInstance contentView: RecyclerView,
+        @BindsInstance @Progress progressView: View,
+        @BindsInstance @Error errorView: View,
+        @BindsInstance @Guide guideView: View,
+        @BindsInstance listViewInteractionListener: ListViewInteractionListener,
+        @BindsInstance searchView: SearchView): ListActivityComponent
   }
 }
 

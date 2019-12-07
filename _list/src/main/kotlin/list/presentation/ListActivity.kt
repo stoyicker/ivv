@@ -125,14 +125,14 @@ internal var componentF = { contentView: RecyclerView,
                             guideView: View,
                             listener: ListViewInteractionListener,
                             searchView: SearchView ->
-  RootListComponentHolder.rootListComponent.listActivityComponentBuilder()
-      .contentView(contentView)
-      .progressView(progressView)
-      .errorView(errorView)
-      .guideView(guideView)
-      .listViewInteractionListener(listener)
-      .searchView(searchView)
-      .build()
+  RootListComponentHolder.rootListComponent.listActivityComponentFactory()
+      .create(
+          contentView,
+          progressView,
+          errorView,
+          guideView,
+          listener,
+          searchView)
 }
 
 fun listActivityIntent(context: Context) = Intent(context, ListActivity::class.java)
