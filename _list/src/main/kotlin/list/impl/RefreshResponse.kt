@@ -1,8 +1,10 @@
 package list.impl
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-class RefreshResponse private constructor(
+@JsonClass(generateAdapter = true)
+class RefreshResponse constructor(
     @field:Json(name = "page")
     val page: Int?,
     @field:Json(name = "results")

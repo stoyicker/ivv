@@ -33,7 +33,7 @@ subprojects {
     resolutionStrategy {
       forcedModules = [
           "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.ext.kotlinVersion",
-          "org.jetbrains.kotlin:kotlin-reflect:$rootProject.ext.kotlinVersion",
+          "com.squareup.moshi:moshi-kotlin-codegen:1.9.2",
           "androidx.annotation:annotation:1.1.0",
           // https://github.com/mockk/mockk/issues/281
           "org.objenesis:objenesis:2.6"

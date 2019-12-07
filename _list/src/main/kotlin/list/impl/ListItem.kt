@@ -1,7 +1,9 @@
 package list.impl
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 class ListItem(
     @field:Json(name = "poster_path")
     val posterPath: String?,
