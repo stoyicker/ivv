@@ -30,7 +30,9 @@ internal class AutoFitGridRecyclerView(context: Context, attrs: AttributeSet?)
     } else {
       columnWidth = defaultColumnWidth
     }
-    layoutManager = GridLayoutManager(context, 1)
+    layoutManager = object : GridLayoutManager(context, 1) {
+      override fun supportsPredictiveItemAnimations() = false
+    }
   }
 
   override fun onMeasure(widthSpec: Int, heightSpec: Int) {
