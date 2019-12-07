@@ -8,7 +8,8 @@
     <activity
       android:name="list.presentation.ListActivity"
       android:launchMode="singleTask"
-      android:theme="@style/App">
+      android:theme="@style/App"
+      android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.SEARCH" />
       </intent-filter>
