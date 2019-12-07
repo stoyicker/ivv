@@ -33,7 +33,7 @@ final def materialVersion = "1.0.0"
 // return test components before launching the test subject, achieving the same goal but this
 // time respecting the architecture.
 final def testAccessorsVersions = "1.2.1"
-final def moshiVersion = "1.8.0"
+final def moshiVersion = "1.9.2"
 final def rxJavaExtensionsVersion = "0.20.8"
 
 ext {
