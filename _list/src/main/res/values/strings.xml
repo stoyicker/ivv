@@ -5,4 +5,5 @@
   <string name="list_scroll_guide">Scroll down to see more!</string>
   <string name="hint_search_view_clear">Search an item!</string>
   <string name="hint_search_view"><![CDATA[<font color=#FF9999>Search an item!</font>]]></string>
+  <string name="list_content_provider_authority">list.impl.InitializationContentProvider</string>
 </resources>
