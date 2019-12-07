@@ -34,7 +34,7 @@ final def materialVersion = "1.0.0"
 // time respecting the architecture.
 final def testAccessorsVersions = "1.2.1"
 final def moshiVersion = "1.9.2"
-final def rxJavaExtensionsVersion = "0.20.8"
+final def rxJavaExtensionsVersion = "0.20.10"
 
 ext {
   implementationDependencies = [
