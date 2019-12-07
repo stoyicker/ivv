@@ -26,16 +26,13 @@ import javax.inject.Singleton
   FileSystemModule::class])
 @Singleton
 internal interface RootListComponent {
-  fun listActivityComponentBuilder(): ListActivityComponent.Builder
+  fun listActivityComponentFactory(): ListActivityComponent.Factory
 
-  fun initializationContentProviderComponentBuilder(): InitializationContentProviderComponent.Builder
+  fun initializationContentProviderComponent(): InitializationContentProviderComponent
 
-  @Component.Builder
-  interface Builder {
-    @BindsInstance
-    fun context(context: Context): Builder
-
-    fun build(): RootListComponent
+  @Component.Factory
+  interface Factory {
+    fun create(@BindsInstance context: Context): RootListComponent
   }
 }
 
@@ -43,8 +40,7 @@ internal object RootListComponentHolder {
   lateinit var rootListComponent: RootListComponent
 
   fun init(context: Context) {
-    rootListComponent = DaggerRootListComponent.builder()
-        .context(context)
-        .build()
+    rootListComponent = DaggerRootListComponent.factory()
+        .create(context)
   }
 }
