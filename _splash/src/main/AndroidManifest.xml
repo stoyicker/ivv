@@ -11,7 +11,7 @@
       android:name="splash.presentation.SplashActivity"
       android:launchMode="singleTask"
       android:theme="@style/App.Splash"
-      android:windowSoftInputMode="stateHidden">
+      android:windowSoftInputMode="stateAlwaysHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
