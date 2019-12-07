@@ -7,9 +7,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkClientModule {
+object NetworkClientModule {
   @Provides
   @Singleton
+  @JvmStatic
   fun client(): OkHttpClient.Builder = OkHttpClient.Builder()
       .readTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)
       .writeTimeout(TIMEOUT_SECONDS, TimeUnit.SECONDS)

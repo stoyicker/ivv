@@ -8,9 +8,10 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class PicassoModule {
+object PicassoModule {
   @Provides
   @Singleton
+  @JvmStatic
   fun picasso(context: Context): Picasso {
     Picasso.setSingletonInstance(Picasso.Builder(context)
         .downloader(OkHttp3Downloader(context, Long.MAX_VALUE))

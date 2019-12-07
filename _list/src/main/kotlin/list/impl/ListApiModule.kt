@@ -7,9 +7,10 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
 @Module
-internal class ListApiModule {
+internal object ListApiModule {
   @Provides
   @InitializationContentProviderScope
+  @JvmStatic
   fun client(
       clientBuilder: OkHttpClient.Builder,
       interceptor: Interceptor): OkHttpClient = clientBuilder.addInterceptor(interceptor)
@@ -17,6 +18,7 @@ internal class ListApiModule {
 
   @Provides
   @InitializationContentProviderScope
+  @JvmStatic
   fun listApi(
       retrofitBuilder: Retrofit.Builder,
       client: OkHttpClient): ListApi = retrofitBuilder.client(client)

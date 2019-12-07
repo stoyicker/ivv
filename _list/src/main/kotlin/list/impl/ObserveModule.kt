@@ -7,13 +7,15 @@ import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
 
 @Module
-internal class ObserveModule {
+internal object ObserveModule {
   @Provides
   @InitializationContentProviderScope
+  @JvmStatic
   fun pages() = BehaviorSubject.create<List<ListItem>>()
 
   @Provides
   @InitializationContentProviderScope
+  @JvmStatic
   fun observe(impl: BehaviorSubject<List<ListItem>>): Flowable<List<ListItem>> =
       impl.toFlowable(BackpressureStrategy.LATEST)
 }

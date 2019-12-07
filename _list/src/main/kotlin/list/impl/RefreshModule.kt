@@ -7,9 +7,10 @@ import io.reactivex.Scheduler
 import io.reactivex.subjects.BehaviorSubject
 
 @Module(includes = [RefreshSourceModule::class])
-internal class RefreshModule {
+internal object RefreshModule {
   @Provides
   @InitializationContentProviderScope
+  @JvmStatic
   fun refresh(refreshSource: RefreshSource,
               @Io scheduler: Scheduler,
               truthSource: BehaviorSubject<List<ListItem>>) = Refresh(

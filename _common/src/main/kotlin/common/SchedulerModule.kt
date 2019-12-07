@@ -8,15 +8,17 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-class SchedulerModule {
+object SchedulerModule {
   @Provides
   @Singleton
   @Io
+  @JvmStatic
   fun io() = Schedulers.io()
 
   @Provides
   @Singleton
   @MainThread
+  @JvmStatic
   fun mainThread() = AndroidSchedulers.mainThread()!!
 }
 
