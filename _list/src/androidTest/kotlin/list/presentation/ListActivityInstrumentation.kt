@@ -1,15 +1,15 @@
 package list.presentation
 
-import android.support.test.InstrumentationRegistry
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.espresso.matcher.ViewMatchers.withText
-import android.support.test.rule.ActivityTestRule
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
 import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.rule.ActivityTestRule
 import com.squareup.picasso.Picasso
 import dagger.BindsInstance
 import dagger.Component
@@ -58,7 +58,8 @@ internal class ListActivityInstrumentation {
     every { MOCK_REFRESH() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
 
-    activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
+    activityTestRule.launchActivity(listActivityIntent(
+        InstrumentationRegistry.getInstrumentation().targetContext))
 
     onView(withId(android.R.id.content)).check(matches(isCompletelyDisplayed()))
   }
@@ -78,7 +79,8 @@ internal class ListActivityInstrumentation {
     // On a whitebox test we would keep track of this mock to asses its verifications, but we're just blackboxing here
     every { MOCK_PICASSO.load("https://image.tmdb.org/t/p/w780/$posterPath") } returns mockk(relaxed = true)
 
-    activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
+    activityTestRule.launchActivity(listActivityIntent(
+        InstrumentationRegistry.getInstrumentation().targetContext))
 
     onView(withText("Pretty Little Liars")).check(matches(isCompletelyDisplayed()))
   }
@@ -89,7 +91,8 @@ internal class ListActivityInstrumentation {
     every { MOCK_REFRESH() } just Runs
     every { MOCK_OBSERVE.abort() } just Runs
 
-    activityTestRule.launchActivity(listActivityIntent(InstrumentationRegistry.getTargetContext()))
+    activityTestRule.launchActivity(listActivityIntent(
+        InstrumentationRegistry.getInstrumentation().targetContext))
 
     onView(withId(R.id.progress)).check(matches(isCompletelyDisplayed()))
   }

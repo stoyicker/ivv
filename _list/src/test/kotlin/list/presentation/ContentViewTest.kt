@@ -2,9 +2,9 @@ package list.presentation
 
 import android.content.Context
 import android.content.res.Resources
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.RecyclerView
 import io.mockk.Runs
 import io.mockk.confirmVerified
 import io.mockk.every

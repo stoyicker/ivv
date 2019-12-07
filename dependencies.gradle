@@ -1,6 +1,7 @@
 final def daggerVersion = "2.24"
-final def espressoVersion = "3.0.2"
-final def testRulesVersion = "1.0.2"
+final def espressoVersion = "3.2.0"
+final def testRunnerVersion = "1.2.0"
+final def testRulesVersion = "1.2.0"
 final def jsr250Version = "1.0"
 final def jUnitVersion = "4.12"
 final def kotlinVersion = rootProject.ext.kotlinVersion
@@ -12,7 +13,7 @@ final def rxJavaVersion = "2.2.8"
 // Store is a reactive cache management framework available at https://github.com/nytimes/Store
 // I wrote their Kotlin DSL artifacts so I thought I might as well show off a bit!
 final def storeVersion = "3.1.1"
-final def supportVersion = "28.0.0"
+final def materialVersion = "1.0.0"
 // test-accessors are a couple of annotation processors I wrote that generate code to access
 // fields from tests that would be otherwise inaccessible by generating code that can only be used
 // from the tests. Think of it as a safer version of @VisibleForTesting. Check it out
@@ -38,8 +39,7 @@ final def rxJavaExtensionsVersion = "0.20.8"
 ext {
   implementationDependencies = [
       "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
-      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
-      "com.android.support:appcompat-v7:$supportVersion"
+      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions"
   ]
   testImplementationDependencies = [
       "junit:junit:$jUnitVersion",
@@ -49,12 +49,13 @@ ext {
       "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
   ]
   androidTestImplementationDependencies = [
-      "com.android.support.test.espresso:espresso-core:$espressoVersion",
-      "com.android.support.test:rules:$testRulesVersion",
+      "androidx.test.espresso:espresso-core:$espressoVersion",
+      "androidx.test:runner:$testRunnerVersion",
+      "androidx.test:rules:$testRulesVersion",
       "io.mockk:mockk-android:$mockkVersion"
   ]
   implementationListDependencies = [
-      "com.android.support:design:$supportVersion",
+      "com.google.android.material:material:$materialVersion",
       "com.squareup.picasso:picasso:$picassoVersion",
       "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
       "com.github.akarnokd:rxjava2-extensions:$rxJavaExtensionsVersion",
