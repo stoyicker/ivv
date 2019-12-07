@@ -91,7 +91,6 @@ internal class Adapter(
     private lateinit var diff: DiffUtil.DiffResult
 
     override fun performFiltering(constraint: CharSequence?): FilterResults? {
-      val prevItems = shownItems
       currentQuery = constraint?.trim() ?: ""
       val filteredItems = if (currentQuery.isBlank()) {
         items
@@ -104,20 +103,20 @@ internal class Adapter(
         override fun getNewListSize() = filteredItems.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            prevItems[oldItemPosition].id.let { oldId ->
+            shownItems[oldItemPosition].id.let { oldId ->
               filteredItems[newItemPosition].id.let { newId ->
                 oldId == newId
               }
             }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
-            prevItems[oldItemPosition].let {
-              it.id == shownItems[newItemPosition].id &&
-                  it.name == shownItems[newItemPosition].name
+            shownItems[oldItemPosition].let {
+              it.id == filteredItems[newItemPosition].id &&
+                  it.name == filteredItems[newItemPosition].name
             }
 
         override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Bundle {
-          prevItems[oldItemPosition].let { old ->
+          shownItems[oldItemPosition].let { old ->
             filteredItems[newItemPosition].let { new ->
               return Bundle().apply {
                 putString(KEY_TITLE, new.name.takeIf {
@@ -141,6 +140,7 @@ internal class Adapter(
       @Suppress("UNCHECKED_CAST")
       shownItems = results?.values as List<ListItem>? ?: items
       diff.dispatchUpdatesTo(this@Adapter)
+      recyclerView.scrollToPosition(0)
     }
 
     /**
