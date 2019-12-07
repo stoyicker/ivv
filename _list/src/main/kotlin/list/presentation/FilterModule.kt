@@ -1,6 +1,6 @@
 package list.presentation
 
-import android.support.v7.widget.SearchView
+import androidx.appcompat.widget.SearchView
 import dagger.Module
 import dagger.Provides
 

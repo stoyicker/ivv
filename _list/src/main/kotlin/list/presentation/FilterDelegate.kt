@@ -3,9 +3,9 @@ package list.presentation
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
-import android.support.v4.text.HtmlCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.SearchView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.text.HtmlCompat
 import org.jorge.test.list.R
 
 /**

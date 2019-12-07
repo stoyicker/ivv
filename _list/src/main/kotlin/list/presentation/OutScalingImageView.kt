@@ -1,8 +1,8 @@
 package list.presentation
 
 import android.content.Context
-import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatImageView
 
 /**
  * An ImageView that allows drawable upscaling to satisfy the fitCenter scaleType.

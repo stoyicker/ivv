@@ -1,8 +1,8 @@
 package list.presentation
 
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.FrameLayout
+import androidx.recyclerview.widget.RecyclerView
 import list.impl.ListItem
 import org.jorge.test.list.R
 
