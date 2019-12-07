@@ -15,6 +15,7 @@ android {
     targetSdkVersion rootProject.ext.androidTargetSdkVersion
     testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
     multiDexEnabled true
+    javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
   }
   compileOptions {
     sourceCompatibility rootProject.ext.javaVersion
@@ -34,6 +35,8 @@ android {
   }
   packagingOptions {
     exclude "META-INF/services/javax.annotation.processing.Processor"
+    exclude "META-INF/metadata.kotlin_module"
+    exclude "META-INF/metadata.jvm.kotlin_module"
   }
   sourceSets.forEach {
     it.java.srcDirs = ["src/$it.name/kotlin"]

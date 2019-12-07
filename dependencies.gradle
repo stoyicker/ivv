@@ -65,7 +65,7 @@ ext {
       "com.nytimes.android:store-kotlin3:$storeVersion",
       "com.nytimes.android:middleware-moshi3:$storeVersion",
       "com.nytimes.android:filesystem3:$storeVersion",
-      "com.squareup.moshi:moshi:$moshiVersion",
+      "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion",
       "com.squareup.retrofit2:retrofit:$retrofitVersion",
       "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
       "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
@@ -74,7 +74,8 @@ ext {
       "javax.annotation:jsr250-api:$jsr250Version"
   ]
   kaptListDependencies = [
-      "com.google.dagger:dagger-compiler:$daggerVersion"
+      "com.google.dagger:dagger-compiler:$daggerVersion",
+      "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
   ]
   kaptAndroidTestListDependencies = [
       "com.google.dagger:dagger-compiler:$daggerVersion"
