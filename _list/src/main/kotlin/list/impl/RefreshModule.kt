@@ -13,6 +13,6 @@ internal object RefreshModule {
   @JvmStatic
   fun refresh(refreshSource: RefreshSource,
               @Io scheduler: Scheduler,
-              truthSource: BehaviorSubject<List<ListItem>>) = Refresh(
-      refreshSource, scheduler, truthSource)
+              truthSource: BehaviorSubject<List<ListItem>>) =
+      Refresh(refreshSource, scheduler, truthSource)
 }

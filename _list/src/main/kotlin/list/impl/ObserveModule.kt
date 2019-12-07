@@ -3,7 +3,6 @@ package list.impl
 import dagger.Module
 import dagger.Provides
 import io.reactivex.BackpressureStrategy
-import io.reactivex.Flowable
 import io.reactivex.subjects.BehaviorSubject
 
 @Module
@@ -16,6 +15,5 @@ internal object ObserveModule {
   @Provides
   @InitializationContentProviderScope
   @JvmStatic
-  fun observe(impl: BehaviorSubject<List<ListItem>>): Flowable<List<ListItem>> =
-      impl.toFlowable(BackpressureStrategy.LATEST)
+  fun observe(impl: BehaviorSubject<List<ListItem>>) = impl.toFlowable(BackpressureStrategy.LATEST)
 }
