@@ -137,10 +137,13 @@ internal class Adapter(
     }
 
     override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+      val shouldScrollToTop = shownItems != results!!.values
       @Suppress("UNCHECKED_CAST")
       shownItems = results?.values as List<ListItem>? ?: items
       diff.dispatchUpdatesTo(this@Adapter)
-      recyclerView.scrollToPosition(0)
+      if (shouldScrollToTop) {
+        recyclerView.scrollToPosition(0)
+      }
     }
 
     /**
