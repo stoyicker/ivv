@@ -127,7 +127,4 @@ because we'd use some minification tool such as ProGuard or R8, but still).
 * There are anonymous classes and some static DI violations around the project. These will greatly 
 difficult testing and should be refactored into named classes/injected dependencies respectively to
 appropriately address the problems they create.
-* Static @Provides methods for dependencies that do not need instance information: See [this link](
-https://stackoverflow.com/questions/38607503/static-provide-method-in-dagger2) for more detail. 
-Basically just a tiny bit of theoretical performance gain.
 * A couple of other TODOs left around.

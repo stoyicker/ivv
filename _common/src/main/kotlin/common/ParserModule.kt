@@ -6,8 +6,9 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class ParserModule {
+object ParserModule {
   @Provides
   @Singleton
+  @JvmStatic
   fun moshiBuilder() = Moshi.Builder()
 }

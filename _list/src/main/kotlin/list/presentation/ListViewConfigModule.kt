@@ -5,9 +5,10 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-internal class ListViewConfigModule {
+internal object ListViewConfigModule {
   @Provides
   @ListActivityScope
+  @JvmStatic
   fun listViewConfig(
       picasso: Picasso,
       listener: ListViewInteractionListener) = ListViewConfig(picasso, listener)

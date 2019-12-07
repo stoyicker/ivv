@@ -19,15 +19,17 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 
 @Module(includes = [ListApiModule::class])
-internal class RefreshSourceModule {
+internal object RefreshSourceModule {
   @Provides
   @InitializationContentProviderScope
   @Local
+  @JvmStatic
   internal fun fetcher(api: ListApi) = ListFetcher(api)
 
   @Provides
   @InitializationContentProviderScope
   @Local
+  @JvmStatic
   internal fun parsers(moshiBuilder: Moshi.Builder): List<Parser<BufferedSource, RefreshResponse>> =
       listOf(MoshiParserFactory.createSourceParser<RefreshResponse>(
           moshiBuilder.build(),
@@ -36,6 +38,7 @@ internal class RefreshSourceModule {
   @Provides
   @InitializationContentProviderScope
   @Local
+  @JvmStatic
   internal fun filesystemRecordPersister(fileSystem: FileSystem)
       : Persister<BufferedSource, Int> = FileSystemRecordPersister.create(
       fileSystem,
@@ -46,6 +49,7 @@ internal class RefreshSourceModule {
   @Provides
   @InitializationContentProviderScope
   @Local
+  @JvmStatic
   internal fun memPolicy() = FluentMemoryPolicyBuilder.build {
     expireAfterWrite = 30
     expireAfterTimeUnit = TimeUnit.MINUTES
@@ -54,11 +58,13 @@ internal class RefreshSourceModule {
   @Provides
   @InitializationContentProviderScope
   @Local
+  @JvmStatic
   internal fun stalePolicy() = StalePolicy.NETWORK_BEFORE_STALE
 
   @Provides
   @InitializationContentProviderScope
   @Local
+  @JvmStatic
   internal fun store(
       @Local
       fetcher: ListFetcher,
@@ -80,6 +86,7 @@ internal class RefreshSourceModule {
 
   @Provides
   @InitializationContentProviderScope
+  @JvmStatic
   internal fun source(@Local store: Lazy<Store<RefreshResponse, Int>>) = RefreshSource(store)
 
   @Qualifier

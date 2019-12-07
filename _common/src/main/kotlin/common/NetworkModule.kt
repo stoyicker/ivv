@@ -11,9 +11,10 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+object NetworkModule {
   @Provides
   @Singleton
+  @JvmStatic
   fun retrofitBuilder(
       @Local
       callAdapterFactory: CallAdapter.Factory,
@@ -26,11 +27,13 @@ class NetworkModule {
   @Provides
   @Singleton
   @Local
+  @JvmStatic
   internal fun callAdapterFactory(): CallAdapter.Factory = RxJava2CallAdapterFactory.create()
 
   @Provides
   @Singleton
   @Local
+  @JvmStatic
   internal fun moshiConverterFactory(): Converter.Factory = MoshiConverterFactory.create()
 
   @Qualifier
