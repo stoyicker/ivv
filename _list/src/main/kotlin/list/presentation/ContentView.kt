@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import list.impl.ListItem
 import org.jorge.test.list.R
 
-internal class ContentView(
+class ContentView(
     val recyclerView: RecyclerView,
     val errorView: View,
     private val progressView: View,

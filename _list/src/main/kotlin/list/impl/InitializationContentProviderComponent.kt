@@ -6,6 +6,6 @@ import dagger.Subcomponent
   RefreshModule::class,
   ObserveModule::class])
 @InitializationContentProviderScope
-internal interface InitializationContentProviderComponent {
+interface InitializationContentProviderComponent {
   fun inject(target: InitializationContentProvider)
 }

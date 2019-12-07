@@ -6,8 +6,9 @@ import okhttp3.Interceptor
 import javax.inject.Singleton
 
 @Module
-class ApiKeyInterceptorModule {
+internal object ApiKeyInterceptorModule {
   @Provides
   @Singleton
+  @JvmStatic
   fun interceptor(): Interceptor = ApiKeyInterceptor()
 }

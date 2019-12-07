@@ -10,10 +10,11 @@ internal object ObserveModule {
   @Provides
   @InitializationContentProviderScope
   @JvmStatic
-  fun pages() = BehaviorSubject.create<List<ListItem>>()
+  fun observe(impl: BehaviorSubject<List<ListItem>>) =
+      impl.toFlowable(BackpressureStrategy.LATEST)
 
   @Provides
-  @InitializationContentProviderScope
   @JvmStatic
-  fun observe(impl: BehaviorSubject<List<ListItem>>) = impl.toFlowable(BackpressureStrategy.LATEST)
+  @InitializationContentProviderScope
+  fun pages() = BehaviorSubject.create<List<ListItem>>()
 }

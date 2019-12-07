@@ -1,10 +1,9 @@
-package splash
+package app
 
-import android.app.Application
 import android.os.Build
 import android.os.StrictMode
 
-internal class MyApplication : Application() {
+internal class DebugApplication : MyApplication() {
   override fun onCreate() {
     super.onCreate()
     enforceThreadStrictMode()

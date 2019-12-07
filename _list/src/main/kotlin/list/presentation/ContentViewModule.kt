@@ -6,9 +6,10 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-internal class ContentViewModule {
+object ContentViewModule {
   @Provides
   @ListActivityScope
+  @JvmStatic
   fun contentView(recyclerView: RecyclerView,
                   @Error
                   errorView: View,

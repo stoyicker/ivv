@@ -1,16 +1,17 @@
 [![CircleCI](https://circleci.com/gh/stoyicker/ivv.svg?style=svg&circle-token=a93f0b6033d7f45400ccdc85011af61352da6521)](https://circleci.com/gh/stoyicker/ivv)
 
 # Building
-* `./gradlew :_splash:assemble` (or Windows equivalent). Find the apk in 
-`_splash/build/outputs/apk/debug/_splash-debug.apk`.
+* `./gradlew assemble` (or Windows equivalent).
 
 # Architecture
-This app follows a 'feature'-based split, with two-ish (`_splash is just the app entry point) 
-features:
+This app follows a 'feature'-based split, with two features:
 * `_splash`, for the splash screen.
 * `_list`, for the item list.
 
-`_splash` hardly has any code, not much architecture to see here.
+`_splash` hardly has any code, not much architecture to see here. The Activity in this module has a
+matching component responsible for injecting it, and all it does is posting launching an intent to 
+another screen, so I haven't setup a formal architecture (for example, Clean) for since it seems 
+over-engineery.
 
 `_list` is built around a source of truth which is updated by actions triggered for example by the 
 user and which is observed by the UI, that adapts to each change in the source of truth. This allows 
@@ -22,7 +23,10 @@ isolation. The 'domain' layer contains use cases that use interfaces to define r
 must be implemented by the 'data' layer, and the 'presentation' layer features MVP to bind use case 
 triggers and react to data updates.
 
-Each of these features is represented by a module, and then there's also the `_common` module, which contains some shared items.
+Each of these features is represented by a module, and then there's also the `_common` module, which 
+contains some shared resources as well as Dagger qualifiers for the top-level dependencies and a 
+commodity interface for instantiating the root component for each module from the Application class,
+and `_app`, which is used to host the root node of the DI tree.
 
 Finally, the app is built to follow general user expectations: 
 * If started offline or a connection is lost, content will be immediately fetched after the user 
@@ -45,9 +49,6 @@ code documentation generation tool for Kotlin, similar to what Javadoc is for Ja
 # Tests
 White-box JVM-based unit tests are written using JUnit and instrumented black-box ones using 
 Espresso. Feel free to run them using the different `test` and `cAT` Gradle tasks.
-Also note that for the JVM tests, although the requirements mentioned 'Complete coverage of clean 
-unit tests', I'm assuming that this does not mean 100% statement/line coverage. I've written tests
-for some of the classes, but obviously not enough for full code coverage.
 
 # Points of discussion
 * Mockk vs Mockito: Not too different from each other. Mockk is mostly a re-write of mockito with a

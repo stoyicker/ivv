@@ -6,7 +6,7 @@ import io.reactivex.functions.Consumer
 import list.impl.ListItem
 import testaccessors.RequiresAccessor
 
-internal class ObserveCoordinator(
+class ObserveCoordinator(
     private val functionalityHolder: FunctionalityHolder,
     private val subscribeScheduler: Scheduler,
     private val observeScheduler: Scheduler) {

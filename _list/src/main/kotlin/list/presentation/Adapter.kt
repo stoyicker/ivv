@@ -76,7 +76,7 @@ internal class Adapter(
    * filter, which means items which do not meet the current filter will not be shown.
    * @param newItems The items.
    */
-  internal fun setItems(newItems: List<ListItem>) {
+  fun setItems(newItems: List<ListItem>) {
     items = newItems
     filter.refresh()
   }

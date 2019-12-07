@@ -11,7 +11,7 @@ import org.jorge.test.list.R
 /**
  * Contains boilerplate for list filtering.
  */
-internal class FilterDelegate(
+class FilterDelegate(
     private val searchView: SearchView, private val target: ListViewConfig) {
   internal var query: CharSequence = ""
     private set
@@ -39,5 +39,5 @@ internal class FilterDelegate(
    * Delegates a query to the query handler in order to filter the list.
    * @param newQuery The query.
    */
-  internal fun applyQuery(newQuery: CharSequence?) = searchView.setQuery(newQuery, false)
+  fun applyQuery(newQuery: CharSequence?) = searchView.setQuery(newQuery, false)
 }

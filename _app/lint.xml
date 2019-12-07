@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<lint>
+  <issue id="GoogleAppIndexingWarning" severity="ignore" />
+  <issue id="InvalidPackage">
+    <ignore regexp="kotlinpoet" />
+  </issue>
+  <!-- Picasso brings in exifinterface from support-lib -->
+  <issue id="GradleCompatible" severity="ignore" />
+</lint>

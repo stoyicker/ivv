@@ -1,4 +1,4 @@
-apply plugin: "com.android.application"
+apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
 apply plugin: "kotlin-kapt"
 apply plugin: "org.jmailen.kotlinter"
@@ -8,13 +8,11 @@ android {
   compileSdkVersion rootProject.ext.androidCompileSdkVersion
   buildToolsVersion rootProject.ext.androidBuildToolsVersion
   defaultConfig {
-    applicationId "org.jorge.test"
     versionCode rootProject.ext.androidVersionCode
     versionName rootProject.ext.androidVersionName
     minSdkVersion rootProject.ext.androidMinSdkVersion
     targetSdkVersion rootProject.ext.androidTargetSdkVersion
     testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
-    multiDexEnabled true
     javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
   }
   compileOptions {
@@ -58,8 +56,7 @@ dependencies {
   kapt rootProject.ext.kaptDependencies
   testImplementation rootProject.ext.testImplementationDependencies
   androidTestImplementation rootProject.ext.androidTestImplementationDependencies
-  implementation rootProject.ext.implementationListDependencies
-  compileOnly rootProject.ext.compileOnlyListDependencies
+  compileOnly rootProject.ext.compileOnlyDependencies
   kapt rootProject.ext.kaptListDependencies
   kaptAndroidTest rootProject.ext.kaptAndroidTestListDependencies
 }

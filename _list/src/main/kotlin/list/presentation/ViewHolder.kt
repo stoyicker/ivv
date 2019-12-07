@@ -26,7 +26,7 @@ internal class ViewHolder(
    * Draw an item.
    * @title The item to draw.
    */
-  internal fun present(item: ListItem) {
+  fun present(item: ListItem) {
     item.name?.let { setTitle(it) }
     item.posterPath?.let { setThumbnail(it) }
     itemView.setOnClickListener { onItemClicked(item) }
@@ -37,7 +37,7 @@ internal class ViewHolder(
    * @param bundle The updates that need to be drawn.
    * @param item The item these updates correspond to.
    */
-  internal fun presentPartial(bundle: Bundle, item: ListItem) {
+  fun presentPartial(bundle: Bundle, item: ListItem) {
     bundle.getString(KEY_TITLE)?.let { setTitle(it) }
     setThumbnail(bundle.getString(KEY_THUMBNAIL))
     itemView.setOnClickListener { onItemClicked(item) }

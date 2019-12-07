@@ -5,7 +5,7 @@ import list.impl.ListItem
 /**
  * An interface for the view to communicate with outsiders.
  */
-internal interface ListViewInteractionListener {
+interface ListViewInteractionListener {
   /**
    * To be called when an item click happens.
    * @param item The item clicked.

@@ -1,11 +1,8 @@
 package list.impl
 
-import com.nytimes.android.external.fs3.FileSystemRecordPersister
 import com.nytimes.android.external.fs3.filesystem.FileSystem
 import com.nytimes.android.external.store3.base.Parser
 import com.nytimes.android.external.store3.base.Persister
-import com.nytimes.android.external.store3.base.impl.FluentMemoryPolicyBuilder
-import com.nytimes.android.external.store3.base.impl.FluentStoreBuilder
 import com.nytimes.android.external.store3.base.impl.MemoryPolicy
 import com.nytimes.android.external.store3.base.impl.StalePolicy
 import com.nytimes.android.external.store3.base.impl.Store
@@ -15,81 +12,67 @@ import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import okio.BufferedSource
-import java.util.concurrent.TimeUnit
 import javax.inject.Qualifier
 
 @Module(includes = [ListApiModule::class])
 internal object RefreshSourceModule {
   @Provides
   @InitializationContentProviderScope
-  @Local
   @JvmStatic
-  internal fun fetcher(api: ListApi) = ListFetcher(api)
+  fun source(@LocalRefreshSourceModule store: Lazy<Store<RefreshResponse, Int>>) =
+      RefreshSource(store)
 
   @Provides
   @InitializationContentProviderScope
-  @Local
+  @LocalRefreshSourceModule
   @JvmStatic
-  internal fun parsers(moshiBuilder: Moshi.Builder): List<Parser<BufferedSource, RefreshResponse>> =
+  fun fetcher(api: ListApi) = ListFetcher(api)
+
+  @Provides
+  @InitializationContentProviderScope
+  @LocalRefreshSourceModule
+  @JvmStatic
+  fun parsers(moshiBuilder: Moshi.Builder): List<Parser<BufferedSource, RefreshResponse>> =
       listOf(MoshiParserFactory.createSourceParser<RefreshResponse>(
           moshiBuilder.build(),
           RefreshResponse::class.java))
 
   @Provides
   @InitializationContentProviderScope
-  @Local
+  @LocalRefreshSourceModule
   @JvmStatic
-  internal fun filesystemRecordPersister(fileSystem: FileSystem)
-      : Persister<BufferedSource, Int> = FileSystemRecordPersister.create(
-      fileSystem,
-      { it.toString() },
-      1,
-      TimeUnit.HOURS)
+  fun filesystemRecordPersister(fileSystem: FileSystem) = PersisterWrapper(fileSystem).value
 
   @Provides
   @InitializationContentProviderScope
-  @Local
+  @LocalRefreshSourceModule
   @JvmStatic
-  internal fun memPolicy() = FluentMemoryPolicyBuilder.build {
-    expireAfterWrite = 30
-    expireAfterTimeUnit = TimeUnit.MINUTES
-  }
+  fun memPolicy() = MemoryPolicyWrapper().value
 
   @Provides
   @InitializationContentProviderScope
-  @Local
+  @LocalRefreshSourceModule
   @JvmStatic
-  internal fun stalePolicy() = StalePolicy.NETWORK_BEFORE_STALE
+  fun stalePolicy() = StalePolicy.NETWORK_BEFORE_STALE
 
   @Provides
   @InitializationContentProviderScope
-  @Local
+  @LocalRefreshSourceModule
   @JvmStatic
-  internal fun store(
-      @Local
+  fun store(
+      @LocalRefreshSourceModule
       fetcher: ListFetcher,
-      @Local
+      @LocalRefreshSourceModule
       parserList: MutableList<Parser<BufferedSource, RefreshResponse>>,
-      @Local
+      @LocalRefreshSourceModule
       recordPersister: Persister<BufferedSource, Int>,
-      @Local
+      @LocalRefreshSourceModule
       memPolicy: MemoryPolicy,
-      @Local
+      @LocalRefreshSourceModule
       stPolicy: StalePolicy) =
-      FluentStoreBuilder.parsedWithKey<Int, BufferedSource, RefreshResponse>(
-          fetcher) {
-        parsers = parserList
-        persister = recordPersister
-        memoryPolicy = memPolicy
-        stalePolicy = stPolicy
-      }
-
-  @Provides
-  @InitializationContentProviderScope
-  @JvmStatic
-  internal fun source(@Local store: Lazy<Store<RefreshResponse, Int>>) = RefreshSource(store)
+      StoreWrapper(fetcher, parserList, recordPersister, memPolicy, stPolicy).value
 
   @Qualifier
   @Retention(AnnotationRetention.RUNTIME)
-  private annotation class Local
+  private annotation class LocalRefreshSourceModule
 }

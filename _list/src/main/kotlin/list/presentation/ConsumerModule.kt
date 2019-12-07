@@ -4,12 +4,14 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-internal class ConsumerModule {
+object ConsumerModule {
   @Provides
   @ListActivityScope
+  @JvmStatic
   fun onNext(view: ContentView) = PageLoadNextConsumer(view)
 
   @Provides
   @ListActivityScope
+  @JvmStatic
   fun onError(view: ContentView) = PageLoadErrorConsumer(view)
 }
