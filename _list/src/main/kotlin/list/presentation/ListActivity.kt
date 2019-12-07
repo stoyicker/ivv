@@ -1,5 +1,6 @@
 package list.presentation
 
+import android.app.Application
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
@@ -11,12 +12,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
+import app.ComponentProvider
 import kotlinx.android.synthetic.main.include_list_view.content
 import kotlinx.android.synthetic.main.include_list_view.error
 import kotlinx.android.synthetic.main.include_list_view.progress
 import kotlinx.android.synthetic.main.include_list_view.scroll_guide
 import kotlinx.android.synthetic.main.include_toolbar.toolbar
-import list.RootListComponentHolder
+import list.RootListComponent
 import list.domain.ObserveCoordinator
 import list.domain.RefreshCoordinator
 import list.impl.ListItem
@@ -24,7 +26,7 @@ import org.jorge.test.list.R
 import testaccessors.RequiresAccessor
 import javax.inject.Inject
 
-internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
+class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   @Inject
   internal lateinit var observeCoordinator: ObserveCoordinator
   @Inject
@@ -78,6 +80,7 @@ internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.list, menu)
     componentF(
+        application,
         content,
         progress,
         error,
@@ -117,15 +120,17 @@ internal class ListActivity : AppCompatActivity(), ListViewInteractionListener {
   }
 }
 
-// DI root for this layer in the module. See dependencies.gradle for a more detailed explanation
 @RequiresAccessor
-internal var componentF = { contentView: RecyclerView,
-                            progressView: View,
-                            errorView: View,
-                            guideView: View,
-                            listener: ListViewInteractionListener,
-                            searchView: SearchView ->
-  RootListComponentHolder.rootListComponent.listActivityComponentFactory()
+private var componentF = { application: Application,
+                           contentView: RecyclerView,
+                           progressView: View,
+                           errorView: View,
+                           guideView: View,
+                           listener: ListViewInteractionListener,
+                           searchView: SearchView ->
+  @Suppress("UNCHECKED_CAST")
+  (application as ComponentProvider).moduleRootComponent(RootListComponent::class)
+      .newListActivityComponentFactory()
       .create(
           contentView,
           progressView,
@@ -136,4 +141,6 @@ internal var componentF = { contentView: RecyclerView,
 }
 
 fun listActivityIntent(context: Context) = Intent(context, ListActivity::class.java)
+
 private const val KEY_QUERY = "KEY_QUERY"
+

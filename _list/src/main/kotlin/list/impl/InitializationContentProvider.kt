@@ -1,10 +1,12 @@
 package list.impl
 
+import android.app.Application
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.net.Uri
+import app.ComponentProvider
 import io.reactivex.Flowable
-import list.RootListComponentHolder
+import list.RootListComponent
 import list.domain.FunctionalityHolder
 import javax.inject.Inject
 
@@ -15,17 +17,13 @@ import javax.inject.Inject
  * @see <a href="https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html">
  * The Firebase Blog: How does Firebase initialize on Android</a>
  */
-internal class InitializationContentProvider : ContentProvider() {
-  // DI root for this layer in the module. See dependencies.gradle for a more detailed explanation
-  private val componentF: () -> InitializationContentProviderComponent = {
-    RootListComponentHolder.rootListComponent.initializationContentProviderComponent()
-  }
+class InitializationContentProvider : ContentProvider() {
   @Inject
-  lateinit var functionalityHolder: FunctionalityHolder
+  internal lateinit var functionalityHolder: FunctionalityHolder
   @Inject
-  lateinit var observeImpl: Flowable<List<ListItem>>
+  internal lateinit var observeImpl: Flowable<List<ListItem>>
   @Inject
-  lateinit var refreshImpl: Refresh
+  internal lateinit var refreshImpl: Refresh
 
   /**
    * This gets called on application creation and provides functionality implementations into the
@@ -33,8 +31,7 @@ internal class InitializationContentProvider : ContentProvider() {
    * implementations.
    */
   override fun onCreate() = true.also {
-    RootListComponentHolder.init(context!!) // This would normally be done from the application, but the CP is called first
-    componentF().inject(this)
+    componentF(context!!.applicationContext as Application).inject(this)
     functionalityHolder.apply {
       observe = observeImpl
       refresh = refreshImpl
@@ -62,4 +59,10 @@ internal class InitializationContentProvider : ContentProvider() {
       uri: Uri,
       selection: String?,
       selectionArgs: Array<String>?) = throw UnsupportedOperationException()
+}
+
+// DI root for this layer in the module. See dependencies.gradle for a more detailed explanation
+private var componentF = { application: Application ->
+  (application as ComponentProvider).moduleRootComponent(RootListComponent::class)
+      .newInitializationContentProviderComponent()
 }

@@ -1,5 +1,6 @@
 package list.presentation
 
+import android.app.Application
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,8 @@ internal class ListActivityInstrumentation {
       ListActivity::class.java, false, false) {
     override fun beforeActivityLaunched() {
       super.beforeActivityLaunched()
-      ListActivityKtTestAccessors.componentF { contentView: RecyclerView,
+      ListActivityKtTestAccessors.componentF { _: Application,
+                                               contentView: RecyclerView,
                                                progressView: View,
                                                errorView: View,
                                                guideView: View,
@@ -42,12 +44,12 @@ internal class ListActivityInstrumentation {
                                                searchView: SearchView ->
         DaggerListActivityInstrumentationComponent.factory()
             .create(
-              contentView,
-              progressView,
-              errorView,
-              guideView,
-              listener,
-              searchView)
+                contentView,
+                progressView,
+                errorView,
+                guideView,
+                listener,
+                searchView)
       }
     }
   }
@@ -119,17 +121,20 @@ internal interface ListActivityInstrumentationComponent : ListActivityComponent 
 }
 
 @Module
-internal class ListActivityInstrumentationModule {
+internal object ListActivityInstrumentationModule {
   @Provides
   @ListActivityScope
+  @JvmStatic
   fun observe() = MOCK_OBSERVE
 
   @Provides
   @ListActivityScope
+  @JvmStatic
   fun refresh() = MOCK_REFRESH
 
   @Provides
   @ListActivityScope
+  @JvmStatic
   fun picasso() = MOCK_PICASSO
 }
 

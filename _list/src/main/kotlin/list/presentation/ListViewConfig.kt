@@ -6,7 +6,7 @@ import com.squareup.picasso.Picasso
 /**
  * Configuration for the recycler view holding the post list.
  */
-internal class ListViewConfig(
+class ListViewConfig(
     picasso: Picasso,
     private val callback: ListViewInteractionListener) {
   private val myAdapter = Adapter(picasso, callback).apply { setHasStableIds(true) }
@@ -25,7 +25,7 @@ internal class ListViewConfig(
    * Requests a filtering command to be performed.
    * @param constraint The constraint for the filtering action.
    */
-  internal fun filterView(constraint: CharSequence?) = myAdapter.filter.filter(constraint, null)
+  fun filterView(constraint: CharSequence?) = myAdapter.filter.filter(constraint, null)
 
   /**
    * Provides support for the user interaction that requests loading additional items.

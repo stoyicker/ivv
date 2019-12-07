@@ -14,4 +14,9 @@
   <issue id="SyntheticAccessor">
     <ignore path="**/Adapter.kt" />
   </issue>
+  <issue id="InvalidPackage">
+    <ignore regexp="kotlinpoet" />
+  </issue>
+  <!-- Picasso brings in exifinterface from support-lib -->
+  <issue id="GradleCompatible" severity="ignore" />
 </lint>

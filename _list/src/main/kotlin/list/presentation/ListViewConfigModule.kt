@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-internal object ListViewConfigModule {
+object ListViewConfigModule {
   @Provides
   @ListActivityScope
   @JvmStatic

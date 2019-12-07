@@ -18,43 +18,26 @@ final def materialVersion = "1.0.0"
 // fields from tests that would be otherwise inaccessible by generating code that can only be used
 // from the tests. Think of it as a safer version of @VisibleForTesting. Check it out
 // at https://github.com/stoyicker/test-accessors
-// In _splash, these are used to access a private field from tests, and in other modules to inject
-// factories for the Dagger components. In a more traditional project you may have seen the
+// These are used to access a couple of fields from tests as well as to alter DI to use test-specific
+// components. Regarding this point in particular, in a more traditional project you may have seen the
 // application class be used as a DI root for the entire app and then in instrumented tests replace
 // the runner with one which invokes a test-specific application instance that replaces production
 // components with the desired replacements for testing. This approach is not appropriate for this
 // project as it would require that every module leaks the boundary of its dependency graph to
-// _splash, which is where the application class lives, killing one of the pros of this
-// architectural approach: feature independence. To avoid this, instead of using the application as
-// DI root, each module has its own DI root(s), which live in Android components (Services
-// BroadcastReceivers, Content Providers and Activities - Activities only in this project since we
-// have no other components), and just like in the application-as-root approach, are implemented via
-// factory methods. During instrumented testing, these methods are replaced by alternatives that
-// return test components before launching the test subject, achieving the same goal but this
-// time respecting the architecture.
-final def testAccessorsVersions = "1.2.1"
+// to _app, where the application class lives, killing one of the pros of this approach: feature
+// independence. To avoid this, instead of using the application as DI root in the tests, each
+// module has its own DI root(s) which, in spite of being children to the component in the application
+// class, are setup so that in the tests they can be replaced at a per-Android component-level.
+// This allows for maximum flexibility when writing tests,
+final def testAccessorsVersions = "1.2.2"
 final def moshiVersion = "1.9.2"
 final def rxJavaExtensionsVersion = "0.20.10"
+final def findbugsVersion = "3.0.2"
 
 ext {
   implementationDependencies = [
       "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
-      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions"
-  ]
-  testImplementationDependencies = [
-      "junit:junit:$jUnitVersion",
-      "io.mockk:mockk:$mockkVersion"
-  ]
-  kaptDependencies = [
-      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
-  ]
-  androidTestImplementationDependencies = [
-      "androidx.test.espresso:espresso-core:$espressoVersion",
-      "androidx.test:runner:$testRunnerVersion",
-      "androidx.test:rules:$testRulesVersion",
-      "io.mockk:mockk-android:$mockkVersion"
-  ]
-  implementationListDependencies = [
+      "com.github.stoyicker.test-accessors:annotations:$testAccessorsVersions",
       "com.google.android.material:material:$materialVersion",
       "com.squareup.picasso:picasso:$picassoVersion",
       "io.reactivex.rxjava2:rxjava:$rxJavaVersion",
@@ -69,11 +52,26 @@ ext {
       "com.squareup.retrofit2:retrofit:$retrofitVersion",
       "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
       "com.squareup.retrofit2:converter-moshi:$retrofitVersion",
+      "com.google.code.findbugs:jsr305:$findbugsVersion"
   ]
-  compileOnlyListDependencies = [
+  testImplementationDependencies = [
+      "junit:junit:$jUnitVersion",
+      "io.mockk:mockk:$mockkVersion"
+  ]
+  kaptDependencies = [
+      "com.github.stoyicker.test-accessors:processor-kotlin:$testAccessorsVersions"
+  ]
+  androidTestImplementationDependencies = [
+      "androidx.test.espresso:espresso-core:$espressoVersion",
+      "androidx.test:runner:$testRunnerVersion",
+      "androidx.test:rules:$testRulesVersion",
+      "io.mockk:mockk-android:$mockkVersion"
+  ]
+  compileOnlyDependencies = [
       "javax.annotation:jsr250-api:$jsr250Version"
   ]
   kaptListDependencies = [
+      "com.google.dagger:dagger-compiler:$daggerVersion",
       "com.google.dagger:dagger-compiler:$daggerVersion",
       "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
   ]

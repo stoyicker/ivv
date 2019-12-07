@@ -2,23 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="org.jorge.test.splash">
 
-  <application
-    android:allowBackup="false"
-    android:icon="@null"
-    android:label="@string/label_app"
-    android:launchMode="singleTask">
+  <application>
     <activity
-      android:name="splash.presentation.SplashActivity"
+      android:name="splash.SplashActivity"
       android:launchMode="singleTask"
-      android:theme="@style/App.Splash"
-      android:windowSoftInputMode="stateAlwaysHidden">
+      android:theme="@style/App.Splash">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <meta-data
-      android:name="android.max_aspect"
-      android:value="2.1" />
   </application>
 </manifest>

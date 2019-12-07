@@ -1,14 +1,13 @@
-package common
+package app
 
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
-object ParserModule {
+internal object ParserModule {
   @Provides
-  @Singleton
+  @GlobalScope
   @JvmStatic
   fun moshiBuilder() = Moshi.Builder()
 }

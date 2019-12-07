@@ -15,7 +15,7 @@ import javax.inject.Qualifier
   ConsumerModule::class,
   DomainModule::class])
 @ListActivityScope
-internal interface ListActivityComponent {
+interface ListActivityComponent {
   fun inject(target: ListActivity)
 
   @Subcomponent.Factory
@@ -32,12 +32,12 @@ internal interface ListActivityComponent {
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-internal annotation class Progress
+annotation class Progress
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-internal annotation class Error
+annotation class Error
 
 @Qualifier
 @Retention(AnnotationRetention.RUNTIME)
-internal annotation class Guide
+annotation class Guide

@@ -1,0 +1,65 @@
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+apply plugin: "org.jmailen.kotlinter"
+apply plugin: "org.jetbrains.dokka-android"
+
+android {
+  compileSdkVersion rootProject.ext.androidCompileSdkVersion
+  buildToolsVersion rootProject.ext.androidBuildToolsVersion
+  defaultConfig {
+    applicationId "org.jorge.test"
+    versionCode rootProject.ext.androidVersionCode
+    versionName rootProject.ext.androidVersionName
+    minSdkVersion rootProject.ext.androidMinSdkVersion
+    targetSdkVersion rootProject.ext.androidTargetSdkVersion
+    testInstrumentationRunner rootProject.ext.androidTestInstrumentationRunner
+    multiDexEnabled true
+    javaCompileOptions.annotationProcessorOptions.includeCompileClasspath = true
+  }
+  compileOptions {
+    sourceCompatibility rootProject.ext.javaVersion
+    targetCompatibility rootProject.ext.javaVersion
+  }
+  dexOptions {
+    preDexLibraries false
+    javaMaxHeapSize "8g"
+  }
+  lintOptions {
+    abortOnError true
+    absolutePaths true
+    checkAllWarnings true
+    htmlOutput = new File("$rootProject.ext.staticAnalysisReportTarget/$project.name/lint.html")
+    quiet false
+    warningsAsErrors true
+  }
+  packagingOptions {
+    exclude "META-INF/services/javax.annotation.processing.Processor"
+    exclude "META-INF/metadata.kotlin_module"
+    exclude "META-INF/metadata.jvm.kotlin_module"
+  }
+  sourceSets.forEach {
+    it.java.srcDirs = ["src/$it.name/kotlin"]
+  }
+  variantFilter {
+    if (it.buildType.name.toLowerCase(Locale.ENGLISH) == "release") {
+      ignore = true
+    }
+  }
+}
+repositories {
+  jcenter()
+  google()
+}
+dependencies {
+  implementation project(":_splash")
+  implementation project(":_common")
+  implementation project(":_list")
+  implementation rootProject.ext.implementationDependencies
+  kapt rootProject.ext.kaptDependencies
+  testImplementation rootProject.ext.testImplementationDependencies
+  androidTestImplementation rootProject.ext.androidTestImplementationDependencies
+  compileOnly rootProject.ext.compileOnlyDependencies
+  kapt rootProject.ext.kaptListDependencies
+  kaptAndroidTest rootProject.ext.kaptAndroidTestListDependencies
+}

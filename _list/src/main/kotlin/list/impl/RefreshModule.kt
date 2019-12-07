@@ -1,6 +1,6 @@
 package list.impl
 
-import common.Io
+import app.SchedulerIo
 import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
@@ -12,7 +12,7 @@ internal object RefreshModule {
   @InitializationContentProviderScope
   @JvmStatic
   fun refresh(refreshSource: RefreshSource,
-              @Io scheduler: Scheduler,
+              @SchedulerIo scheduler: Scheduler,
               truthSource: BehaviorSubject<List<ListItem>>) =
       Refresh(refreshSource, scheduler, truthSource)
 }
