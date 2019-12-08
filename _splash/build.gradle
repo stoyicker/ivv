@@ -50,7 +50,7 @@ repositories {
   google()
 }
 dependencies {
-  implementation project(":_list")
+  implementation project(":_tmdb")
   implementation project(":_common")
   implementation rootProject.ext.implementationDependencies
   kapt rootProject.ext.kaptDependencies

@@ -8,7 +8,7 @@ jobs:
       GRADLE_OPTS: -Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=in-process -Dkotlin.incremental=false
     steps:
       - checkout
-      - run: ./gradlew :_app:test :_app:assemble :_app:lint --no-daemon --no-build-cache --refresh-dependencies
+      - run: ./gradlew :_app:check :_app:test :_app:assemble :_app:lint --no-daemon --no-build-cache --refresh-dependencies
   splash:
     docker:
       - image: circleci/android:api-29
@@ -17,8 +17,8 @@ jobs:
       GRADLE_OPTS: -Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=in-process -Dkotlin.incremental=false
     steps:
       - checkout
-      - run: ./gradlew :_splash:test :_splash:assemble :_splash:lint --no-daemon --no-build-cache --refresh-dependencies
-  list:
+      - run: ./gradlew :_splash:check :_splash:test :_splash:assemble :_splash:lint --no-daemon --no-build-cache --refresh-dependencies
+  tmdb:
     docker:
       - image: circleci/android:api-29
     environment:
@@ -26,11 +26,11 @@ jobs:
       GRADLE_OPTS: -Xmx1536m -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.configureondemand=true -Dkotlin.compiler.execution.strategy=in-process -Dkotlin.incremental=false
     steps:
       - checkout
-      - run: ./gradlew :_list:test  :_list:assemble :_list:lint --no-daemon --no-build-cache --refresh-dependencies
+      - run: ./gradlew :_tmdb:check :_tmdb:test  :_tmdb:assemble :_tmdb:lint --no-daemon --no-build-cache --refresh-dependencies
 workflows:
   version: 2.1
   test:
     jobs:
       - app
       - splash
-      - list
+      - tmdb

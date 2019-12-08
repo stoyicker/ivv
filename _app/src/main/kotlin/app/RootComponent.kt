@@ -3,8 +3,8 @@ package app
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
-import list.RootListComponent
 import splash.RootSplashComponent
+import tmdb.RootTmdbComponent
 import javax.inject.Scope
 
 @Component(modules = [
@@ -17,7 +17,7 @@ import javax.inject.Scope
 internal interface RootComponent {
   fun newRootSplashComponent(): RootSplashComponent
 
-  fun newRootListComponent(): RootListComponent
+  fun newRootTmdbComponent(): RootTmdbComponent
 
   @Component.Factory
   interface Factory {
