@@ -3,6 +3,8 @@ package list.presentation
 import android.app.Activity
 import android.app.SearchManager
 import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.text.HtmlCompat
@@ -27,6 +29,11 @@ class FilterDelegate(
           return true
         }
       })
+      findViewById<View>(androidx.appcompat.R.id.search_close_btn)?.setOnClickListener {
+        setQuery("", false)
+        (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(applicationWindowToken, 0)
+      }
       setSearchableInfo((context.getSystemService(Context.SEARCH_SERVICE) as SearchManager)
           .getSearchableInfo(activity.componentName))
       setIconifiedByDefault(false)
