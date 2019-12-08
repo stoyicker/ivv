@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import dagger.Module
 import dagger.Provides
-import list.presentation.listActivityIntent
+import tmdb.list.presentation.listActivityIntent
 import javax.inject.Qualifier
 
 @Module

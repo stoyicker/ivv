@@ -6,14 +6,14 @@
 # Architecture
 This app follows a 'feature'-based split, with two features:
 * `_splash`, for the splash screen.
-* `_list`, for the item list.
+* `_tmdb`, for TMDB functionalities (only popular show list in this example).
 
 `_splash` hardly has any code, not much architecture to see here. The Activity in this module has a
 matching component responsible for injecting it, and all it does is posting launching an intent to 
 another screen, so I haven't setup a formal architecture (for example, Clean) for since it seems 
 over-engineery.
 
-`_list` is built around a source of truth which is updated by actions triggered for example by the 
+`_tmdb` is built around a source of truth which is updated by actions triggered for example by the 
 user and which is observed by the UI, that adapts to each change in the source of truth. This allows 
 for a highly scalable structure with very low coupling which favors not only maintainability, 
 but also popular practises such as flavoring, features toggles and dynamic delivery.

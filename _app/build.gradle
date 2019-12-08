@@ -54,7 +54,7 @@ repositories {
 dependencies {
   implementation project(":_splash")
   implementation project(":_common")
-  implementation project(":_list")
+  implementation project(":_tmdb")
   implementation rootProject.ext.implementationDependencies
   kapt rootProject.ext.kaptDependencies
   testImplementation rootProject.ext.testImplementationDependencies

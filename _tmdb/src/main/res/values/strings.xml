@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="list_error_action">Retry</string>
+  <string name="list_error_description">Error loading</string>
+  <string name="list_scroll_guide">Scroll down to see more!</string>
+  <string name="hint_search_view_clear">Search an item!</string>
+  <string name="hint_search_view"><![CDATA[<font color=#FF9999>Search an item!</font>]]></string>
+  <string name="list_content_provider_authority">tmdb.list.impl.InitializationContentProvider</string>
+</resources>

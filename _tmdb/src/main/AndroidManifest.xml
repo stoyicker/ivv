@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="org.jorge.test.tmdb">
+
+  <uses-permission android:name="android.permission.INTERNET" />
+
+  <application>
+    <activity
+      android:name="tmdb.list.presentation.ListActivity"
+      android:launchMode="singleTask"
+      android:theme="@style/App"
+      android:windowSoftInputMode="stateHidden">
+      <intent-filter>
+        <action android:name="android.intent.action.SEARCH" />
+      </intent-filter>
+      <meta-data
+        android:name="android.app.searchable"
+        android:resource="@xml/searchable" />
+    </activity>
+    <provider
+      android:name="tmdb.list.impl.InitializationContentProvider"
+      android:authorities="@string/list_content_provider_authority"
+      android:exported="false"
+      android:permission="DO_NOT_ACCESS_THIS"
+      android:syncable="false" />
+  </application>
+</manifest>
