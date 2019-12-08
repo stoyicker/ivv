@@ -38,7 +38,11 @@ the available content will be used until a newer one is available.
     * Memory cache is held for 30 minutes from write. After that, content requests will try to fetch
     fresh data, but will fallback to the disk cache on failure (even if it was stale).
     * Disk cache is held for one hour from write. After that, content requests will try to fetch 
-    fresh data, but will fallback to whatever there was on disk on failure (even if it was stale).    
+    fresh data, but will fallback to whatever there was on disk on failure (even if it was stale).
+    
+## Dependency injection tree
+
+![Click here](http://www.plantuml.com/plantuml/png/1S7H4G8W203G_wQe1UI_RGovv4Jm4FJQllTUh2ZPA5sUFMBjDu3NMxuSFJ-voT4qIAEWJTXXFyP13dmENFC1ZSkIgf5J7dy0)
 
 # Documentation
 Documentation is generated using [Dokka](https://github.com/Kotlin/dokka), which is the
