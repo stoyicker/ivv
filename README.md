@@ -42,7 +42,7 @@ the available content will be used until a newer one is available.
     
 ## Dependency injection tree
 
-![Click here](http://www.plantuml.com/plantuml/png/1S7H4G8W203G_wQe1UI_RGovv4Jm4FJQllTUh2ZPA5sUFMBjDu3NMxuSFJ-voT4qIAEWJTXXFyP13dmENFC1ZSkIgf5J7dy0)
+![Dependency injection tree](http://www.plantuml.com/plantuml/svg/7Smn4W8n20NGtbFe1K9ljLU9X74P2Tc1pphUNiVgTMzBz41DkzpKsMf8XLrtuCWxKVHtUohsUbHAy7A8e_6Qb5WVvPS4wNdIx0a96jeEw_xlDl7nymi0)
 
 # Documentation
 Documentation is generated using [Dokka](https://github.com/Kotlin/dokka), which is the
