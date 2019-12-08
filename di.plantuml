@@ -1,0 +1,26 @@
+@startuml
+
+entity _app {
+  + app.RootComponent
+  --
+  name
+  mail
+}
+
+entity _splash {
+  + splash.RootSplashComponent
+  --
+  # splash.SplashActivityComponent
+}
+
+entity _tmdb {
+  + tmdb.RootTmdbComponent
+  --
+  # list.presentation.ListActivityComponent
+  # list.impl.InitializationContentProviderComponent
+}
+
+_app -down- _splash
+_app -down- _tmdb
+
+@enduml
