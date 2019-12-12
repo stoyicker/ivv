@@ -95,9 +95,12 @@ real ones, but use stub modules to fill in the dependencies required instead. Th
 amount of cases, but has a couple of issues:
     * It requires DI root to be in the application class. If this is not the case or there are other
     roots, such as is the case when using library modules that hook up to the app lifecycle by using
-    a ContentProvider - see the [Firebase example](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html))
+    a ContentProvider - see the [Firebase example](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html)),
+    there will be problems as all of the roots need to be replaced.
     - there are some 'hacks' that can be done to work around the situation, but they involve 
-    undesirable trade-offs such as replacing classes outside of the DI graph.
+    undesirable trade-offs such as replacing classes outside of the DI graph (for example, in the
+    Firebase case, a solution could be to replace the ContentProvider with a version of it that 
+    injects mocks).
     * It works at the application level. In simple apps with only one component that is going to be
     stubbed and no dependencies or subcomponents, this is not an issue. But as projects grow, tests
     will enter situations where let's say 10 different activities need to be tested. This kind of 
