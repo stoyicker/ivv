@@ -2,22 +2,19 @@
 
 entity _app {
   + app.RootComponent
-  --
-  name
-  mail
 }
 
 entity _splash {
   + splash.RootSplashComponent
   --
-  # splash.SplashActivityComponent
+  # splash.splash.SplashActivityComponent
 }
 
 entity _tmdb {
   + tmdb.RootTmdbComponent
   --
-  # list.presentation.ListActivityComponent
-  # list.impl.InitializationContentProviderComponent
+  # tmdb.list.presentation.ListActivityComponent
+  # tmdb.list.impl.InitializationContentProviderComponent
 }
 
 _app -down- _splash
