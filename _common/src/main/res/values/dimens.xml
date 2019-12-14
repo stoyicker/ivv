@@ -2,5 +2,5 @@
 <resources>
   <dimen name="appbar_horizontal_padding">16dp</dimen>
   <dimen name="content_horizontal_margin">16dp</dimen>
-  <dimen name="content_vertical_padding">16dp</dimen>
+  <dimen name="content_vertical_padding">8dp</dimen>
 </resources>

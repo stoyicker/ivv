@@ -1,10 +1,10 @@
 package tmdb.list.presentation
 
 import android.view.View
-import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.RecyclerView
-import tmdb.list.impl.ListItem
 import org.jorge.test.tmdb.R
+import tmdb.list.impl.ListItem
 
 class ContentView(
     val recyclerView: RecyclerView,
@@ -38,7 +38,7 @@ class ContentView(
   }
 
   private fun pushInfoArea() {
-    (recyclerView.layoutParams as FrameLayout.LayoutParams).bottomMargin =
+    (recyclerView.layoutParams as CoordinatorLayout.LayoutParams).bottomMargin =
         recyclerView.context.resources.getDimension(R.dimen.footer_padding).toInt()
   }
 }

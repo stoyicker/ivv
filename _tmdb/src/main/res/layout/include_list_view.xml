@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
   <LinearLayout
     android:id="@+id/error"
+    tools:ignore="UnusedIds"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|center_horizontal"
@@ -33,6 +36,7 @@
     android:layout_gravity="bottom|center_horizontal"
     android:gravity="center"
     android:text="@string/list_scroll_guide"
+    android:layout_marginBottom="@dimen/content_vertical_padding"
     android:textAppearance="@style/TextAppearance.AppCompat.Small"
     android:textStyle="bold"
     android:visibility="invisible" />
@@ -51,4 +55,4 @@
     android:layout_height="wrap_content"
     android:columnWidth="@dimen/list_column_width"
     android:overScrollMode="never" />
-</FrameLayout>
+</merge>
