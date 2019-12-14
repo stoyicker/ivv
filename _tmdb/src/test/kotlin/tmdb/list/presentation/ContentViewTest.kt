@@ -3,7 +3,7 @@ package tmdb.list.presentation
 import android.content.Context
 import android.content.res.Resources
 import android.view.View
-import android.widget.FrameLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.RecyclerView
 import io.mockk.Runs
 import io.mockk.confirmVerified
@@ -11,11 +11,11 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
-import tmdb.list.impl.ListItem
 import org.jorge.test.tmdb.R
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import tmdb.list.impl.ListItem
 
 internal class ContentViewTest {
   private val recyclerView = mockk<RecyclerView>()
@@ -36,7 +36,7 @@ internal class ContentViewTest {
     val mockContext = mockk<Context> {
       every { resources } returns mockResources
     }
-    val mockLayoutParams = mockk<FrameLayout.LayoutParams>()
+    val mockLayoutParams = mockk<CoordinatorLayout.LayoutParams>()
     recyclerView.apply {
       every { context } returns mockContext
       every { layoutParams } returns mockLayoutParams
@@ -80,7 +80,7 @@ internal class ContentViewTest {
     val mockContext = mockk<Context> {
       every { resources } returns mockResources
     }
-    val mockLayoutParams = mockk<FrameLayout.LayoutParams>()
+    val mockLayoutParams = mockk<CoordinatorLayout.LayoutParams>()
     val newContent = mockk<List<ListItem>>()
     val mockAdapter = mockk<Adapter> {
       every { setItems(newContent) } just Runs
@@ -118,7 +118,7 @@ internal class ContentViewTest {
     val mockContext = mockk<Context> {
       every { resources } returns mockResources
     }
-    val mockLayoutParams = mockk<FrameLayout.LayoutParams>()
+    val mockLayoutParams = mockk<CoordinatorLayout.LayoutParams>()
     recyclerView.apply {
       every { context } returns mockContext
       every { layoutParams } returns mockLayoutParams

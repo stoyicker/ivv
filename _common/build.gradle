@@ -27,9 +27,12 @@ android {
     javaMaxHeapSize "8g"
   }
   lintOptions {
+    ignoreTestSources true
     abortOnError true
     absolutePaths true
     checkAllWarnings true
+    disable "WrongThreadInterprocedural", "DuplicateStrings"
+    checkDependencies true
     htmlOutput = new File("$rootProject.ext.staticAnalysisReportTarget/$project.name/lint.html")
     quiet false
     warningsAsErrors true
