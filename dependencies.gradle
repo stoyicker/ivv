@@ -7,7 +7,7 @@ final def jUnitVersion = "4.12"
 final def kotlinVersion = rootProject.ext.kotlinVersion
 final def mockkVersion = "1.9.3"
 final def picassoVersion = "2.71828"
-final def retrofitVersion = "2.6.1"
+final def retrofitVersion = "2.7.0"
 final def rxAndroidVersion = "2.1.1"
 final def rxJavaVersion = "2.2.15"
 // Store is a reactive cache management framework available at https://github.com/nytimes/Store
