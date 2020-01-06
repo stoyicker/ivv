@@ -33,6 +33,7 @@ class FilterDelegate(
         setQuery("", false)
         (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
             .hideSoftInputFromWindow(applicationWindowToken, 0)
+        clearFocus()
       }
       setSearchableInfo((context.getSystemService(Context.SEARCH_SERVICE) as SearchManager)
           .getSearchableInfo(activity.componentName))
