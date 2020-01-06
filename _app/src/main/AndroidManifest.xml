@@ -6,9 +6,5 @@
     android:allowBackup="false"
     android:name="app.MyApplication"
     android:icon="@null"
-    android:label="@string/label_app">
-    <meta-data
-      android:name="android.max_aspect"
-      android:value="2.1" />
-  </application>
+    android:label="@string/label_app"/>
 </manifest>
