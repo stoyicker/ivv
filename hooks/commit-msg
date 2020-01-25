@@ -1,0 +1,14 @@
+#!/bin/bash
+
+format_max_column_width() {
+  MAX_LINE_LENGTH_CHARS=50
+
+  cat "$1" | grep -v "^Bug: |^Change-Id: |^Signed-off-by: |^CC: " > body
+  cat "$1" | grep "^Bug: |^Change-Id: |^Signed-off-by: |^CC: " > footer
+  FMTD_BODY=$(fold -sw "$MAX_LINE_LENGTH_CHARS" body)
+  echo "$FMTD_BODY" > "$1"
+  cat footer >> "$1"
+  rm body footer
+}
+
+format_max_column_width "$1"
