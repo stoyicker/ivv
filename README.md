@@ -10,7 +10,7 @@ This app follows a 'feature'-based split, with two features:
 
 `_splash` hardly has any code, not much architecture to see here. The Activity in this module has a
 matching component responsible for injecting it, and all it does is posting launching an intent to 
-another screen, so I haven't setup a formal architecture (for example, Clean) for since it seems 
+another screen, so I haven't setup a formal architecture (for example, Clean) for it since it seems 
 over-engineery.
 
 `_tmdb` is built around a source of truth which is updated by actions triggered for example by the 
@@ -57,7 +57,7 @@ Espresso. Feel free to run them using the different `test` and `cAT` Gradle task
 # Points of discussion
 * Mockk vs Mockito: Not too different from each other. Mockk is mostly a re-write of mockito with a
 Kotlin DSL for convenience.
-* Why no AAC? First, I think AAC are too constraining. Everything works very well as long as you use
+* Why no Android Arch Components? First, I think AAC are too constraining. Everything works very well as long as you use
 the whole suite, but the use cases it is capable of filling in are very limited, and even a simple
 infinite scrolling list takes a ridiculously large amount of code to implement, plus other minor 
 issues such as static factories that repeatedly require being wrapped for testability. But most 
@@ -95,9 +95,8 @@ real ones, but use stub modules to fill in the dependencies required instead. Th
 amount of cases, but has a couple of issues:
     * It requires DI root to be in the application class. If this is not the case or there are other
     roots, such as is the case when using library modules that hook up to the app lifecycle by using
-    a ContentProvider - see the [Firebase example](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html)),
-    there will be problems as all of the roots need to be replaced.
-    - there are some 'hacks' that can be done to work around the situation, but they involve 
+    a ContentProvider - see the [Firebase example](https://firebase.googleblog.com/2016/12/how-does-firebase-initialize-on-android.html),
+    there will be problems as all of the roots need to be replaced. There are some 'hacks' that can be done to work around the situation, but they involve 
     undesirable trade-offs such as replacing classes outside of the DI graph (for example, in the
     Firebase case, a solution could be to replace the ContentProvider with a version of it that 
     injects mocks).
@@ -107,6 +106,7 @@ amount of cases, but has a couple of issues:
     setup forces all components to be mocked. Not a big problem, and there are ways to work around 
     this, such as lazy evaluation or subcomponents (in the particular case of Dagger), but certainly
     a constraint on flexibility.
+    
 The approach that I show on this project leverages the capabilities of Espresso with regards to 
 exposing the Activity lifecycle by injecting functions that create components using a tool I wrote 
 (which makes things slightly better but isn't really necessary, I just thought it'd be good to show
